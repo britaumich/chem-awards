@@ -1,0 +1,9 @@
+CosignProtected On
+AuthType Cosign
+CosignRequireFactor   UMICH.EDU
+AuthLDAPURL ldap://ldap.umich.edu
+Require ldap-group cn=ChemAwardsAccessGroup,ou=User Groups,ou=Groups,dc=umich,dc=edu
+
+Options -Indexes
+ErrorDocument 500 /error.html
+ErrorDocument 404 /error.html

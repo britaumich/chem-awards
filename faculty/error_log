@@ -1,0 +1,11 @@
+[06-Sep-2017 13:10:43 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/appspchem/public_html/chem-awards/faculty/check_award.php on line 157
+[06-Sep-2017 13:12:43 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/appspchem/public_html/chem-awards/faculty/check_award.php on line 327
+[06-Sep-2017 13:16:28 UTC] PHP Fatal error:  Call to undefined function send_mail() in /home/appspchem/public_html/chem-awards/faculty/check_award.php on line 149
+[21-Dec-2017 12:58:44 UTC] PHP Warning:  mysql_query(): Access denied for user ''@'localhost' (using password: NO) in /home/appspchem/public_html/chem-awards/faculty/allawards.php on line 48
+[21-Dec-2017 12:58:44 UTC] PHP Warning:  mysql_query(): A link to the server could not be established in /home/appspchem/public_html/chem-awards/faculty/allawards.php on line 48
+[06-Apr-2018 03:47:50 UTC] PHP Warning:  mysql_query(): Access denied for user ''@'localhost' (using password: NO) in /home/appspchem/public_html/chem-awards/faculty/allawards.php on line 48
+[06-Apr-2018 03:47:50 UTC] PHP Warning:  mysql_query(): A link to the server could not be established in /home/appspchem/public_html/chem-awards/faculty/allawards.php on line 48
+[10-May-2018 14:34:41 UTC] PHP Warning:  mysql_query(): Access denied for user ''@'localhost' (using password: NO) in /home/appspchem/public_html/chem-awards/faculty/allawards.php on line 48
+[10-May-2018 14:34:41 UTC] PHP Warning:  mysql_query(): A link to the server could not be established in /home/appspchem/public_html/chem-awards/faculty/allawards.php on line 48
+[25-May-2018 14:00:41 UTC] PHP Warning:  mysql_query(): Access denied for user ''@'localhost' (using password: NO) in /home/appspchem/public_html/chem-awards/faculty/allawards.php on line 48
+[25-May-2018 14:00:41 UTC] PHP Warning:  mysql_query(): A link to the server could not be established in /home/appspchem/public_html/chem-awards/faculty/allawards.php on line 48

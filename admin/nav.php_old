@@ -1,0 +1,27 @@
+<?
+//function navbar()
+//{
+?>
+<div class="bodypad">
+<div align="center"><br>
+<div class="facrecbox1"><div class="textalignleft pad15and10">
+<div align="center"><br><br><h1>Chemistry Awards - Admin Site<br></h1><br>
+</div>
+<div class="navbar">
+<a class="navlink" href="allawards.php">All Awards</a>
+<a class="navlink" href="allfaculty.php">All Faculty</a>
+<a class="navlink" href="send_email.php">Send an Email</a>
+<a class="navlink" href="ask_recommendation.php">Ask Recommendation</a>
+<a class="navlink" href="letter.php">Upload Documents</a>
+<a class="navlink" href="check_award.php">Search Awards</a>
+<a class="navlink" href="recommenders.php">Letter Writers</a>
+<a class="navlink" href="edit_eligibility.php">Eligibility List</a>
+<a class="navlink" href="award_interested.php">Who is interested</a>
+<a class="navlink" href="award_progress.php">Award Progress</a>
+<a class="navlink" href="nominations.php">Current nominations</a>
+<a class="navlink" href="faculty_awards_status.php">Submission Updates</a>
+</div>
+<br>
+<?
+//}
+
