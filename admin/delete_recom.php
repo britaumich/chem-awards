@@ -1,6 +1,5 @@
 <?php
-require_once "../dbConnect.inc";
-
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 $uniqname = check_input($conn, $_REQUEST['uniqname']);
 
 if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])) {

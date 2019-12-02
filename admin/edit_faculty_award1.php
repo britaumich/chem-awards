@@ -57,7 +57,7 @@ echo "</select>";
  <?php
  }  // function
 ob_start();
-require_once "../dbConnect.inc";
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 $keyword_search = check_input($conn, $_REQUEST['keyword_search']);
 

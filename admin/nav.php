@@ -1,6 +1,6 @@
 <?
 //function navbar()
-//{
+
 ?>
 <div class="bodypad">
 <div align="center"><br>

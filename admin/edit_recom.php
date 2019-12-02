@@ -38,7 +38,7 @@ function renderForm($conn, $id, $uniqname, $rec_name, $rec_email, $error)
  <?php
  }  // function
 ob_start();
-require_once "../dbConnect.inc";
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 
 $uniqname = $_REQUEST['uniqname'];

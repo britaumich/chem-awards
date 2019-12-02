@@ -12,7 +12,7 @@
 
 <body>
 <?php
-require_once('../dbConnect.inc');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 if (isset($_REQUEST['id']) AND (is_numeric($_REQUEST['id']))) {
        $id = check_input($conn, $_REQUEST[id]);

@@ -1,5 +1,5 @@
 <?php
-require_once "../dbConnect.inc";
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 $dataid = check_input($conn, $_REQUEST['dataid']);
 $prog_name = check_input($conn, $_REQUEST['prog_name']);
         $sql = "DELETE FROM faculty_awards WHERE id = '$dataid'";

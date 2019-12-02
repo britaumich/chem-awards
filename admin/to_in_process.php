@@ -1,5 +1,5 @@
 <?php
-require_once "../dbConnect.inc";
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 $uniqname = check_input($conn, $_REQUEST['uniqname']);
 $dataid = check_input($conn, $_REQUEST['dataid']);
 $year = check_input($conn, $_REQUEST['year']);
