@@ -25,8 +25,6 @@ if ($sort !== '') {
    $sqlsearch .= " ORDER BY " . $sort; 
 
 }
-$start = "none";
-$end = "none";
 
 if (isset($_REQUEST[delete]))  {
  $award_id = $_REQUEST[award_id];
@@ -40,14 +38,12 @@ if (isset($_REQUEST[delete]))  {
 if (isset($_REQUEST[submit])) {
 
      $type = $purifier->purify($_REQUEST['type']);
-     $due_month = $purifier->purify($_REQUEST['due_month']);
-     $cluster = $purifier->purify($_REQUEST['cluster']);
+     $due_month = $purifier->purify($_REQUEST['month']);
+ //    $cluster = $purifier->purify($_REQUEST['cluster']);
 
 
 //     $tag = $purifier->purify($_REQUEST['tag']);
      $eligable = $purifier->purify($_REQUEST['eligable']);
-     $start = $purifier->purify($_REQUEST['start']);
-     $end = $purifier->purify($_REQUEST['end']);
      $keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 
     $cluster_check = array();
@@ -84,7 +80,7 @@ if (isset($_REQUEST[submit])) {
          $where .= ")";
 
      }
-     $where .= " AND IF ( month(str_to_date(left(due_month, 3),'%b')) > 8, month(str_to_date(left(due_month, 3),'%b')), month(str_to_date(left(due_month, 3),'%b'))+12) BETWEEN $start AND $end"; 
+     $where .= "  AND due_month LIKE '%$due_month%'";
      $sqlsearch =  $sqls . $from . $where . " ORDER BY FIELD(due_month, 'September', 'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August')";
 //echo $sqlsearch;
 //exit;
@@ -112,38 +108,21 @@ $sqlm = "SELECT DISTINCT due_month, if ( month(str_to_date(left(due_month, 3),'%
     $resultm = mysqli_query($conn, $sqlm) or die("Query failed :".mysqli_error($conn));
 echo "<br>Month Between: ";
 
-if ($start == "none" ) {
-    $sqls ="SELECT min(if ( month(str_to_date(left(due_month, 3),'%b')) > 8, month(str_to_date(left(due_month, 3),'%b')), month(str_to_date(left(due_month, 3),'%b'))+12)) AS min, min(due_month) as month from awards_descr where due_month <> 'varied' ORDER BY FIELD(due_month, 'September', 'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August')";
-//echo $sqls;
-      $ress = mysqli_query($conn, $sqls) or die("There was an error getting min date: ".mysqli_error($conn));
-     $start = mysqli_fetch_array($ress, MYSQLI_BOTH)['min'];
-}
-    echo "<select name='start'>";
-
-       while ($months = mysqli_fetch_array($resultm, MYSQLI_BOTH))
-        {
+// month
+echo "<br>Award Month: ";
+$month = $purifier->purify($_REQUEST['month']);
+if ($month == "" ) { $month = "%";}
+    $sqlm ="SELECT DISTINCT due_month FROM `awards_descr` order by month(str_to_date(left(due_month, 3),'%b'))";
+      $resm = mysqli_query($conn, $sqlm) or die("There was an error getting min date: ".mysqli_error($conn));
+echo "<select name='month'>";
+echo "<option select value='%'> - pick all  -</option>";
+while ($months = mysqli_fetch_array($resm, MYSQLI_BOTH)) {
            echo "<option";
-           if ($months[num] == $start) { echo " selected"; }
-           echo " value='$months[num]'>$months[due_month]</option>";
-        }
-    echo "</select>";
-
-echo " and: ";
-    $resultm = mysqli_query($conn, $sqlm) or die("Query failed :".mysqli_error($conn));
-if ($end == "none" ) {
-    $sqls ="SELECT max(if ( month(str_to_date(left(due_month, 3),'%b')) > 8, month(str_to_date(left(due_month, 3),'%b')), month(str_to_date(left(due_month, 3),'%b'))+12)) AS max, max(due_month) as month from awards_descr where due_month <> 'varied' ORDER BY FIELD(due_month, 'September', 'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August')";
-      $ress = mysqli_query($conn, $sqls) or die("There was an error getting max date: ".mysqli_error($conn));
-     $end = mysqli_fetch_array($ress, MYSQLI_BOTH)['max'];
+           if ($months[due_month] == $month) { echo " selected"; }
+           echo " value='$months[due_month]'>$months[due_month]</option>";
 }
-    echo "<select name='end'>";
+echo "</select>";
 
-       while ($months = mysqli_fetch_array($resultm, MYSQLI_BOTH))
-        {
-           echo "<option";
-           if ($months[num] == $end) { echo " selected"; }
-           echo " value='$months[num]'>$months[due_month]</option>";
-        }
-    echo "</select>";
 
 // mult clusters
     echo "<br><br>Clusters: ";
