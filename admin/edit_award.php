@@ -27,41 +27,45 @@ $id = '';
 
 if ($_REQUEST['edit_record'] == "Save changes") {
 
-  $id = (check_input($conn, $_REQUEST[id]));
-  $type = (check_input($conn, $_REQUEST[type]));
-  $type1 = (check_input($conn, $_REQUEST[type1]));
+  $id = (int)$purifier->purify($_REQUEST[id]);
+  $type = $purifier->purify($_REQUEST[type]);
+  $type1 = $purifier->purify($_REQUEST[type1]);
 if ($type1 !== "") { $type = $type1; }
-  $Award_Name = (check_input($conn, $_REQUEST[Award_Name]));
-  $due_month = (check_input($conn, $_REQUEST[due_month]));
-  $due_day = (check_input($conn, $_REQUEST[due_day]));
-  $Awarded_By = (check_input($conn, $_REQUEST[Awarded_By]));
-  $Link_to_Website = (check_input($conn, $_REQUEST[Link_to_Website]));
-  $Description = (check_input($conn, $_REQUEST[Description]));
-  $eligibility = (check_input($conn, $_REQUEST[eligibility]));
-  $who_is_eligible = (check_input($conn, $_REQUEST[who_is_eligible]));
-  $comments = (check_input($conn, $_REQUEST[comments]));
+  $Award_Name = $purifier->purify($_REQUEST[Award_Name]);
+  $due_month = $purifier->purify($_REQUEST[due_month]);
+  $due_day = $purifier->purify($_REQUEST[due_day]);
+  $Awarded_By = $purifier->purify($_REQUEST[Awarded_By]);
+  $Link_to_Website = $purifier->purify($_REQUEST[Link_to_Website]);
+  $Description = $purifier->purify($_REQUEST[Description]);
+  $eligibility = $purifier->purify($_REQUEST[eligibility]);
+  $who_is_eligible = $purifier->purify($_REQUEST[who_is_eligible]);
+  $comments = $purifier->purify($_REQUEST[comments]);
 
 if ($id !== "") {
   $sql = "UPDATE awards_descr SET
-      type = '$type',
-      Award_Name = '$Award_Name',
-      due_month = '$due_month',
-      due_day = '$due_day',
-      Awarded_By = '$Awarded_By',
-      Link_to_Website = '$Link_to_Website',
-      Description = '$Description',
-      eligibility = '$eligibility',
-      who_is_eligible = '$who_is_eligible',
-      comments = '$comments'
-      WHERE id ='$id'";
+      type = ?,
+      Award_Name = ?,
+      due_month = ?,
+      due_day = ?,
+      Awarded_By = ?,
+      Link_to_Website = ?,
+      Description = ?,
+      eligibility = ?,
+      who_is_eligible = ?,
+      comments = ?
+      WHERE id =?";
+   $stmt = mysqli_prepare($conn, $sql);
+   mysqli_stmt_bind_param($stmt, 'sssdssssdsd', $type, $Award_Name, $due_month, $due_day, $Awarded_By, $Link_to_Website, $Description, $eligibility, $who_is_eligible, $comments, $id); 
 }
 else {
   // add a new record
 
- $sql = "INSERT INTO awards_descr(type, Award_Name, due_month, due_day, Awarded_By, Link_to_Website, Description, eligibility, who_is_eligible, comments) VALUES ('$type', '$Award_Name', '$due_month', '$due_day', '$Awarded_By', '$Link_to_Website', '$Description', '$eligibility', '$who_is_eligible', '$comments')"; 
+ $sql = "INSERT INTO awards_descr(type, Award_Name, due_month, due_day, Awarded_By, Link_to_Website, Description, eligibility, who_is_eligible, comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+   $stmt = mysqli_prepare($conn, $sql);
+   mysqli_stmt_bind_param($stmt, 'sssdssssds', $type, $Award_Name, $due_month, $due_day, $Awarded_By, $Link_to_Website, $Description, $eligibility, $who_is_eligible, $comments); 
 }
-// echo $sql;
-  if (mysqli_query($conn, $sql)) { 
+  $res = mysqli_stmt_execute($stmt); 
+  if ($res) { 
     if ($id == "") {
        // record was added not updated
       $id = mysqli_insert_id($conn);
@@ -71,9 +75,10 @@ else {
     //echo '<pre>'; var_export($tag_check); echo '</pre>';
 //    $taglist = array();
 //    $taglist = purica_array($conn, $_REQUEST[taglist]);
+//    $taglist = $purifier->purify($_REQUEST[taglist]);
     $cluster_check = array();
     $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
-// echo '<pre>'; var_export($cluster_check); echo '</pre>';
+// echo '<pre>cluster'; var_export($cluster_check); echo '</pre>';
     $clusterlist = array();
     $clusterlist = purica_array($conn, $_REQUEST[clusterlist]);
 // echo '<pre>'; var_export($clusterlist); echo '</pre>';
@@ -85,7 +90,8 @@ else {
        }   
        $sqlcluster = substr($sqlcluster, 0, -1);
        $sqlcluster .= " ON DUPLICATE KEY UPDATE award_id = " . $id;
-       $res = mysqli_query($conn, $sqlcluster) or die("There was an error updating cluster: ".mysqli_error($conn));
+       $stmtc = mysqli_prepare($conn, $sqlcluster);
+       $res = mysqli_stmt_execute($stmtc) or die("There was an error updating cluster: ".mysqli_error($conn));
       // to delete unchecked 
     if (count($cluster_check) !== (count($clusterlist))) {
       $sqldel = "DELETE FROM award_cluster WHERE";
@@ -100,7 +106,8 @@ else {
      }
      else {
       $sqldel = "DELETE FROM award_cluster WHERE award_id = $id";
-      $res = mysqli_query($conn, $sqldel) or die("There was an error updating cluster: ".mysqli_error($conn));
+       $stmtd = mysqli_prepare($conn, $sqldel);
+       $res = mysqli_stmt_execute($stmtd) or die("There was an error updating cluster: ".mysqli_error($conn));
      }
  //     if (!empty($tag_check)) {
        // tags
@@ -178,9 +185,6 @@ else {
     <form name="forme" method="post" action="award.php?id=<? echo $id; ?>">
            <input type="hidden" name="award_id" value="<? echo $id; ?>">
 <?
-//foreach ($search_id_list as $i) {
-//     echo "<input type='hidden' name='search_id_list[]' value='" . $i . "'>"  ;
-//}
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 
@@ -193,9 +197,6 @@ else {
     <form name="formp" method="post" action="edit_award.php?id=<? echo $idp; ?>">
            <input type="hidden" name="idp" value="<? echo $idp; ?>">
 <?
-//foreach ($search_id_list as $i) {
-//     echo "<input type='hidden' name='search_id_list[]' value='" . $i . "'>"  ;
-//}
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 
@@ -212,9 +213,6 @@ else {
     <form name="formn" method="post" action="edit_award.php?id=<? echo $idn; ?>">
            <input type="hidden" name="idn" value="<? echo $idn; ?>">
 <?
-//foreach ($search_id_list as $i) {
-//     echo "<input type='hidden' name='search_id_list[]' value='" . $i . "'>"  ;
-//}
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 //if ($id == $maxid) {
@@ -328,9 +326,6 @@ if (mysqli_num_rows($resulttag_list) != 0) {
 <tr><th>Comments:<td><textarea name="comments" cols="90" rows="7"><? echo $adata['comments'] ?> </textarea>
 </table>
 <?
-//foreach ($search_id_list as $i) {
-//     echo "<input type='hidden' name='search_id_list[]' value='" . $i . "'>"  ;
-//}
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 
@@ -348,4 +343,3 @@ if (mysqli_num_rows($resulttag_list) != 0) {
 </div> 
 </body>
 </html>
-
