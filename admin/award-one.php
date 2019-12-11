@@ -13,7 +13,7 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 		
-$award_id = (check_input($conn, $_REQUEST[award_id]));
+$award_id = ($purifier->purify($_REQUEST[award_id]));
 
 $sql = "SELECT awards_descr.id, `type`, `Award_Name`, `due_month`, `due_day`, `Awarded_By`, `Link_to_Website`, `Description`, `eligibility`, `who_is_eligible`, `comments`, eligibility_list.name AS who_is_eligible FROM  `awards_descr` JOIN eligibility_list ON who_is_eligible = eligibility_list.id WHERE  awards_descr.id = '$award_id'";
 	$result=mysqli_query($conn, $sql) or die("There was an error: ".mysqli_error($conn));

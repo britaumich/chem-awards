@@ -19,13 +19,13 @@ require_once('nav.php');
 <?
 if (isset($_REQUEST['error'])) {
     echo ('<span style=color:red><b>');
-    echo check_input($conn, $_REQUEST['error']);
+    echo $purifier->purify($_REQUEST['error']);
     echo ('</span></b>');
 }
 
 //$uniqname1 = $_SERVER['REMOTE_USER'];
 $uniqname1 = $_SERVER['REDIRECT_REMOTE_USER'];
-$uniqname = check_input($conn, $_REQUEST['uniqname']);
+$uniqname = $purifier->purify($_REQUEST['uniqname']);
 if ($uniqname == "") {
   $uniqname = $uniqname1;
 }
@@ -53,13 +53,13 @@ echo "</form>";
 }
 
 
-     $id = check_input($conn, $_REQUEST['id']);
+     $id = $purifier->purify($_REQUEST['id']);
      $awardid = array();
-     $awardid = check_input($conn, $_REQUEST[awardid]);
+     $awardid = $purifier->purify($_REQUEST[awardid]);
 //echo '<pre>'; var_export($awardid); echo '</pre>';
 if (isset($_REQUEST[choose]) OR ($uniqname !== "")) {
 if ($uniqname == "") {
-$uniqname = check_input($conn, $_REQUEST['uniqname']);
+$uniqname = $purifier->purify($_REQUEST['uniqname']);
     if ($uniqname == "") {
 //         $uniqname = $_SERVER['REMOTE_USER'];
          $uniqname = $_SERVER['REDIRECT_REMOTE_USER'];

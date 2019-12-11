@@ -18,13 +18,13 @@ require_once('nav.php');
 
 <div align="center">
 <?
-$award_id = check_input($conn, $_REQUEST['award_id']);
+$award_id = $purifier->purify($_REQUEST['award_id']);
 
-$keyword_search = check_input($conn, $_REQUEST['keyword_search']);
+$keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 //echo "<br>award_id: ";
 //echo $award_id;
 
-$error = $_REQUEST[error];
+$error = $purifier->purify($_REQUEST[error]);
 if($error != ''){
       echo "<table><TR><TD align=center><span style=color:red><b>ERRORS!</b></span><TR><TD><span style=color:red>$error</span></table>";
   }
@@ -34,7 +34,7 @@ echo "<form name='form1' method='post' action='add_nominations.php'>";
 
 echo "<br>";
 echo "Search by Keywords (in Award Name and Awarded By) ";
-$keyword_search = check_input($conn, $_REQUEST['keyword_search']);
+$keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 echo '<input type="text" name="keyword_search" size = "50" placeholder="-- keywords, separated by commas --" value="' . $keyword_search . '" >';
 
 echo "  <input type='submit' name='choose' value='Search'>";
@@ -48,7 +48,7 @@ if (isset($_REQUEST[choose]) || $keyword_search != '') {
   if ($award_id == "") {
 //   $awids = array();
 
-   $keyword_search = check_input($conn, $_REQUEST['keyword_search']); 
+   $keyword_search = $purifier->purify($_REQUEST['keyword_search']); 
    $where = " WHERE 1 ";
         if ($keyword_search !== "") {
            $where .= " AND (";

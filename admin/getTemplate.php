@@ -20,7 +20,7 @@ th {text-align: left;}
 <?php
 //$q = intval($_GET['q']);
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
-$q = check_input($conn, $_GET['q']);
+$q = $purifier->purify($_GET['q']);
 
 ?>
 <input type="hidden" name="template" value="<?php echo $q; ?>" />

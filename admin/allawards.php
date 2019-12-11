@@ -13,7 +13,7 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 
-$sort = check_input($conn, $_REQUEST['sort']); 
+$sort = $purifier->purify($_REQUEST['sort']); 
 
 $sqls = "SELECT a.`id`, a.`type`, a.`Award_Name`, a.Due_Month, a.`Awarded_By`, a.`Link_to_Website`, a.`Description`, a.`eligibility`, a.who_is_eligible, a.`comments`";
 $from = " FROM `awards_descr` a";
@@ -29,20 +29,21 @@ $end = "none";
 
 if (isset($_REQUEST[submit])) {
 
-     $type = check_input($conn, $_REQUEST['type']);
-//     $due_month = check_input($conn, $_REQUEST['due_month']);
-     $due_month = check_input($conn, $_REQUEST['month']);
-     $cluster = check_input($conn, $_REQUEST['cluster']);
+     $type = $purifier->purify($_REQUEST['type']);
+//     $due_month = $purifier->purify($_REQUEST['due_month']);
+     $due_month = $purifier->purify($_REQUEST['month']);
+     $cluster = $purifier->purify($_REQUEST['cluster']);
 
 
-//     $tag = check_input($conn, $_REQUEST['tag']);
-     $eligable = check_input($conn, $_REQUEST['eligable']);
-     $start = check_input($conn, $_REQUEST['start']);
-     $end = check_input($conn, $_REQUEST['end']);
-     $keyword_search = check_input($conn, $_REQUEST['keyword_search']);
+//     $tag = $purifier->purify($_REQUEST['tag']);
+     $eligable = $purifier->purify($_REQUEST['eligable']);
+     $start = $purifier->purify($_REQUEST['start']);
+     $end = $purifier->purify($_REQUEST['end']);
+     $keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 
     $cluster_check = array();
-    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
+//    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
+    $cluster_check = $purifier->purify($_REQUEST[cluster_check]);
     if (!empty($cluster_check)) {
         $clusterlist = implode(", ", $cluster_check);
             $from = " FROM (SELECT `id`, `type`, `Award_Name`, Due_Month, `Awarded_By`, `Link_to_Website`, `Description`, `eligibility`, who_is_eligible, `comments` FROM  `awards_descr` JOIN award_cluster ON awards_descr.id = award_cluster.award_id WHERE award_cluster.cluster_id IN (" . $clusterlist . ") GROUP BY awards_descr.id) a ";
@@ -110,7 +111,7 @@ echo ('<input type="submit" name="remove" value="Delete Awards">');
 
 // month
 echo "<br>Award Month: ";
-$month = check_input($conn, $_REQUEST['month']);
+$month = $purifier->purify($_REQUEST['month']);
 if ($month == "" ) { $month = "%";}
     $sqlm ="SELECT DISTINCT due_month FROM `awards_descr` order by month(str_to_date(left(due_month, 3),'%b'))";
       $resm = mysqli_query($conn, $sqlm) or die("There was an error getting min date: ".mysqli_error($conn));

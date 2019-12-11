@@ -15,27 +15,27 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 if (isset($_REQUEST['id']) AND (is_numeric($_REQUEST['id']))) {
-       $id = check_input($conn, $_REQUEST[id]);
+       $id = $purifier->purify($_REQUEST[id]);
 }
 else {
 $id = '';
 }
 if ($_REQUEST['edit_record'] == "Save changes") {
 
-  $id = check_input($conn, $_REQUEST[id]);
-  $uniqname = check_input($conn, $_REQUEST[uniqname]);
-  $Name = check_input($conn, $_REQUEST[Name]);
-  $Rank = check_input($conn, $_REQUEST[Rank]);
-  $rank1 = check_input($conn, $_REQUEST[rank1]);
+  $id = $purifier->purify($_REQUEST[id]);
+  $uniqname = $purifier->purify($_REQUEST[uniqname]);
+  $Name = $purifier->purify($_REQUEST[Name]);
+  $Rank = $purifier->purify($_REQUEST[Rank]);
+  $rank1 = $purifier->purify($_REQUEST[rank1]);
   if ($rank1 !== "") { 
      $sqlr = "INSERT INTO `rank`(rank) VALUES ('$rank1')"; 
      $resr = mysqli_query($conn, $sqlr) or die("There was an error updating rank: ".mysqli_error($conn));
      $Rank = mysqli_insert_id($conn); 
   }
 
-  $Year_PhD = check_input($conn, $_REQUEST[Year_PhD]);
-  $birth_year = check_input($conn, $_REQUEST[birth_year]);
-  $Appt_Start = check_input($conn, $_REQUEST[Appt_Start]);
+  $Year_PhD = $purifier->purify($_REQUEST[Year_PhD]);
+  $birth_year = $purifier->purify($_REQUEST[birth_year]);
+  $Appt_Start = $purifier->purify($_REQUEST[Appt_Start]);
 
 if ($id !== "") {
   $sql = "UPDATE faculty SET
@@ -58,10 +58,12 @@ else {
      }
 // add clusters
          $cluster_check = array();
-    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
+//    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
+    $cluster_check = $purifier->purify($_REQUEST[cluster_check]);
 // echo '<pre>'; var_export($cluster_check); echo '</pre>';
     $clusterlist = array();
-    $clusterlist = purica_array($conn, $_REQUEST[clusterlist]);
+//    $clusterlist = purica_array($conn, $_REQUEST[clusterlist]);
+    $clusterlist = $purifier->purify($_REQUEST[clusterlist]);
 // echo '<pre>'; var_export($clusterlist); echo '</pre>';
       if (!empty($cluster_check)) {
        // clusters

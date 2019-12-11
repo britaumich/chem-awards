@@ -22,7 +22,7 @@ $error='';//initialize $error to blank
 // if the recomtext field is empty
 if(isset($_POST['recomtext']) && $_REQUEST['recomtext'] != ""){
 // let the spammer think that they got their message through
-$recomtext = $_REQUEST['recomtext'];
+$recomtext = $purifier->purify($_REQUEST['recomtext']);
 echo $recomtext;
    echo "<h1>Thanks</h1>";
 exit;
@@ -35,8 +35,8 @@ if (!isset ($_REQUEST[fromaddress])) {
 } 
 if(isset($_POST[updatetemplate])) {
     
-   $template = check_input($conn, $_REQUEST['template']);
-   $text = check_input($conn, $_REQUEST['message']);
+   $template = $purifier->purify($_REQUEST['template']);
+   $text = $purifier->purify($_REQUEST['message']);
    $sql = "UPDATE email_templates SET text = '$text' WHERE name = '$template'";
    $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));
    echo "template has been updated";
@@ -44,8 +44,8 @@ if(isset($_POST[updatetemplate])) {
 }
 if(isset($_POST[addtemplate])) {
     
-   $newname = check_input($conn, $_REQUEST['newname']);
-   $newtext = check_input($conn, $_REQUEST['message']);
+   $newname = $purifier->purify($_REQUEST['newname']);
+   $newtext = $purifier->purify($_REQUEST['message']);
    $sql = "INSERT INTO email_templates (name, text) VALUES ('$newname', '$newtext')";
    $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));
    echo "template has been added";
@@ -53,11 +53,11 @@ if(isset($_POST[addtemplate])) {
 }
 if(isset($_POST[submit])) {
 
-   if(check_input($conn,$_REQUEST['fromaddress'])=='' ){ $error.="Please enter your fromaddress!<br />"; }
-   if((check_input($conn,$_REQUEST['toaddress'])=='' ) AND (check_input($conn,$_REQUEST['eligibility'])=='error')){ $error.="Please enter your toaddress!<br />"; }
-   if(check_input($conn,$_REQUEST['subject'])=='' ){ $error.="Please enter your subject!<br />"; }
-   if(check_input($conn,$_REQUEST['message'])=='' ){ $error.="Please enter your message!<br />"; }
-//   $template_yes = check_input($conn, $_REQUEST['template_yes']);
+   if($purifier->purify($_REQUEST['fromaddress'])=='' ){ $error.="Please enter your fromaddress!<br />"; }
+   if(($purifier->purify($_REQUEST['toaddress'])=='' ) AND ($purifier->purify($_REQUEST['eligibility'])=='error')){ $error.="Please enter your toaddress!<br />"; }
+   if($purifier->purify($_REQUEST['subject'])=='' ){ $error.="Please enter your subject!<br />"; }
+   if($purifier->purify($_REQUEST['message'])=='' ){ $error.="Please enter your message!<br />"; }
+//   $template_yes = $purifier->purify($_REQUEST['template_yes']);
     
    if($error != ''){
      if($pdf == 1) {
@@ -69,16 +69,16 @@ if(isset($_POST[submit])) {
 
      // no errors in the form; prosess data
      $from = $fromaddress . '@umich.edu';
-     $from = check_input($conn,$_REQUEST['fromaddress']) . '@umich.edu';
-     $subject = check_input($conn,$_REQUEST['subject']);
-     $message = check_input($conn,$_REQUEST['message']);
+     $from = $purifier->purify($_REQUEST['fromaddress']) . '@umich.edu';
+     $subject = $purifier->purify($_REQUEST['subject']);
+     $message = $purifier->purify($_REQUEST['message']);
      $message = nl2br(str_replace('\\r\\n', "\r\n",$message));
-     $signature = check_input($conn,$_REQUEST['signature']);
-     $eligibility = check_input($conn,$_REQUEST['eligibility']);
-     $between = check_input($conn,$_REQUEST['between']);
-     $month = check_input($conn, $_REQUEST['month']);
-     $to = check_input($conn,$_REQUEST['toaddress']);
-     $bcc = check_input($conn,$_REQUEST['bccaddress']);
+     $signature = $purifier->purify($_REQUEST['signature']);
+     $eligibility = $purifier->purify($_REQUEST['eligibility']);
+     $between = $purifier->purify($_REQUEST['between']);
+     $month = $purifier->purify($_REQUEST['month']);
+     $to = $purifier->purify($_REQUEST['toaddress']);
+     $bcc = $purifier->purify($_REQUEST['bccaddress']);
      if ($bcc !== "") { $bcc .= '@umich.edu'; }
 
      if ($to == "" ) {
@@ -142,22 +142,22 @@ $to = $from;
 
 <form method="post" action="send_email.php" enctype="multipart/form-data">
 <?
-if ($fromaddress == "") { $fromaddress = check_input($conn,$_REQUEST['fromaddress']); }
-if ($toaddress == "") { $toaddress = check_input($conn,$_REQUEST['toaddress']); }
-if ($bccaddress == "") { $bccaddress = check_input($conn,$_REQUEST['bccaddress']); }
-if ($subject == "") { $subject = check_input($conn,$_REQUEST['subject']); }
-if ($message == "") { $message = check_input($conn,$_REQUEST['message']); }
-if ($eligibility == "") { $eligibility = check_input($conn,$_REQUEST['eligibility']); }
-if ($template == "") { $template = check_input($conn,$_REQUEST['template']); }
-if ($template == "Empty template") { $template = check_input($conn,$_REQUEST['newname']); }
-$newname = check_input($conn,$_REQUEST['newname']);
+if ($fromaddress == "") { $fromaddress = $purifier->purify($_REQUEST['fromaddress']); }
+if ($toaddress == "") { $toaddress = $purifier->purify($_REQUEST['toaddress']); }
+if ($bccaddress == "") { $bccaddress = $purifier->purify($_REQUEST['bccaddress']); }
+if ($subject == "") { $subject = $purifier->purify($_REQUEST['subject']); }
+if ($message == "") { $message = $purifier->purify($_REQUEST['message']); }
+if ($eligibility == "") { $eligibility = $purifier->purify($_REQUEST['eligibility']); }
+if ($template == "") { $template = $purifier->purify($_REQUEST['template']); }
+if ($template == "Empty template") { $template = $purifier->purify($_REQUEST['newname']); }
+$newname = $purifier->purify($_REQUEST['newname']);
 if ($newname !== "") { echo "ten";$template = $newname; }
-if (!$between) { $between = check_input($conn,$_REQUEST['between']); }
+if (!$between) { $between = $purifier->purify($_REQUEST['between']); }
 ?>
 <div align="center"><h2>Send an email</h2><br></div>
-<strong>From Address: <font color ="#FF0000" >*</font></strong> <input type="text" name="fromaddress" autofocus value="<?php echo check_input($conn,$fromaddress); ?>" size="15" maxlength="200"/>@umich.edu
+<strong>From Address: <font color ="#FF0000" >*</font></strong> <input type="text" name="fromaddress" autofocus value="<?php echo $purifier->purify($fromaddress); ?>" size="15" maxlength="200"/>@umich.edu
 <br><br>
-<strong>To Address: <font color ="#FF0000" >*</font></strong> <input type="text" name="toaddress" id="toaddress" autofocus value="<?php echo check_input($conn,$toaddress); ?>" size="15" maxlength="200"/>@umich.edu
+<strong>To Address: <font color ="#FF0000" >*</font></strong> <input type="text" name="toaddress" id="toaddress" autofocus value="<?php echo $purifier->purify($toaddress); ?>" size="15" maxlength="200"/>@umich.edu
 &nbsp;&nbsp;OR&nbsp;&nbsp;
 <?
 $sql = "SELECT uniqname, Name FROM faculty ORDER BY name ASC";
@@ -185,16 +185,16 @@ $result1 = mysqli_query($conn, $sql1) or die("Query failed :".mysqli_error($conn
         }
 echo "</select>";
 ?>
-<br><br><strong>Bcc Address: <input type="text" name="bccaddress" id="bccaddress" autofocus value="<?php echo check_input($conn,$bccaddress); ?>" size="15" maxlength="200"/>@umich.edu
+<br><br><strong>Bcc Address: <input type="text" name="bccaddress" id="bccaddress" autofocus value="<?php echo $purifier->purify($bccaddress); ?>" size="15" maxlength="200"/>@umich.edu
 <br><br>
-<strong>Subject: <font color ="#FF0000" >*</font></strong> <input type="text" name="subject" autofocus value="<?php echo check_input($conn,$subject); ?>" size="35" maxlength="200"/>
+<strong>Subject: <font color ="#FF0000" >*</font></strong> <input type="text" name="subject" autofocus value="<?php echo $purifier->purify($subject); ?>" size="35" maxlength="200"/>
 <input type="checkbox" name="between" value="yes" <?php if ( $between == "yes" ) { echo " checked";  } ?>> Add 
 Award Due Month? 
 <?
 
 // one month
 
-$month = check_input($conn, $_REQUEST['month']);
+$month = $purifier->purify($_REQUEST['month']);
 if ($month == "" ) { $month = "%";}
     $sqlm ="SELECT DISTINCT due_month FROM `awards_descr` order by month(str_to_date(left(due_month, 3),'%b'))";
       $resm = mysqli_query($conn, $sqlm) or die("There was an error getting min date: ".mysqli_error($conn));
@@ -240,7 +240,7 @@ if ($template !=="")  {
 <?
 }  // getting message from template
 $fromname = ldap_name($fromaddress);
-$signature = check_input($conn,$_REQUEST['signature']); 
+$signature = $purifier->purify($_REQUEST['signature']); 
 $signature = nl2br(str_replace('\\r\\n', "&#13;&#10;", $signature));
 if ($signature == "") {
     $signature = "Thank you, &#13;&#10;" . $fromname;

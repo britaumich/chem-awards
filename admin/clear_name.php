@@ -1,7 +1,7 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
-$dataid = check_input($conn, $_REQUEST['dataid']);
-$prog_name = check_input($conn, $_REQUEST['prog_name']);
+$dataid = $purifier->purify($_REQUEST['dataid']);
+$prog_name = $purifier->purify($_REQUEST['prog_name']);
         $sql = "DELETE FROM faculty_awards WHERE id = '$dataid'";
         $result = mysqli_query($conn, $sql);
         if (!($result)) {

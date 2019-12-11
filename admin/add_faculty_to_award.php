@@ -1,11 +1,11 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
-$award_id = check_input($conn, $_REQUEST['award_id']);
-$fac_id = check_input($conn, $_REQUEST['faculty_id']);
-$nonchemfaculty = check_input($conn, $_REQUEST['nonchemfaculty']);
-$status = check_input($conn, $_REQUEST['status']);
-$year = check_input($conn, $_REQUEST['year']);
-$comment = check_input($conn, $_REQUEST['comment']);
+$award_id = $purifier->purify($_REQUEST['award_id']);
+$fac_id = $purifier->purify($_REQUEST['faculty_id']);
+$nonchemfaculty = $purifier->purify($_REQUEST['nonchemfaculty']);
+$status = $purifier->purify($_REQUEST['status']);
+$year = $purifier->purify($_REQUEST['year']);
+$comment = $purifier->purify($_REQUEST['comment']);
 if (isset($_REQUEST['award_id'])) {
    if (($status == 'error') OR (!($nonchemfaculty == '' XOR $fac_id == 'error'))) {
        // generate error message

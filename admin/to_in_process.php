@@ -1,17 +1,17 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
-$uniqname = check_input($conn, $_REQUEST['uniqname']);
-$dataid = check_input($conn, $_REQUEST['dataid']);
-$year = check_input($conn, $_REQUEST['year']);
-$faculty_id = check_input($conn, $_REQUEST['faculty_id']);
-$prog_name = check_input($conn, $_REQUEST['prog_name']);
+$uniqname = $purifier->purify($_REQUEST['uniqname']);
+$dataid = $purifier->purify($_REQUEST['dataid']);
+$year = $purifier->purify($_REQUEST['year']);
+$faculty_id = $purifier->purify($_REQUEST['faculty_id']);
+$prog_name = $purifier->purify($_REQUEST['prog_name']);
 if ($uniqname == '') {
    $sqlu = "SELECT uniqname from faculty WHERE id = $faculty_id";
    $resultu = mysqli_query($conn, $sqlu) or die("Query failed :".mysqli_error($conn));
    $udata = mysqli_fetch_array($resultu, MYSQLI_BOTH);
    $uniqname = $udata['uniqname'];
 }
-$award_id = check_input($conn, $_REQUEST['award_id']);
+$award_id = $purifier->purify($_REQUEST['award_id']);
    $sql =  "INSERT INTO award_progress (uniqname, award_id, year) VALUES ('$uniqname', $award_id, '$year')";
     $result = mysqli_query($conn, $sql);
     if ($result) {

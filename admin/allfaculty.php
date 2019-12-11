@@ -19,10 +19,10 @@ $sqlsearch = $sqls . $order;
 
 if (isset($_POST[submit])) {
 
-     $rank = check_input($conn,$_REQUEST['Rank']);
-     $due_year = check_input($conn,$_REQUEST['due_year']);
-     $due_month = check_input($conn,$_REQUEST['due_month']);
-     $eligable = check_input($conn,$_REQUEST['eligable']);
+     $rank = $purifier->purify($_REQUEST['Rank']);
+     $due_year = $purifier->purify($_REQUEST['due_year']);
+     $due_month = $purifier->purify($_REQUEST['due_month']);
+     $eligable = $purifier->purify($_REQUEST['eligable']);
 
      $where = ' where 1';
      if ($rank !== 'all' ) { $where .= " and faculty.Rank = '" . $rank . "'"; }

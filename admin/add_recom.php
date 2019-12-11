@@ -1,9 +1,9 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 if (isset($_REQUEST['uniqname'])) {
-   $uniqname = check_input($conn, $_REQUEST['uniqname']);
-   $rec_name = check_input($conn, $_REQUEST['rec_name']);
-   $rec_email = check_input($conn, $_REQUEST['rec_email']);
+   $uniqname = $purifier->purify($_REQUEST['uniqname']);
+   $rec_name = $purifier->purify($_REQUEST['rec_name']);
+   $rec_email = $purifier->purify($_REQUEST['rec_email']);
    if ($rec_name == '' or $rec_email == '') {
        // generate error message
        $error = 'ERROR: name or email is empty!';
@@ -16,8 +16,8 @@ if (isset($_REQUEST['uniqname'])) {
      header("Location: recommenders.php?error=$error&uniqname=$uniqname");
  }
  else {
-    $rec_name = check_input($conn, $_REQUEST['rec_name']);
-   $rec_email = check_input($conn, $_REQUEST['rec_email']);
+    $rec_name = $purifier->purify($_REQUEST['rec_name']);
+   $rec_email = $purifier->purify($_REQUEST['rec_email']);
    $sql = "INSERT INTO recommenders(uniqname, rec_name, rec_email) VALUES ('$uniqname', '$rec_name', '$rec_email')";
     $result = mysqli_query($conn, $sql);
     if (!($result)) {

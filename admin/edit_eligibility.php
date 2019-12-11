@@ -25,7 +25,7 @@ require_once('nav.php');
 <?php
 
 if ($_REQUEST['addelig'] == "Add") {
-      $new = check_input($conn, $_REQUEST['newelig']);
+      $new = $purifier->purify($_REQUEST['newelig']);
       $sql = "INSERT INTO eligibility_list(name) VALUES ('$new')";
       mysqli_query($conn, $sql) or die("There was an error: ".mysqli_connect_error());
 }
@@ -39,8 +39,9 @@ while ($rdata = mysqli_fetch_array($resultrank, MYSQLI_BOTH))  {
 }
 //echo '<pre>allranks'; var_export($allranks); echo '</pre>';
 $eliglist = array();
-$eliglist = purica_array($conn, $_REQUEST[eliglist]);
-$elig_check = $_REQUEST[elig_check];
+//$eliglist = purica_array($conn, $_REQUEST[eliglist]);
+$eliglist = $purifier->purify($_REQUEST[eliglist]);
+$elig_check = $purifier->purify($_REQUEST[elig_check]);
 //echo '<pre>eliglist'; var_export($eliglist); echo '</pre>';
 //echo '<pre>elig_check'; var_export($elig_check); echo '</pre>';
   foreach($elig_check as $rank_id=>$val){ 
