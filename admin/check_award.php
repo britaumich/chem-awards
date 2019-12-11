@@ -62,8 +62,8 @@ echo "</select>";
 echo "<td>Clusters: ";
 
 $clustersids = array();
-//    $clustersids = purica_array($conn, $_REQUEST[cluster_check]);
-    $clustersids = $purifier->purify($_REQUEST[cluster_check]);
+    $clustersids = purica_array($conn, $_REQUEST[cluster_check]);
+//    $clustersids = $purifier->purify($_REQUEST[cluster_check]);
     if ($clustersids == NULL) {$clustersids = array();}
 //echo '<pre>list id'; var_export($clustersids); echo '</pre>';
 
@@ -106,8 +106,7 @@ $fac_id = $purifier->purify($_REQUEST['fac_id']);
 
      $id = $purifier->purify($_REQUEST['id']);
      $awardid = array();
-     $awardid = $purifier->purify($_REQUEST[awardid]);
-//echo '<pre>'; var_export($awardid); echo '</pre>';
+     $awardid = purica_array($conn, $_REQUEST[awardid]);
   if (!is_null($awardid)) {
 
      $sql =  "INSERT INTO faculty_awards (faculty_id, uniqname, award_id, status, year) VALUES ";
@@ -258,8 +257,7 @@ while ( $adata = mysqli_fetch_array($result, MYSQLI_BOTH) )
 </td>
 
 <td>
-<input type='checkbox' name='awardid[<? echo $id; ?>]' value='
-<? echo $id . "'"; 
+<input type='checkbox' name='awardid[<?echo $id;?>]' value='<?echo $id . "'"; 
  if (in_array($id, $awids)) {echo " checked"; }
  echo ">";
 ?>

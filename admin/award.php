@@ -14,8 +14,8 @@ require_once('nav.php');
 		
 $award_id = $purifier->purify($_REQUEST[award_id]);
 $search_id_list = array();
-$search_id_list = unserialize($purifier->purify($_REQUEST[search_id_list]));
-//$search_id_list = purica_array($conn, $search_id_list);
+$search_id_list = unserialize($_REQUEST[search_id_list]);
+$search_id_list = purica_array($conn, $search_id_list);
 
 //echo '<pre>all id'; var_export($search_id_list); echo '</pre>';
 

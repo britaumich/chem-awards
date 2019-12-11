@@ -12,7 +12,6 @@
 <?php 
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
-require_once('../noinject.php');
 
 
 $sort = $purifier->purify($_REQUEST['sort']); 
@@ -52,8 +51,7 @@ if (isset($_REQUEST[submit])) {
      $keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 
     $cluster_check = array();
-//    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
-    $cluster_check = $purifier->purify($_REQUEST[cluster_check]);
+    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
     if (!empty($cluster_check)) {
         $clusterlist = implode(", ", $cluster_check);
             $from = " FROM (SELECT `id`, `type`, `Award_Name`, Due_Month, `Awarded_By`, `Link_to_Website`, `Description`, `eligibility`, who_is_eligible, `comments` FROM  `awards_descr` JOIN award_cluster ON awards_descr.id = award_cluster.award_id WHERE award_cluster.cluster_id IN (" . $clusterlist . ") GROUP BY awards_descr.id) a ";

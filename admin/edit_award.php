@@ -75,7 +75,6 @@ else {
     //echo '<pre>'; var_export($tag_check); echo '</pre>';
 //    $taglist = array();
 //    $taglist = purica_array($conn, $_REQUEST[taglist]);
-//    $taglist = $purifier->purify($_REQUEST[taglist]);
     $cluster_check = array();
     $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
 // echo '<pre>cluster'; var_export($cluster_check); echo '</pre>';

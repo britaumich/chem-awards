@@ -58,12 +58,10 @@ else {
      }
 // add clusters
          $cluster_check = array();
-//    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
-    $cluster_check = $purifier->purify($_REQUEST[cluster_check]);
+    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
 // echo '<pre>'; var_export($cluster_check); echo '</pre>';
     $clusterlist = array();
-//    $clusterlist = purica_array($conn, $_REQUEST[clusterlist]);
-    $clusterlist = $purifier->purify($_REQUEST[clusterlist]);
+    $clusterlist = purica_array($conn, $_REQUEST[clusterlist]);
 // echo '<pre>'; var_export($clusterlist); echo '</pre>';
       if (!empty($cluster_check)) {
        // clusters
