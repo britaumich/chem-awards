@@ -14,7 +14,7 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 if (isset($_REQUEST['id']) AND (is_numeric($_REQUEST['id']))) {
-       $id = (int)$purifier->purify($_REQUEST[id]);
+       $id = $purifier->purify($_REQUEST[id]);
    $search_id_list = array();
    $search_id_list = unserialize($_REQUEST[search_id_list]);
    $search_id_list = purica_array($conn, $search_id_list);
@@ -41,7 +41,7 @@ if ($type1 !== "") { $type = $type1; }
   $who_is_eligible = $purifier->purify($_REQUEST[who_is_eligible]);
   $comments = $purifier->purify($_REQUEST[comments]);
 
-if ($id !== "") {
+if ($id !== 0) {
   $sql = "UPDATE awards_descr SET
       type = ?,
       Award_Name = ?,
@@ -172,11 +172,6 @@ else {
     $idp = $search_id_list[$key_award_id - 1];
     $idn = $search_id_list[$key_award_id + 1];
 }
-//echo "<br>prev";
-//echo $idp;
-
-//echo "<br>next";
-//echo $idn;
 ?>
 
 <div class='floatright'>
@@ -200,7 +195,6 @@ else {
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 
 if ($key_award_id == $minid) {
-//if ($id == $minid) {
           echo "<input type='submit' name='Submit' value='Prev' disabled>";
 }
 else {
@@ -214,7 +208,6 @@ else {
 <?
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
-//if ($id == $maxid) {
 if ($key_award_id == $maxid) {
 
           echo "<input type='submit' name='Submit' value='Next' disabled>";
@@ -276,7 +269,26 @@ if (mysqli_num_rows($resultcluster) != 0) {
 }
 ?> 
 <tr><th>Award Name:<td><input type="text" name="Award_Name" size="90" value="<? print($adata['Award_Name']) ?>"> 
-<tr><th>Due Date:<td><input type="text" name="due_month" value="<? echo $adata['due_month'];?>"> <input type="text" name="due_day" value="<? print($adata['due_day']); ?>"> 
+<tr><th>Due Date:<td> 
+<?php
+$due_month = $adata['due_month'];
+?>
+<select name = 'due_month'>
+<option value=''>--Select Month--</option>
+    <option selected value='January' <?php if($due_month == 'January') { ?> selected <?php } ?>>January</option>
+    <option value='February' <?php if($due_month == 'February') { ?> selected <?php } ?>>February</option>
+    <option value='March' <?php if($due_month == 'March') { ?> selected <?php } ?>>March</option>
+    <option value='April' <?php if($due_month == 'April') { ?> selected <?php } ?>>April</option>
+    <option value='May' <?php if($due_month == 'May') { ?> selected <?php } ?>>May</option>
+    <option value='June' <?php if($due_month == 'June') { ?> selected <?php } ?>>June</option>
+    <option value='July' <?php if($due_month == 'July') { ?> selected <?php } ?>>July</option>
+    <option value='August' <?php if($due_month == 'August') { ?> selected <?php } ?>>August</option>
+    <option value='September' <?php if($due_month == 'September') { ?> selected <?php } ?>>September</option>
+    <option value='October' <?php if($due_month == 'October') { ?> selected <?php } ?>>October</option>
+    <option value='November' <?php if($due_month == 'November') { ?> selected <?php } ?>>November</option>
+    <option value='December' <?php if($due_month == 'December') { ?> selected <?php } ?>>December</option>
+    </select> 
+<input type="text" name="due_day" value="<? print($adata['due_day']); ?>"> 
 <tr><th>Awarded By:<td><input type="text" name="Awarded_By" size="90" value="<? print($adata['Awarded_By']) ?> ">
 <tr><th>Link to Website:<td><input type="text" name="Link_to_Website" size="90" value="<? print($adata['Link_to_Website']) ?>"> 
 <tr><th>Description:<td><textarea name="Description" cols="90" rows="7"><? echo $adata['Description'] ?> </textarea>
