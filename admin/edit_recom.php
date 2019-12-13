@@ -38,15 +38,15 @@ function renderForm($conn, $id, $uniqname, $rec_name, $rec_email, $error)
  <?php
  }  // function
 ob_start();
-require_once "../dbConnect.inc";
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 
 $uniqname = $_REQUEST['uniqname'];
 if (isset($_REQUEST['submit'])) {
 if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])) {
-   $id = check_input($conn, $_REQUEST['id']);
-   $rec_name = check_input($conn, $_REQUEST['rec_name']);
-   $rec_email = check_input($conn, $_REQUEST['rec_email']);
+   $id = $purifier->purify($_REQUEST['id']);
+   $rec_name = $purifier->purify($_REQUEST['rec_name']);
+   $rec_email = $purifier->purify($_REQUEST['rec_email']);
    if ($rec_name == '' or $rec_email == '') {
        // generate error message
        $error = 'ERROR: name or email is empty!';
@@ -80,7 +80,7 @@ else {
 // if the form hasn't been submitted, get the data from the db and display the form
     if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id']) && $_REQUEST['id'] > 0) {
       // query db
-   $id = check_input($conn, $_REQUEST['id']);
+   $id = $purifier->purify($_REQUEST['id']);
    $result = mysqli_query($conn, "SELECT * FROM recommenders WHERE id=$id") or die(mysqli_error($conn));
    $row = mysqli_fetch_array($result, MYSQLI_BOTH);
     if($row) {

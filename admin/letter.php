@@ -10,14 +10,14 @@
 <body>
 <?php  
 require_once('nav.php');
-require_once "../dbConnect.inc";
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once "../php_mail.inc";
-$errorid = $_REQUEST['errorid'];
+$errorid = $purifier->purify($_REQUEST['errorid']);
 
 // if the recomtext field is empty 
 if(isset($_POST['recomtext']) && $_REQUEST['recomtext'] != ""){
 // let the spammer think that they got their message through
-$recomtext = $_REQUEST['recomtext'];
+$recomtext = $purifier->purify($_REQUEST['recomtext']);
 echo $recomtext;
    echo "<h1>Thanks</h1>";
 exit;
@@ -26,11 +26,11 @@ $recnamenew = "";
 $recemailnew = "";
 if(isset($_POST[submit])) {
 
-      $replacefile = check_input($conn, $_REQUEST['replacefile']);
-      $uniqname = check_input($conn, $_REQUEST['uniqname1']);
-      $lettertype = check_input($conn, $_REQUEST['lettertype']);
-      $lettertype1 = check_input($conn, $_REQUEST['lettertype1']);
-  if($uniqname =='' ){ $uniqname = check_input($conn, $_REQUEST['uniqname']); }
+      $replacefile = $purifier->purify($_REQUEST['replacefile']);
+      $uniqname = $purifier->purify($_REQUEST['uniqname1']);
+      $lettertype = $purifier->purify($_REQUEST['lettertype']);
+      $lettertype1 = $purifier->purify($_REQUEST['lettertype1']);
+  if($uniqname =='' ){ $uniqname = $purifier->purify($_REQUEST['uniqname']); }
   if($uniqname =='' ){ $error.="Please select a faculty!<br />"; }
   if($lettertype =='' ) {
       if($lettertype1 =='' ) { 
@@ -42,10 +42,10 @@ if(isset($_POST[submit])) {
    }
 
   if ($lettertype == "recommendation")  {
-      $recid = check_input($conn, $_REQUEST['recid']);
+      $recid = $purifier->purify($_REQUEST['recid']);
   if($recid =='' ){ $error.="Please select a recommender!<br />"; }
-      $recnamenew = check_input($conn, $_REQUEST['recnamenew']);
-      $recemailnew = check_input($conn, $_REQUEST['recemailnew']);
+      $recnamenew = $purifier->purify($_REQUEST['recnamenew']);
+      $recemailnew = $purifier->purify($_REQUEST['recemailnew']);
       $recname = str_replace(' ', '_', $recnamenew);
 
       $recname = "-" . $recname . "-";
@@ -60,10 +60,10 @@ if(isset($_POST[submit])) {
 //print_r($_FILES);
 //echo '<pre>'; var_export($_FILES); echo '</pre>';
 //exit;
-   $tmp_name = check_input($conn, $_FILES['recfilename']['tmp_name']);
-   $type = check_input($conn, $_FILES['recfilename']['type']);
-   $name = check_input($conn, $_FILES['recfilename']['name']);
-   $size = check_input($conn, $_FILES['recfilename']['size']);
+   $tmp_name = $purifier->purify($_FILES['recfilename']['tmp_name']);
+   $type = $purifier->purify($_FILES['recfilename']['type']);
+   $name = $purifier->purify($_FILES['recfilename']['name']);
+   $size = $purifier->purify($_FILES['recfilename']['size']);
    $file_extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
 
 
@@ -119,8 +119,8 @@ if(isset($_POST[submit])) {
 <input type="hidden" name="uniqname" value="<?php echo $uniqname; ?>" />
 
 <?php $ip = getenv("REMOTE_ADDR"); 
-if ($reclastname == "") { $reclastname = check_input($conn, $_REQUEST['reclastname']); }
-if ($recfirstname == "") { $recfirstname = check_input($conn, $_REQUEST['recfirstname']); }
+if ($reclastname == "") { $reclastname = $purifier->purify($_REQUEST['reclastname']); }
+if ($recfirstname == "") { $recfirstname = $purifier->purify($_REQUEST['recfirstname']); }
 if ($errorid == 0) {
 ?>
 <input type="hidden" name="id" value="<?php echo $id; ?>" />
@@ -136,8 +136,8 @@ if ($errorid == 0) {
 <form method="post" action="letter.php" enctype="multipart/form-data">
 <strong>Select a Faculy: </strong> 
  <?       
-$lettertype = check_input($conn, $_REQUEST['lettertype']);
-$lettertype1 = check_input($conn, $_REQUEST['lettertype1']);
+$lettertype = $purifier->purify($_REQUEST['lettertype']);
+$lettertype1 = $purifier->purify($_REQUEST['lettertype1']);
 if ($again == "yes") {
     $uniqname = "";
     $lettertype = "";
@@ -175,7 +175,7 @@ if ($again == "yes") {
 
 
 if ($lettertype == "recommendation") {
-$recid = check_input($conn, $_REQUEST['recid']);
+$recid = $purifier->purify($_REQUEST['recid']);
 
    $sql = "SELECT recommenders.id as recid, recommenders.uniqname, faculty.Name, rec_name, rec_email FROM recommenders, faculty WHERE recommenders.uniqname = faculty.uniqname AND recommenders.uniqname = '$uniqname'";
 $result = mysqli_query($conn, $sql);

@@ -1,12 +1,12 @@
 <?php
-require_once "../dbConnect.inc";
-$award_id = check_input($conn, $_REQUEST['award_id']);
-$year = check_input($conn, $_REQUEST['year']);
-$resultyear = check_input($conn, $_REQUEST['resultyear']);
-$uniqname = check_input($conn, $_REQUEST['uniqname']);
-$faculty_id = check_input($conn, $_REQUEST['faculty_id']);
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
+$award_id = $purifier->purify($_REQUEST['award_id']);
+$year = $purifier->purify($_REQUEST['year']);
+$resultyear = $purifier->purify($_REQUEST['resultyear']);
+$uniqname = $purifier->purify($_REQUEST['uniqname']);
+$faculty_id = $purifier->purify($_REQUEST['faculty_id']);
 if (isset($_REQUEST['submit'])) {
- $st = check_input($conn, $_REQUEST['submit']);
+ $st = $purifier->purify($_REQUEST['submit']);
  if ($st == 'Received') { $status = 5; }
  if ($st == 'Declined') { $status = 3; }
  

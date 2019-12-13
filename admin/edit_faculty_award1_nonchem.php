@@ -56,18 +56,18 @@ echo "</select>";
  <?php
  }  // function
 ob_start();
-require_once "../dbConnect.inc";
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
-$keyword_search = check_input($conn, $_REQUEST['keyword_search']);
+$keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 
-$award_id = check_input($conn, $_REQUEST['award_id']);
+$award_id = $purifier->purify($_REQUEST['award_id']);
 if (isset($_REQUEST['submit'])) {
 if (isset($_REQUEST['dataid']) && is_numeric($_REQUEST['dataid'])) {
-   $dataid = check_input($conn, $_REQUEST['dataid']);
-   $status = check_input($conn, $_REQUEST['status']);
-   $name = check_input($conn, $_REQUEST['name']);
-   $year = check_input($conn, $_REQUEST['year']);
-   $comment = check_input($conn, $_REQUEST['comment']);
+   $dataid = $purifier->purify($_REQUEST['dataid']);
+   $status = $purifier->purify($_REQUEST['status']);
+   $name = $purifier->purify($_REQUEST['name']);
+   $year = $purifier->purify($_REQUEST['year']);
+   $comment = $purifier->purify($_REQUEST['comment']);
 
    if ($status == 'error') {
        // generate error message
@@ -101,7 +101,7 @@ else {
 // if the form hasn't been submitted, get the data from the db and display the form
     if (isset($_REQUEST['dataid']) && is_numeric($_REQUEST['dataid']) && $_REQUEST['dataid'] > 0) {
       // query db
-   $dataid = check_input($conn, $_REQUEST['dataid']);
+   $dataid = $purifier->purify($_REQUEST['dataid']);
    $result = mysqli_query($conn, "SELECT name, award_id, faculty_awards_notchem.status AS statusid, year, comment FROM faculty_awards_notchem WHERE faculty_awards_notchem.id = $dataid") or die(mysqli_error($conn));
    $row = mysqli_fetch_array($result, MYSQLI_BOTH);
     if($row) {

@@ -19,8 +19,8 @@ th {text-align: left;}
 
 <?php
 $q = intval($_GET['q']);
-require_once "../dbConnect.inc";
-//$q = check_input($conn, $_GET['q']);
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
+//$q = $purifier->purify($_GET['q']);
 
 
 $sql = "SELECT recommenders.id as recid, recommenders.uniqname, faculty.Name, rec_name, rec_email FROM recommenders, faculty WHERE recommenders.uniqname = faculty.uniqname AND recommenders.id = '$q'";

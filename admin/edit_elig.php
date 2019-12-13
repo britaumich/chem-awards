@@ -40,13 +40,13 @@ function renderForm($id, $name, $error)
  <?php
  }  // function
 ob_start();
-require_once "../dbConnect.inc";
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 
 if (isset($_REQUEST['submit'])) {
 if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id'])) {
-   $id = check_input($conn, $_REQUEST['id']);
-   $name = check_input($conn, $_REQUEST['name']);
+   $id = $purifier->purify($_REQUEST['id']);
+   $name = $purifier->purify($_REQUEST['name']);
    if ($name == '') {
        // generate error message
        $error = 'ERROR: name is empty!';
@@ -75,7 +75,7 @@ else {
 // if the form hasn't been submitted, get the data from the db and display the form
     if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id']) && $_REQUEST['id'] > 0) {
       // query db
-   $id = check_input($conn, $_REQUEST['id']);
+   $id = $purifier->purify($_REQUEST['id']);
    $result = mysqli_query($conn, "SELECT * FROM eligibility_list WHERE id=$id") or die(mysqli_error($conn));
    $row = mysqli_fetch_array($result, MYSQLI_BOTH);
     if($row) {

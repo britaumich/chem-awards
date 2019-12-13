@@ -12,7 +12,7 @@
 <body>
 <?php
 require_once('nav.php');
-require_once "../dbConnect.inc";
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once "../php_mail.inc";
 require_once "../php_mail_with_file.inc";
 require_once('../ldap.inc');
@@ -24,7 +24,7 @@ $error='';//initialize $error to blank
 // if the recomtext field is empty
 if(isset($_POST['recomtext']) && $_REQUEST['recomtext'] != ""){
 // let the spammer think that they got their message through
-$recomtext = check_input($conn, $_REQUEST['recomtext']);
+$recomtext = $purifier->purify($_REQUEST['recomtext']);
 echo $recomtext;
    echo "<h1>Thanks</h1>";
 exit;
@@ -37,8 +37,8 @@ if (!isset ($_REQUEST[fromaddress])) {
 } 
 if(isset($_POST[addtemplate])) {
     
-   $newname = check_input($conn, $_REQUEST['newname']);
-   $newtext = check_input($conn, $_REQUEST['message']);
+   $newname = $purifier->purify($_REQUEST['newname']);
+   $newtext = $purifier->purify($_REQUEST['message']);
    $sql = "INSERT INTO email_templates (name, text) VALUES ('$newname', '$newtext')";
    $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));
    echo "template has been added";
@@ -50,18 +50,18 @@ $recnamenew = "";
 $recemailnew = "";
 if(isset($_POST[submit])) {
 
-         $recid = check_input($conn, $_REQUEST['recid']);
+         $recid = $purifier->purify($_REQUEST['recid']);
   if($recid =='' ){ $error.="Please select a recommender!<br />"; }
-      $recnamenew = check_input($conn, $_REQUEST['recnamenew']);
-      $recemailnew = check_input($conn, $_REQUEST['recemailnew']);
+      $recnamenew = $purifier->purify($_REQUEST['recnamenew']);
+      $recemailnew = $purifier->purify($_REQUEST['recemailnew']);
 
-   $uniqname = check_input($conn, $_REQUEST['uniqname1']);
-   if($uniqname =='' ){ $uniqname = check_input($conn, $_REQUEST['uniqname']); }
+   $uniqname = $purifier->purify($_REQUEST['uniqname1']);
+   if($uniqname =='' ){ $uniqname = $purifier->purify($_REQUEST['uniqname']); }
    if($uniqname =='' ){ $error.="Please select a faculty!<br />"; }
-   if(check_input($conn, $_REQUEST['fromaddress'])=='' ){ $error.="Please enter your fromaddress!<br />"; }
-   if(check_input($conn, $_REQUEST['recemailnew'])=='' ){ $error.="Please enter your toaddress!<br />"; }
-   if(check_input($conn, $_REQUEST['subject'])=='' ){ $error.="Please enter your subject!<br />"; }
-   if(check_input($conn, $_REQUEST['message'])=='' ){ $error.="Please enter your message!<br />"; }
+   if($purifier->purify($_REQUEST['fromaddress'])=='' ){ $error.="Please enter your fromaddress!<br />"; }
+   if($purifier->purify($_REQUEST['recemailnew'])=='' ){ $error.="Please enter your toaddress!<br />"; }
+   if($purifier->purify($_REQUEST['subject'])=='' ){ $error.="Please enter your subject!<br />"; }
+   if($purifier->purify($_REQUEST['message'])=='' ){ $error.="Please enter your message!<br />"; }
      // check if files were selected
      $files = array();
      $files = $_REQUEST[files];
@@ -77,16 +77,16 @@ if(isset($_POST[submit])) {
 
      // no errors in the form; prosess data
      $from = $fromaddress . '@umich.edu';
-     $from = check_input($conn, $_REQUEST['fromaddress']) . '@umich.edu';
-//     $to = check_input($conn, $_REQUEST['recemailnew']);
+     $from = $purifier->purify($_REQUEST['fromaddress']) . '@umich.edu';
+//     $to = $purifier->purify($_REQUEST['recemailnew']);
 $to = $from;
-     $subject = check_input($conn, $_REQUEST['subject']);
-     $message = check_input($conn, $_REQUEST['recnamenew']);
+     $subject = $purifier->purify($_REQUEST['subject']);
+     $message = $purifier->purify($_REQUEST['recnamenew']);
      $message .= "<br><br>";
-     $message .= check_input($conn, $_REQUEST['message']);
+     $message .= $purifier->purify($_REQUEST['message']);
      $message .= "<br><a href=\"https://apps-prod.chem.lsa.umich.edu/upload/upload_letter.php?id=$recid\">Upload letter here</a>";
      $message .= "<br><br>";
-     $message .= nl2br(str_replace('\\r\\n', "\r\n", check_input($conn, $_REQUEST['signature'])));
+     $message .= nl2br(str_replace('\\r\\n', "\r\n", $purifier->purify($_REQUEST['signature'])));
      if (!empty($files)) {
         // attach files
         foreach ($files as $fileid) {
@@ -116,16 +116,16 @@ $to = $from;
 
 <form method="post" action="ask_recommendation.php" enctype="multipart/form-data">
 <?
-if ($fromaddress == "") { $fromaddress = check_input($conn, $_REQUEST['fromaddress']); }
-if ($recemailnew == "") { $recemailnew = check_input($conn, $_REQUEST['recemailnew']); }
-if ($subject == "") { $subject = check_input($conn, $_REQUEST['subject']); }
-if ($message == "") { $message = check_input($conn, $_REQUEST['message']); }
+if ($fromaddress == "") { $fromaddress = $purifier->purify($_REQUEST['fromaddress']); }
+if ($recemailnew == "") { $recemailnew = $purifier->purify($_REQUEST['recemailnew']); }
+if ($subject == "") { $subject = $purifier->purify($_REQUEST['subject']); }
+if ($message == "") { $message = $purifier->purify($_REQUEST['message']); }
 ?>
 <div align="center"><h2>Send an email asking about a recommendation letter</h2><br></div>
 <!--
-<strong>From Address: <font color ="#FF0000" >*</font></strong> <input type="text" name="fromaddress" id="fromaddress" oninput=changesignature() value="<?php echo check_input($conn, $fromaddress); ?>" size="15" maxlength="200"/>@umich.edu
+<strong>From Address: <font color ="#FF0000" >*</font></strong> <input type="text" name="fromaddress" id="fromaddress" oninput=changesignature() value="<?php echo $purifier->purify($fromaddress); ?>" size="15" maxlength="200"/>@umich.edu
 -->
-<strong>From Address: <font color ="#FF0000" >*</font></strong> <input type="text" name="fromaddress" value="<?php echo check_input($conn, $fromaddress); ?>" size="15" maxlength="200"/>@umich.edu
+<strong>From Address: <font color ="#FF0000" >*</font></strong> <input type="text" name="fromaddress" value="<?php echo $purifier->purify($fromaddress); ?>" size="15" maxlength="200"/>@umich.edu
 <br><br>
 <strong>Subject: <font color ="#FF0000" >*</font></strong> <input type="text" name="subject" autofocus value="Recommendation Letter" size="35" maxlength="200"/>
 <br><br>
@@ -169,7 +169,7 @@ if ($uniqname !== "error") {
 
 }
 echo "</div>";
-    $recid = check_input($conn, $_REQUEST['recid']);
+    $recid = $purifier->purify($_REQUEST['recid']);
 
    $sql = "SELECT recommenders.id as recid, recommenders.uniqname, faculty.Name, rec_name, rec_email FROM recommenders, faculty WHERE recommenders.uniqname = faculty.uniqname AND recommenders.uniqname = '$uniqname'";
 $result = mysqli_query($conn, $sql);
@@ -214,8 +214,8 @@ echo "<div id='txtHint'></div>";
 echo "<div id='txtHint1'></div>";
 
 $fromname = ldap_name($fromaddress);
-//$signature = check_input($conn, $_REQUEST['signature']);
-$signature = nl2br(str_replace('\\r\\n', "&#13;&#10;", check_input($conn, $_REQUEST['signature'])));
+//$signature = $purifier->purify($_REQUEST['signature']);
+$signature = nl2br(str_replace('\\r\\n', "&#13;&#10;", $purifier->purify($_REQUEST['signature'])));
 if ($signature == "") {
     $signature = "Thank you, &#13;&#10;" . $fromname;
 }

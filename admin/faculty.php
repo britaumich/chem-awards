@@ -12,17 +12,17 @@
 
 <body>
 <?php
-require_once('../dbConnect.inc');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
-$year = check_input($conn, $_REQUEST['year']);
+$year = $purifier->purify($_REQUEST['year']);
 if ($year == '') {
    $year = $report_year;
 }
    
 		
-$id = check_input($conn, $_REQUEST[id]);
+$id = $purifier->purify($_REQUEST[id]);
 if ($id == "") {
-     $uniqname = check_input($conn, $_REQUEST[uniqname]);
+     $uniqname = $purifier->purify($_REQUEST[uniqname]);
      $sql = "SELECT faculty.`id`, `uniqname`, `Name`, faculty.`Rank`, rank.rank as rank, `Year_PhD`, `birth_year`, `Appt_Start`  FROM `faculty`, rank  WHERE rank.id = faculty.Rank AND faculty.uniqname = '$uniqname'";
 }
 else {

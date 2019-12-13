@@ -20,9 +20,9 @@ th {text-align: left;}
 
 <?php
 //$q = intval($_GET['q']);
-require_once "../dbConnect.inc";
-$year = check_input($conn,$_GET['q']);
-$uniqname = check_input($conn,$_REQUEST['uniqname']);
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
+$year = $purifier->purify($_GET['q']);
+$uniqname = $purifier->purify($_REQUEST['uniqname']);
 
 echo '<input type="hidden" name="uniqname" value="<?php echo $uniqname; ?>" />';
 

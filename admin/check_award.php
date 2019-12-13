@@ -10,7 +10,7 @@
 
 <body>
 <?php
-require_once('../dbConnect.inc');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 
 ?>
@@ -18,7 +18,7 @@ require_once('nav.php');
 <div align="center">
 <?
 $uniqname1 = $_SERVER['REDIRECT_REMOTE_USER'];
-$uniqname = check_input($conn,$_REQUEST['uniqname']);
+$uniqname = $purifier->purify($_REQUEST['uniqname']);
 if ($uniqname == "") {
   $uniqname = $uniqname1;
 }
@@ -45,7 +45,7 @@ echo "<td>";
 $sqlm = "SELECT DISTINCT due_month, if ( month(str_to_date(left(due_month, 3),'%b')) > 8, month(str_to_date(left(due_month, 3),'%b')), month(str_to_date(left(due_month, 3),'%b'))+12) AS num FROM awards_descr ORDER BY FIELD(due_month, 'September', 'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August')";
     $resultm = mysqli_query($conn, $sqlm) or die("Query failed :".mysqli_connect_error());
 echo "Award Month: ";
-$month = check_input($conn, $_REQUEST['month']);
+$month = $purifier->purify($_REQUEST['month']);
 if ($month == "" ) { $month = "%";}
     $sqlm ="SELECT DISTINCT due_month FROM `awards_descr` order by month(str_to_date(left(due_month, 3),'%b'))";
       $resm = mysqli_query($conn, $sqlm) or die("There was an error getting min date: ".mysqli_error($conn));
@@ -63,6 +63,7 @@ echo "<td>Clusters: ";
 
 $clustersids = array();
     $clustersids = purica_array($conn, $_REQUEST[cluster_check]);
+//    $clustersids = $purifier->purify($_REQUEST[cluster_check]);
     if ($clustersids == NULL) {$clustersids = array();}
 //echo '<pre>list id'; var_export($clustersids); echo '</pre>';
 
@@ -88,7 +89,7 @@ if (mysqli_num_rows($result) != 0) {
      }
 }
 echo "</td></tr><tr><td colspan='4'>Search by Keywords (in Award Name and Awarded By) ";
-$keyword_search = check_input($conn, $_REQUEST['keyword_search']);
+$keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 echo '<input type="text" name="keyword_search" size = "50" placeholder="-- keywords, separated by commas --" value="' . $keyword_search . '" >';
 
 echo "</td></tr></table><br>";
@@ -100,13 +101,12 @@ echo "<div align='center'><img src='../images/linecalendarpopup500.jpg'></div><B
 }
 if (isset($_REQUEST[submit])) {
 
-$uniqname = check_input($conn,$_REQUEST['uniqname']);
-$fac_id = check_input($conn,$_REQUEST['fac_id']);
+$uniqname = $purifier->purify($_REQUEST['uniqname']);
+$fac_id = $purifier->purify($_REQUEST['fac_id']);
 
-     $id = check_input($conn,$_REQUEST['id']);
+     $id = $purifier->purify($_REQUEST['id']);
      $awardid = array();
-     $awardid = $_REQUEST[awardid];
-//echo '<pre>'; var_export($awardid); echo '</pre>';
+     $awardid = purica_array($conn, $_REQUEST[awardid]);
   if (!is_null($awardid)) {
 
      $sql =  "INSERT INTO faculty_awards (faculty_id, uniqname, award_id, status, year) VALUES ";
@@ -125,7 +125,7 @@ $fac_id = check_input($conn,$_REQUEST['fac_id']);
 if (isset($_REQUEST[choose]) OR ($uniqname !== "")) {
 echo "<form name='form2' method='post' action='check_award.php'>";
 if ($uniqname == "") {
-$uniqname = check_input($conn,$_REQUEST['uniqname']);
+$uniqname = $purifier->purify($_REQUEST['uniqname']);
     if ($uniqname == "") {
 //         $uniqname = $_SERVER['REMOTE_USER'];
          $uniqname = $_SERVER['REDIRECT_REMOTE_USER'];
@@ -133,7 +133,7 @@ $uniqname = check_input($conn,$_REQUEST['uniqname']);
 }
 else {
 
-$is_eligible = check_input($conn,$_REQUEST['is_eligible']);
+$is_eligible = $purifier->purify($_REQUEST['is_eligible']);
 if ($is_eligible == "") {
    $sqle = "SELECT eligibility_id FROM eligibility JOIN faculty ON rank = rank_id  WHERE faculty.uniqname = '$uniqname'";
    $resulte = mysqli_query($conn, $sqle) or die("Query failed :".mysqli_connect_error());
@@ -161,7 +161,7 @@ else {
 }
 
    $cluster_check = array();
-    $cluster_check = $_REQUEST[cluster_check];
+    $cluster_check = $purifier->purify($_REQUEST[cluster_check]);
     if (!empty($_REQUEST['cluster_check'])) {
         $clusterlist = implode(", ", $cluster_check);
 
@@ -257,8 +257,7 @@ while ( $adata = mysqli_fetch_array($result, MYSQLI_BOTH) )
 </td>
 
 <td>
-<input type='checkbox' name='awardid[<? echo $id; ?>]' value='
-<? echo $id . "'"; 
+<input type='checkbox' name='awardid[<?echo $id;?>]' value='<?echo $id . "'"; 
  if (in_array($id, $awids)) {echo " checked"; }
  echo ">";
 ?>

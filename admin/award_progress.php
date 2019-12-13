@@ -11,14 +11,14 @@
 </head>
 <body>
 <?php 
-require_once('../dbConnect.inc'); 
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 		
 # EDIT Faculty Applicant record
 if ($_REQUEST['remove_record'] == "Remove") {
-  $faid = check_input($conn, $_REQUEST[faid_update]);
-  $uniqname = check_input($conn, $_REQUEST[uniqname]);
-  $award_id = check_input($conn, $_REQUEST[award_id]);
+  $faid = $purifier->purify($_REQUEST[faid_update]);
+  $uniqname = $purifier->purify($_REQUEST[uniqname]);
+  $award_id = $purifier->purify($_REQUEST[award_id]);
   $sql = "DELETE FROM award_progress WHERE faid= $faid";
   mysqli_query($conn, $sql) or die("<hr>There was an error removing a record from award_progress:".mysqli_error($conn)."<hr>\n");
   $sql = "DELETE FROM faculty_awards WHERE uniqname = '$uniqname' AND award_id = $award_id AND status = 10";
@@ -32,11 +32,11 @@ if ($_REQUEST['edit_record'] == "Update") {
   $ask_letters = ((isset($_REQUEST[ask_letters])) ? "yes" : "no");
   $got_letters = ((isset($_REQUEST[got_letters])) ? "yes" : "no");
   $submitted = ((isset($_REQUEST[submitted])) ? "yes" : "no");
-  $comments = check_input($conn, $_REQUEST[comments]);
-  $faid = check_input($conn, $_REQUEST[faid_update]);
-  $uniqname = check_input($conn, $_REQUEST[uniqname]);
-  $award_id = check_input($conn, $_REQUEST[award_id]);
-  $year = check_input($conn, $_REQUEST[year]);
+  $comments = $purifier->purify($_REQUEST[comments]);
+  $faid = $purifier->purify($_REQUEST[faid_update]);
+  $uniqname = $purifier->purify($_REQUEST[uniqname]);
+  $award_id = $purifier->purify($_REQUEST[award_id]);
+  $year = $purifier->purify($_REQUEST[year]);
   $sql = "UPDATE award_progress SET 
   in_process='$in_process',
   ask_recommenders='$ask_recommenders',

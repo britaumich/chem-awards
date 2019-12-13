@@ -10,14 +10,14 @@
 
 <body>
 <?php
-require_once('../dbConnect.inc');
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 
 ?>
 
 <div align="center">
 <?
-$award_id = check_input($conn, $_REQUEST['award_id']);
+$award_id = $purifier->purify($_REQUEST['award_id']);
 $error = $_REQUEST[error];
 if($error != ''){
       echo "<table><TR><TD align=center><span style=color:red><b>ERRORS!</b></span><TR><TD><span style=color:red>$error</span></table>";
@@ -47,8 +47,8 @@ echo "<div align='center'><img src='../images/linecalendarpopup500.jpg'></div><B
 
 
 
-if (isset($_REQUEST[choose]) OR (check_input($conn, $_REQUEST['award_id']) !== "")) {
-     $award_id = check_input($conn, $_REQUEST['award_id']);
+if (isset($_REQUEST[choose]) OR ($purifier->purify($_REQUEST['award_id']) !== "")) {
+     $award_id = $purifier->purify($_REQUEST['award_id']);
 
 if ($award_id !== "") {
 $sqlf = "SELECT faculty_awards.id as dataid, faculty_awards.`uniqname` as uniqname, faculty_awards.faculty_id AS faculty_id, faculty.Name, award_status.`status`, `year`, `comment` FROM `faculty_awards`JOIN faculty ON faculty_awards.faculty_id = faculty.id, award_status WHERE faculty_awards.status = award_status.id AND award_id = $award_id ORDER BY year, award_status.status";
