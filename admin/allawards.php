@@ -32,13 +32,13 @@ if (isset($_REQUEST[submit])) {
      $type = $purifier->purify($_REQUEST['type']);
 //     $due_month = $purifier->purify($_REQUEST['due_month']);
      $due_month = $purifier->purify($_REQUEST['month']);
-     $cluster = $purifier->purify($_REQUEST['cluster']);
+//     $cluster = $purifier->purify($_REQUEST['cluster']);
 
 
 //     $tag = $purifier->purify($_REQUEST['tag']);
      $eligable = $purifier->purify($_REQUEST['eligable']);
-     $start = $purifier->purify($_REQUEST['start']);
-     $end = $purifier->purify($_REQUEST['end']);
+//     $start = $purifier->purify($_REQUEST['start']);
+//     $end = $purifier->purify($_REQUEST['end']);
      $keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 
     $cluster_check = array();
