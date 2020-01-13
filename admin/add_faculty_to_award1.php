@@ -1,5 +1,7 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
+require_once('../library/HTMLPurifier.auto.php');
+$purifier = new HTMLPurifier();
 $award_id = $purifier->purify($_REQUEST['award_id']);
 $fac_id = $purifier->purify($_REQUEST['faculty_id']);
 $nonchemfaculty = $purifier->purify($_REQUEST['nonchemfaculty']);
