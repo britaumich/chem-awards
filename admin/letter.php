@@ -93,7 +93,7 @@ if(isset($_POST[submit])) {
           // rename and upload the file
      if ($_FILES['recfilename']['error'] === UPLOAD_ERR_OK) {
         // upload ok
-       $uploaddir = '/home/appspchem/upload/awards-files/';
+//       $uploaddir = '/home/appspchem/upload/awards-files/';
 //        $filename = $lettertype . $recname . $uniqname . "-" . time() . ".pdf";
         $filename = $lettertype . $recname . $uniqname . "-" . time() . "." . $file_extension;
         $uploadfile = $uploaddir . $filename;
