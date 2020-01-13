@@ -167,7 +167,7 @@ else {
 }
 
    $cluster_check = array();
-    $cluster_check = $purifier->purify($_REQUEST[cluster_check]);
+    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
     if (!empty($_REQUEST['cluster_check'])) {
         $clusterlist = implode(", ", $cluster_check);
 
