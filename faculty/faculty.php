@@ -162,9 +162,10 @@ if (mysqli_num_rows($resultcluster) != 0) {
 
 </table>
 			
-        <br><div align="center"><INPUT type="submit" name="edit_record" value="Save changes" style="width:1 00px; height: 50px;"></div>
+        <br><div align="center"><INPUT type="submit" name="edit_record" value="Save changes" style="width:1 00px; height: 50px;">
+</form></div>
+<div align="center"><img src="../images/linecalendarpopup500.jpg"></div><br>
 <table>
-	<br><div align="center"><img src="../images/linecalendarpopup500.jpg"></div><br>
 <?
 $sql1 = "SELECT id AS letter_id, type, link, upload_date FROM faculty_letters WHERE uniqname = '$uniqname' AND type = 'cv'";
 $result1 = mysqli_query($conn, $sql1) or die ("Query failed : " . mysqli_error($conn));
@@ -177,7 +178,12 @@ WHILE ($recUpload = mysqli_fetch_array($result1, MYSQLI_BOTH))
 
                 <?php
                  $letter_id = $recUpload[letter_id];
-            echo '<td><a href="delete_file.php?id=' . $letter_id . '">Delete</a></td>';
+            echo '<td>';
+echo "<form name='form3' action='delete_file.php' method='post'>";
+
+echo '<input type="hidden" name="id" value="' . $letter_id . '">';
+echo ('<input type="submit" name="delete" value="Delete" onclick="return confirm(\'Are you sure to delete this file?\')">');
+            echo '</form></td>';
         }//while
 ?>
 </table>
