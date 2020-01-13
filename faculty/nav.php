@@ -1,6 +1,7 @@
 <?
 //function navbar()
-//{
+require_once('../library/HTMLPurifier.auto.php');
+$purifier = new HTMLPurifier();
 ?>
 <div class="bodypad">
 
