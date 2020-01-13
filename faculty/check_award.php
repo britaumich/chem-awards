@@ -19,7 +19,7 @@ require_once('nav.php');
 <div align="center">
 <?
 $uniqname1 = $_SERVER['REDIRECT_REMOTE_USER'];
-$uniqname = check_input($conn, $_REQUEST['uniqname']);
+$uniqname = $purifier->purify($_REQUEST['uniqname']);
 if ($uniqname == "") {
   $uniqname = $uniqname1;
 }
@@ -29,7 +29,7 @@ $sqlf = "SELECT uniqname, Name FROM faculty WHERE uniqname = '$uniqname'";
 $resf = mysqli_query($conn, $sqlf) or die("Query failed :".mysqli_error($conn));
 echo "<table><tr><td>";
 echo "Award Month: ";
-$month = check_input($conn, $_REQUEST['month']);
+$month = $purifier->purify($_REQUEST['month']);
 if ($month == "" ) { $month = "%";}
     $sqlm ="SELECT DISTINCT due_month FROM `awards_descr` order by month(str_to_date(left(due_month, 3),'%b'))";
       $resm = mysqli_query($conn, $sqlm) or die("There was an error getting min date: ".mysqli_error($conn));
@@ -45,7 +45,7 @@ echo "</select>";
 
 echo "<td>Clusters: ";
 $clustersids = array();
-    $clustersids = $_REQUEST[cluster_check];
+    $clustersids = purica_array($conn, $_REQUEST[cluster_check]);
     if ($clustersids == NULL) {$clustersids = array();}
 //echo '<pre>list id'; var_export($clustersids); echo '</pre>';
 
@@ -73,7 +73,7 @@ if (mysqli_num_rows($result) != 0) {
 
 
 echo "</td></tr><tr><td colspan='3'>Search by Keywords (in Award Name and Awarded By) ";
-$keyword_search = check_input($conn, $_REQUEST['keyword_search']);
+$keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 
 echo '<input type="text" name="keyword_search" size = "50" placeholder="-- keywords, separated by commas --" value="' . $keyword_search . '" >';
 echo "</td></tr></table><br>";
@@ -84,14 +84,14 @@ echo "<div align='center'><img src='../images/linecalendarpopup500.jpg'></div><B
 
 if (isset($_REQUEST[submit])) {
 
-$uniqname = check_input($conn, $_REQUEST['uniqname']);
-$name = check_input($conn, $_REQUEST['name']);
-$fac_id = check_input($conn, $_REQUEST['fac_id']);
+$uniqname = $purifier->purify($_REQUEST['uniqname']);
+$name = $purifier->purify($_REQUEST['name']);
+$fac_id = $purifier->purify($_REQUEST['fac_id']);
 
 //echo "here<br>";
 //echo $uniqname;
 
-     $id = check_input($conn, $_REQUEST['id']);
+     $id = $purifier->purify($_REQUEST['id']);
      $awardid = array();
      $awardid = $_REQUEST[awardid];
 //echo '<pre>'; var_export($awardid); echo '</pre>';
@@ -128,7 +128,7 @@ $fac_id = check_input($conn, $_REQUEST['fac_id']);
 if (isset($_REQUEST[choose]) OR ($uniqname !== "")) {
 echo "<form name='form2' method='post' action='check_award.php'>";
 if ($uniqname == "") {
-$uniqname = check_input($conn, $_REQUEST['uniqname']);
+$uniqname = $purifier->purify($_REQUEST['uniqname']);
     if ($uniqname == "") {
          $uniqname = $_SERVER['REDIRECT_REMOTE_USER'];
     } 
@@ -136,7 +136,7 @@ $uniqname = check_input($conn, $_REQUEST['uniqname']);
 else {
 //echo $uniqname;
 
-$is_eligible = check_input($conn, $_REQUEST['is_eligible']);
+$is_eligible = $purifier->purify($_REQUEST['is_eligible']);
 if ($is_eligible == "") {
   // get it from the uniqname's rank and Year_PhD
    $sqle = "SELECT eligibility_id FROM eligibility JOIN faculty ON rank = rank_id  WHERE faculty.uniqname = '$uniqname'";
@@ -164,7 +164,7 @@ else {
    $is_eligible = " = '$is_eligible'";
 }
    $cluster_check = array();
-    $cluster_check = $_REQUEST[cluster_check];
+    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
     if (!empty($_REQUEST['cluster_check'])) {
         $clusterlist = implode(", ", $cluster_check);
 

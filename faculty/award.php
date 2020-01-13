@@ -12,7 +12,7 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
 		
-$award_id = check_input($conn, $_REQUEST[award_id]);
+$award_id = $purifier->purify($_REQUEST[award_id]);
 $search_id_list = array();
 $search_id_list = unserialize($_REQUEST[search_id_list]);
 $search_id_list = purica_array($conn, $search_id_list);

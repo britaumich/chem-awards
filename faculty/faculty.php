@@ -24,16 +24,16 @@ require_once('nav.php');
 if ($_REQUEST['edit_record'] == "Save changes")
 {
 
-  $id = check_input($conn, $_REQUEST[id]);
-  $uniqname1 = check_input($conn, $_REQUEST[uniqname]);
+  $id = $purifier->purify($_REQUEST[id]);
+  $uniqname1 = $purifier->purify($_REQUEST[uniqname]);
    $uniqname = $_SERVER["REDIRECT_REMOTE_USER"];
  if ($uniqname == $uniqname1)  {
-  $Name = check_input($conn, $_REQUEST[Name]);
-  $Rank = check_input($conn, $_REQUEST[Rank]);
+  $Name = $purifier->purify($_REQUEST[Name]);
+  $Rank = $purifier->purify($_REQUEST[Rank]);
 
-  $Year_PhD = check_input($conn, $_REQUEST[Year_PhD]);
-  $birth_year = check_input($conn, $_REQUEST[birth_year]);
-  $Appt_Start = check_input($conn, $_REQUEST[Appt_Start]);
+  $Year_PhD = $purifier->purify($_REQUEST[Year_PhD]);
+  $birth_year = $purifier->purify($_REQUEST[birth_year]);
+  $Appt_Start = $purifier->purify($_REQUEST[Appt_Start]);
 
 if ($id !== "") {
   $sql = "UPDATE faculty SET
@@ -57,15 +57,15 @@ else {
    }
 // add clusters
          $cluster_check = array();
-    $cluster_check = $_REQUEST[cluster_check];
+    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
 // echo '<pre>'; var_export($cluster_check); echo '</pre>';
     $clusterlist = array();
-    $clusterlist = $_REQUEST[clusterlist];
+    $clusterlist = purica_array($conn, $_REQUEST[clusterlist]);
 // echo '<pre>'; var_export($clusterlist); echo '</pre>';
-      if (!empty($_REQUEST['cluster_check'])) {
+      if (!empty($cluster_check)) {
        // clusters
        $sqlcluster = "INSERT INTO faculty_cluster (`faculty_id`, `cluster_id`) VALUES";
-       foreach ($_REQUEST['cluster_check'] as $cluster_id) {
+       foreach ($cluster_check as $cluster_id) {
           $sqlcluster .= " (" . $id . ", " . $cluster_id . "),";
        }
        $sqlcluster = substr($sqlcluster, 0, -1);
