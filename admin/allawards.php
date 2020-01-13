@@ -32,13 +32,13 @@ if (isset($_REQUEST[submit])) {
      $type = $purifier->purify($_REQUEST['type']);
 //     $due_month = $purifier->purify($_REQUEST['due_month']);
      $due_month = $purifier->purify($_REQUEST['month']);
-     $cluster = $purifier->purify($_REQUEST['cluster']);
+//     $cluster = $purifier->purify($_REQUEST['cluster']);
 
 
 //     $tag = $purifier->purify($_REQUEST['tag']);
      $eligable = $purifier->purify($_REQUEST['eligable']);
-     $start = $purifier->purify($_REQUEST['start']);
-     $end = $purifier->purify($_REQUEST['end']);
+//     $start = $purifier->purify($_REQUEST['start']);
+//     $end = $purifier->purify($_REQUEST['end']);
      $keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 
     $cluster_check = array();
@@ -248,12 +248,12 @@ echo ('<td> <input type="submit" name="Edit" value="Edit"></td>');
 
 ?>
 <td>
-   <button onclick="open_win('<?= $aname ?>', '<?= $descr ?>')">Open</button>
+   <button onclick="open_win('<?= addslashes($aname) ?>', '<?= addslashes($descr) ?>')">Open</button>
 
 </td>
 
 <td>
-   <button onclick="open_win('<?= $aname ?>', '<?= $elig ?>')">Open</button>
+   <button onclick="open_win('<?= addslashes($aname) ?>', '<?= addslashes($elig) ?>')">Open</button>
 </td>
 
 <?	

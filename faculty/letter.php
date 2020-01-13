@@ -9,30 +9,32 @@
 </head>
 <body>
 <?php  
+require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
-require_once "../dbConnect.inc";
-$errorid = $_REQUEST['errorid'];
+$errorid = $purifier->purify($_REQUEST['errorid']);
+
 
 // if the recomtext field is empty 
 if(isset($_POST['recomtext']) && $_REQUEST['recomtext'] != ""){
 // let the spammer think that they got their message through
-$recomtext = $_REQUEST['recomtext'];
+$recomtext = $purifier->purify($_REQUEST['recomtext']);
+
 echo $recomtext;
    echo "<h1>Thanks</h1>";
 exit;
 }
 if(isset($_POST[submit])) {
 
-      $replacefile = check_input($conn, $_REQUEST['replacefile']);
-      $uniqname = check_input($conn, $_REQUEST['uniqname']);
+      $replacefile = $purifier->purify($_REQUEST['replacefile']);
+      $uniqname = $purifier->purify($_REQUEST['uniqname']);
       $lettertype = "cv";
 
 
 // store the file information to variables for easier access
-   $tmp_name = check_input($conn, $_FILES['recfilename']['tmp_name']);
-   $type = check_input($conn, $_FILES['recfilename']['type']);
-   $name = check_input($conn, $_FILES['recfilename']['name']);
-   $size = check_input($conn, $_FILES['recfilename']['size']);
+   $tmp_name = $purifier->purify($_FILES['recfilename']['tmp_name']);
+   $type = $purifier->purify($_FILES['recfilename']['type']);
+   $name = $purifier->purify($_FILES['recfilename']['name']);
+   $size = $purifier->purify($_FILES['recfilename']['size']);
    $file_extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
 
 
@@ -66,7 +68,7 @@ if(isset($_POST[submit])) {
           // rename and upload the file
      if ($_FILES['recfilename']['error'] === UPLOAD_ERR_OK) {
         // upload ok
-       $uploaddir = '/home/appspchem/upload/awards-files/';
+//       $uploaddir = '/home/appspchem/upload/awards-files/';
         $upload_date = date("m-d-Y");
         $filename = $lettertype . "_" . $recname . $uniqname . "_" . time() . ".pdf";
         $uploadfile = $uploaddir . $filename;
@@ -91,8 +93,8 @@ if(isset($_POST[submit])) {
 <input type="hidden" name="uniqname" value="<?php echo $uniqname; ?>" />
 
 <?php $ip = getenv("REMOTE_ADDR"); 
-if ($reclastname == "") { $reclastname = check_input($conn, $_REQUEST['reclastname']); }
-if ($recfirstname == "") { $recfirstname = check_input($conn, $_REQUEST['recfirstname']); }
+if ($reclastname == "") { $reclastname = $purifier->purify($_REQUEST['reclastname']); }
+if ($recfirstname == "") { $recfirstname = $purifier->purify($_REQUEST['recfirstname']); }
 if ($errorid == 0) {
 ?>
 <input type="hidden" name="id" value="<?php echo $id; ?>" />
