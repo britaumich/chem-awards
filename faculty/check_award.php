@@ -254,10 +254,11 @@ while ( $adata = mysqli_fetch_array($result, MYSQLI_BOTH) )
 //echo '<pre>'; var_export($awids); echo '</pre>';
    $aname = $adata[Award_Name];
    $descr = $adata[Description];
+  $aname = preg_replace("/\r?\n/", "\\n", addslashes($aname));
   $descr = preg_replace("/\r?\n/", "\\n", addslashes($descr));
 ?>
 <td>
-<input type="hidden" id="example_text"  value="<? echo $adata[eligibility]; ?>" /><br />
+<input type="hidden" value="<? echo $adata[eligibility]; ?>" /><br />
    <button onclick="open_win('<?= $aname ?>', '<?= $descr ?>')">Open</button>
 
 </td>

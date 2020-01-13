@@ -9,6 +9,12 @@
 </head>
 
 <body>
+<script>
+function open_win(name, text) {
+    window.open('youPopUpPage.php?text=' + encodeURIComponent(text) + '&name=' + name, '_blank','toolbar=0,location=no,menubar=0,height=600,width=800,left=200, top=300');
+}
+</script>
+
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 require_once('nav.php');
@@ -250,10 +256,15 @@ while ( $adata = mysqli_fetch_array($result, MYSQLI_BOTH) )
 		echo "<td><a href='$adata[Link_to_Website]' target='_blank'>$adata[Award_Name]</td>";
 		echo "<td>$adata[Awarded_By]</td>";
 //echo '<pre>'; var_export($awids); echo '</pre>';
+   $aname = $adata[Award_Name];
+   $descr = $adata[Description];
+  $aname = preg_replace("/\r?\n/", "\\n", addslashes($aname));
+  $descr = preg_replace("/\r?\n/", "\\n", addslashes($descr));
+
 ?>
 <td>
-<input type="hidden" id="example_text"  value="<? echo $adata[eligibility]; ?>" /><br />
-<input type="button" value="Open" onclick="example_popup('one')" />
+<input type="hidden"  value="<? echo $adata[eligibility]; ?>" /><br />
+<button onclick="open_win('<?= $aname ?>', '<?= $descr ?>')">Open</button>
 </td>
 
 <td>
@@ -285,11 +296,4 @@ while ( $adata = mysqli_fetch_array($result, MYSQLI_BOTH) )
 }  // if choose
 ?>
 </body>
-<script type="text/javascript">
-function example_popup() {
-    var w = window.open('', '', 'width=600,height=400,resizeable,scrollbars');
-    w.document.write(document.getElementById('example_text').value);
-    w.document.close(); // needed for chrome and safari
-}
-</script>
 

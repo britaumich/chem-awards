@@ -248,12 +248,12 @@ echo ('<td> <input type="submit" name="Edit" value="Edit"></td>');
 
 ?>
 <td>
-   <button onclick="open_win('<?= $aname ?>', '<?= $descr ?>')">Open</button>
+   <button onclick="open_win('<?= addslashes($aname) ?>', '<?= addslashes($descr) ?>')">Open</button>
 
 </td>
 
 <td>
-   <button onclick="open_win('<?= $aname ?>', '<?= $elig ?>')">Open</button>
+   <button onclick="open_win('<?= addslashes($aname) ?>', '<?= addslashes($elig) ?>')">Open</button>
 </td>
 
 <?	
