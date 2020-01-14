@@ -142,8 +142,8 @@ print("<select name='status'>");
         }
 echo "</select>";
 echo ('<td><input type="text" size="10" maxsize="200" name="comment" value=""></td>');
-echo '<td><input type="hidden" name="award_id" value="' . $award_id . '"></td>';
-echo '<td><input type="hidden" name="keyword_search" value="' . $keyword_search . '"></td>';
+echo '<td><input type="hidden" name="award_id" value="' . $award_id . '">';
+echo '<input type="hidden" name="keyword_search" value="' . $keyword_search . '"></td>';
 echo ('<td> <input type="submit" name="submit" value="Add"></td>');
  echo('</form></td>');
 
