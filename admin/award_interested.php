@@ -58,7 +58,7 @@ while ( $fadata = mysqli_fetch_array($resultu, MYSQLI_BOTH) ) {
            echo '<input type="hidden" name="award_id" value="' . $award_id . '">';
            echo '<input type="hidden" name="dataid" value="' . $fadata[dataid] . '">';
            echo '<input type="hidden" name="prog_name" value="award_interested.php">';
-           echo "<input type='submit' name='submit' value='clear' />";
+           echo "<input type='submit' name='submit' value='clear' onclick=\"return confirm('Are you sure to remove this award?')\"/>";
            echo('</form>');
     echo ("</tr>");
 

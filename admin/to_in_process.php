@@ -1,5 +1,7 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
+require_once('../library/HTMLPurifier.auto.php');
+$purifier = new HTMLPurifier();
 $uniqname = $purifier->purify($_REQUEST['uniqname']);
 $dataid = $purifier->purify($_REQUEST['dataid']);
 $year = $purifier->purify($_REQUEST['year']);
