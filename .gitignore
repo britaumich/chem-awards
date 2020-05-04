@@ -1,6 +1,11 @@
 .htaccess*
+admin/.htacess*
+faculty/.htaccess*
 test*
 admin/error_log
 faculty/error_log
 *.swo
 *.swp
+uploadfiles
+eebstyle.css
+noinject.php

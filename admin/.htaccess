@@ -1,8 +1,0 @@
-CosignProtected On
-AuthType Cosign
-Require user brita katfost dstpierr ajmcneil deboerm rtkenn ryancb smald matzger mssanfor rsension nszym jpwolfe albfrank jmontg kubarych jmalaika lewander janej garnerb
-CosignRequireFactor   UMICH.EDU
-
-Options -Indexes
-ErrorDocument 500 /error.html
-ErrorDocument 404 /error.html
