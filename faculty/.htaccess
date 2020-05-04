@@ -3,6 +3,7 @@ AuthType Cosign
 CosignRequireFactor   UMICH.EDU
 AuthLDAPURL ldap://ldap.umich.edu
 Require ldap-group cn=ChemAwardsAccessGroup,ou=User Groups,ou=Groups,dc=umich,dc=edu
+Require user brita
 
 Options -Indexes
 ErrorDocument 500 /error.html

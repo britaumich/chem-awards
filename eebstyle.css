@@ -433,7 +433,8 @@ th.rotate > div > span {
 
 div.navbar {
         font-size: 15pt;
-        background-color: #566D7E;
+//        background-color: #566D7E;
+        background-color: red;
         border-bottom: 1px solid #3f505c;
         width: 100%;
         text-align: center;
