@@ -1,4 +1,6 @@
 .htaccess*
+admin/.htacess*
+faculty/.htaccess*
 test*
 admin/error_log
 faculty/error_log
