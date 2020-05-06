@@ -126,7 +126,8 @@ Must be <strong>ONE file</strong> and be in <strong>PDF format</strong>. Maximum
 </div></div>
 <img src="../images/box650btm.jpg">
 
-<bR><div align="center"><img src="../images/linecalendarpopup500.jpg"></div>
+<br>
+<br>
 <input type="checkbox" name="replacefile" value="yes"> Check to replace the file<br><br>
 <input type="hidden" name="uniqname" value="<?php echo $uniqname; ?>" />
 <input type="submit" name="submit" value="Submit Form" />
