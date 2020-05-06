@@ -16,7 +16,7 @@ require_once('nav.php');
 ?>
 
 <div align="center">
-<?
+<?php
 if (isset($_REQUEST['error'])) {
     echo ('<span style=color:red><b>');
     echo $_REQUEST['error'];

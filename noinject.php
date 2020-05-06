@@ -1,4 +1,4 @@
-<?
+<?php
 # noinject.php by Brandon Bensel <benselb@umich.edu>, May 2009
 # This library may be freely reproduced and modified without restriction.
 # 
@@ -197,15 +197,10 @@ class SQLStatement
 
 		if (is_null($db))
 		{
-echo "Hell Null";
-echo "<br>";
 			return $query_str;
 		}
 		else
 		{
-echo "Hell run";
-echo "<br>";
-echo $query_str;
 			$this->query_str = $query_str;
 			$res = mysqli_query($db, $query_str);
 			if ($res === FALSE) $this->error = mysqli_error($db);
@@ -216,7 +211,6 @@ echo $query_str;
 
 function prepare($s)
 {
-echo "Hell two";
 	return new SQLStatement($s);
 }
 

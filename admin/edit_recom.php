@@ -9,7 +9,7 @@ function renderForm($conn, $id, $uniqname, $rec_name, $rec_email, $error)
 <link rel="stylesheet" href="../eebstyle.css">
  </head>
 <body>
-<?
+<?php
  if ($error != '')
  {
  echo '<div style="padding:4px; border:1px solid red; color:red;">'.$error.'</div>';

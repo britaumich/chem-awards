@@ -128,14 +128,14 @@ if ($errorid == 0) {
 }
 ?>
 <input type="hidden" name="errorid" value="<?php echo $errorid; ?>" />
-<?
+<?php
 }
 ?>
 <div align="center"><h2>Upload a Letter <br><br><h2>
 </div></h2>
 <form method="post" action="letter.php" enctype="multipart/form-data">
 <strong>Select a Faculy: </strong> 
- <?       
+ <?php
 $lettertype = $purifier->purify($_REQUEST['lettertype']);
 $lettertype1 = $purifier->purify($_REQUEST['lettertype1']);
 if ($again == "yes") {
@@ -156,7 +156,7 @@ if ($again == "yes") {
         }
 ?>
 </select>
-<?
+<?php
     $sql = "SELECT DISTINCT (type) FROM faculty_letters";
    $result = mysqli_query($conn, $sql);
 
@@ -200,7 +200,7 @@ if ((($recnamenew !== "") || ($recemailnew !== "")) && ($again !== "yes")){
 <br><br>
 <strong>Email: <font color ="#FF0000" >*</font></strong>  <input type="text" name="recemailnew" id="recemailnew" value="<?php echo $recemailnew; ?>" disabled size="35" maxlength="200"/><br><Br>
 <br>
-<?
+<?php
 }
 ?>
 <div id="txtHint0"></div>

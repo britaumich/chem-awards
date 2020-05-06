@@ -87,7 +87,7 @@ if (isset($_REQUEST[submit])) {
 }
 ?>
 <div class='floatleft'>
-<?
+<?php
     echo "<form name='form2' method='post' action='deleteaward.php'>";
     $sql = "SELECT DISTINCT type FROM awards_descr";
     $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));

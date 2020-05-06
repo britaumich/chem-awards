@@ -49,19 +49,19 @@ $uniqname = $adata['uniqname'];
         <th>Appt Start</th>
 
 <tr>
-<td><a href='edit_faculty.php?id=<? echo $adata[id]; ?>'><? echo $uniqname; ?></a></td>  
-<td> <? print($adata['Name']) ?> 
-<td> <? print($adata['rank']) ?> 
-<td> <? print($adata['Year_PhD']) ?> 
-<td> <? print($adata['birth_year']) ?> 
-<td> <? print($adata['Appt_Start']) ?> 
+<td><a href='edit_faculty.php?id=<?php echo $adata[id]; ?>'><?php echo $uniqname; ?></a></td>  
+<td> <?php print($adata['Name']) ?> 
+<td> <?php print($adata['rank']) ?> 
+<td> <?php print($adata['Year_PhD']) ?> 
+<td> <?php print($adata['birth_year']) ?> 
+<td> <?php print($adata['Appt_Start']) ?> 
 </table>
 		<br><div align="center"><img src="../images/linecalendarpopup500.jpg"></div><br>
 			
 <form name='form2' action='facultyone.php' method='post'>
-<input type="hidden" name="uniqname" id="uniqname" value="<? echo $uniqname; ?>">
-<input type="hidden" name="id" id="id" value="<? echo $id; ?>">
-<?
+<input type="hidden" name="uniqname" id="uniqname" value="<?php echo $uniqname; ?>">
+<input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
+<?php
 // faculty information
 $sql = "SELECT DISTINCT(year) FROM faculty_data ORDER BY year";
 $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));
@@ -95,9 +95,9 @@ $sql1 = "SELECT * FROM faculty_letters WHERE uniqname = '$uniqname' ORDER BY typ
 $result1 = mysqli_query($conn, $sql1) or die ("Query failed : " . mysqli_error($conn));
 WHILE ($recUpload = mysqli_fetch_array($result1, MYSQLI_BOTH))
         { ?>
-              <tr><td> <? print("$recUpload[type]") ?> :</td><td>
-                 <? print("<a href=\"http://apps-prod.chem.lsa.umich.edu/chem-awards/uploadfiles/$recUpload[link]\" target=\"_blank\"> $recUpload[link]</a>") ?><br>
-              <td> <? print("$recUpload[upload_date]") ?></td>
+              <tr><td> <?php print("$recUpload[type]") ?> :</td><td>
+                 <?php print("<a href=\"http://apps-prod.chem.lsa.umich.edu/chem-awards/uploadfiles/$recUpload[link]\" target=\"_blank\"> $recUpload[link]</a>") ?><br>
+              <td> <?php print("$recUpload[upload_date]") ?></td>
 
                 <?php
         }//while

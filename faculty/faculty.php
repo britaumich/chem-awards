@@ -113,11 +113,11 @@ $sql = "SELECT faculty.`id`, `uniqname`, `Name`, faculty.`Rank`, rank.rank as ra
     <form name="form" method="post" action="faculty.php">
 	<div align="center"><img src="../images/linecalendarpopup500.jpg"></div><br>
 <table>
-<INPUT type ='hidden' name='id' value='<? echo $id; ?>'>
-<tr><th>Uniqname:<td><input type="text" name="uniqname" value="<? print($adata['uniqname']) ?>" >
-<tr><th>Name:<td><input type="text" name="Name" value="<? print($adata['Name']) ?>" >
+<INPUT type ='hidden' name='id' value='<?php echo $id; ?>'>
+<tr><th>Uniqname:<td><input type="text" name="uniqname" value="<?php print($adata['uniqname']) ?>" >
+<tr><th>Name:<td><input type="text" name="Name" value="<?php print($adata['Name']) ?>" >
 <tr><th>Rank:<td> 
-<?
+<?php
 $rank = $adata['rank'];
 $sqlrank = "SELECT id, rank FROM rank";
 $resultrank = mysqli_query($conn, $sqlrank) or header('Location: ERROR.php?error="Unable to select applicant\'s information for editing."');
@@ -132,13 +132,13 @@ if (mysqli_num_rows($resultrank) != 0) {
 }
 ?> 
 
-<tr><th>Year Promoted:<td><input type="text" name="Appt_Start" value="<? print($adata['Appt_Start']) ?>" >
-<tr><th>Year PhD:<td><input type="text" name="Year_PhD" value="<? print($adata['Year_PhD']) ?>" >
+<tr><th>Year Promoted:<td><input type="text" name="Appt_Start" value="<?php print($adata['Appt_Start']) ?>" >
+<tr><th>Year PhD:<td><input type="text" name="Year_PhD" value="<?php print($adata['Year_PhD']) ?>" >
 <!--
-<tr><th>Birth Year:<td><input type="text" name="birth_year" value="<? print($adata['birth_year']) ?>" >
+<tr><th>Birth Year:<td><input type="text" name="birth_year" value="<?php print($adata['birth_year']) ?>" >
 -->
 <tr><th>cluster:<td>
-<?
+<?php
 $sqlclusterids = "SELECT clusters.id FROM clusters INNER JOIN faculty_cluster ON clusters.id = faculty_cluster.cluster_id WHERE faculty_id = '$id'";
 $resultcluster_list = mysqli_query($conn, $sqlclusterids) or header('Location: ERROR.php?error="Unable to select clusters."');
 $clustersids = array();
@@ -166,14 +166,14 @@ if (mysqli_num_rows($resultcluster) != 0) {
 </form></div>
 <div align="center"><img src="../images/linecalendarpopup500.jpg"></div><br>
 <table>
-<?
+<?php
 $sql1 = "SELECT id AS letter_id, type, link, upload_date FROM faculty_letters WHERE uniqname = '$uniqname' AND type = 'cv'";
 $result1 = mysqli_query($conn, $sql1) or die ("Query failed : " . mysqli_error($conn));
 WHILE ($recUpload = mysqli_fetch_array($result1, MYSQLI_BOTH))
         { ?>
-              <tr><td> <? print("$recUpload[type]") ?> :</td><td>
-                 <? print("<a href=\"http://apps-prod.chem.lsa.umich.edu/chem-awards/uploadfiles/$recUpload[link]\" target=\"_blank\"> $recUpload[link]</a>") ?><br>
-              <td> <? print("$recUpload[upload_date]") ?></td>
+              <tr><td> <?php print("$recUpload[type]") ?> :</td><td>
+                 <?php print("<a href=\"http://apps-prod.chem.lsa.umich.edu/chem-awards/uploadfiles/$recUpload[link]\" target=\"_blank\"> $recUpload[link]</a>") ?><br>
+              <td> <?php print("$recUpload[upload_date]") ?></td>
 
 
                 <?php
@@ -190,7 +190,7 @@ echo ('<input type="submit" name="delete" value="Delete" onclick="return confirm
 
 	<div align="center"><img src="../images/linecalendarpopup500.jpg"></div><br>
 
-<?
+<?php
 if (isset($id)) {
 $sqlf = "SELECT faculty_awards.award_id as award_id, faculty_awards.faculty_id AS faculty_id, faculty.Name, award_status.`status`, `year`, `comment`, awards_descr.Award_Name FROM `faculty_awards`JOIN faculty ON faculty_awards.faculty_id = faculty.id JOIN awards_descr ON faculty_awards.award_id = awards_descr.id, award_status WHERE faculty_awards.status = award_status.id AND faculty_id = $id ORDER BY year, award_status.status";
 //echo $sqlf;

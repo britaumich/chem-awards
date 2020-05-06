@@ -1,4 +1,4 @@
-<?
+<?php
 function send_mail_with_file($from, $to, $subject, $message, $html=FALSE, &$addresses=NULL, $attfile)
 {
 require 'PHPMailerAutoload.php';

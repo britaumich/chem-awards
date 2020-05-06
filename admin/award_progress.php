@@ -106,11 +106,11 @@ while ( $fadata = mysqli_fetch_array($result, MYSQLI_BOTH) )
       <input type="checkbox" name="ask_letters" value="" <?php if ( $fadata['ask_letters'] == "yes" ) { echo " checked";  } ?>> letters? <br>
       <input type="checkbox" name="got_letters" value="" <?php if ( $fadata['got_letters'] == "yes" ) { echo " checked";  } ?>> letters! <br>
       <input type="checkbox" name="submitted" value="" <?php if ( $fadata['submitted'] == "yes" ) { echo " checked";  } ?>> submitted<br>
-        <td><textarea name="comments" cols="50" rows="7" ><? echo $fadata[comments]; ?></textarea></td>
-         <INPUT type ='hidden' name='faid_update' value='<? echo $fadata[faid]; ?>'>
-         <INPUT type ='hidden' name='uniqname' value='<? echo $uniqname; ?>'>
-         <INPUT type ='hidden' name='award_id' value='<? echo $award_id; ?>'>
-         <INPUT type ='hidden' name='year' value='<? echo $year; ?>'>
+        <td><textarea name="comments" cols="50" rows="7" ><?php echo $fadata[comments]; ?></textarea></td>
+         <INPUT type ='hidden' name='faid_update' value='<?php echo $fadata[faid]; ?>'>
+         <INPUT type ='hidden' name='uniqname' value='<?php echo $uniqname; ?>'>
+         <INPUT type ='hidden' name='award_id' value='<?php echo $award_id; ?>'>
+         <INPUT type ='hidden' name='year' value='<?php echo $year; ?>'>
         <td><INPUT type="submit" name="edit_record" value="Update"><br><br>
         <INPUT type="submit" name="remove_record" value="Remove"></td>
 
@@ -121,7 +121,7 @@ while ( $fadata = mysqli_fetch_array($result, MYSQLI_BOTH) )
 echo "</table>";
 ?>
  <div align="center"><img src="../images/linecalendarpopup500.jpg"></div>
-<?
+<?php
 echo "<table>";
 
 $sql1 = "SELECT * FROM faculty_letters WHERE uniqname = '$uniqname' ORDER BY type";
@@ -129,14 +129,14 @@ $sql1 = "SELECT * FROM faculty_letters WHERE uniqname = '$uniqname' ORDER BY typ
 $result1 = mysqli_query($conn, $sql1) or die ("Query failed : " . mysqli_error($conn));
 WHILE ($recUpload = mysqli_fetch_array($result1, MYSQLI_BOTH))
         { ?>
-              <tr><td> <? print("$recUpload[type]") ?> :<td>
-                 <? print("<a href=\"http://apps-prod.chem.lsa.umich.edu/chem-awards/uploadfiles/$recUpload[link]\" target=\"_blank\"> $recUpload[link]</a>") ?><br>
+              <tr><td> <?php print("$recUpload[type]") ?> :<td>
+                 <?php print("<a href=\"http://apps-prod.chem.lsa.umich.edu/chem-awards/uploadfiles/$recUpload[link]\" target=\"_blank\"> $recUpload[link]</a>") ?><br>
                 <?php
         }//while
 echo "</table>";
 ?>
  <div align="center"><img src="../images/linecalendarpopup500.jpg"></div><br>
-<?
+<?php
 }
 }
 ?>

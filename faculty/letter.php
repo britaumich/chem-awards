@@ -102,7 +102,7 @@ if ($errorid == 0) {
 }
 ?>
 <input type="hidden" name="errorid" value="<?php echo $errorid; ?>" />
-<?
+<?php
 }
 //$uniqname = $_SERVER["REMOTE_USER"];
 $uniqname = $_SERVER["REDIRECT_REMOTE_USER"];
@@ -112,7 +112,7 @@ $uniqname = $_SERVER["REDIRECT_REMOTE_USER"];
 <strong>Faculty Uniqname: </strong><?php echo $uniqname; ?>
 <form method="post" action="letter.php" enctype="multipart/form-data">
 
-<?
+<?php
    $lettertype = "cv";
 
 ?>

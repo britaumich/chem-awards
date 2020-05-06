@@ -126,8 +126,8 @@ else {
 ?>
 <div class='floatright'>
         </form>
-    <form name="forme" method="post" action="faculty.php?id=<? echo $id; ?>">
-           <input type="hidden" name="id" value="<? echo $id; ?>">
+    <form name="forme" method="post" action="faculty.php?id=<?php echo $id; ?>">
+           <input type="hidden" name="id" value="<?php echo $id; ?>">
          <input type='submit' name='Submit' value='List'>
         </form>
 <br>&nbsp;&nbsp;
@@ -136,9 +136,9 @@ else {
 
 <div class='floatleft'>
 
-    <form name="formp" method="post" action="edit_faculty.php?id=<? echo $idp; ?>">
-           <input type="hidden" name="idp" value="<? echo $idp; ?>">
-<?
+    <form name="formp" method="post" action="edit_faculty.php?id=<?php echo $idp; ?>">
+           <input type="hidden" name="idp" value="<?php echo $idp; ?>">
+<?php
 if ($id == $minid) {
           echo "<input type='submit' name='Submit' value='Prev' disabled>";
 }
@@ -148,9 +148,9 @@ else {
 ?>
 </div>
         </form>
-    <form name="formn" method="post" action="edit_faculty.php?id=<? echo $idn; ?>">
-           <input type="hidden" name="idn" value="<? echo $idn; ?>">
-<?
+    <form name="formn" method="post" action="edit_faculty.php?id=<?php echo $idn; ?>">
+           <input type="hidden" name="idn" value="<?php echo $idn; ?>">
+<?php
 if ($id == $maxid) {
           echo "<input type='submit' name='Submit' value='Next' disabled>";
 }
@@ -159,7 +159,7 @@ else {
 }
 ?>
         </form>
-<?
+<?php
 }
 $sql = "SELECT faculty.`id`, `uniqname`, `Name`, faculty.`Rank`, rank.rank as rank, `Year_PhD`, `birth_year`, `Appt_Start`, `Num_papers`, `Num_UG_courses_taught`, `Num_of_times`, `Q1_avg`, `Q2_avg`, `teaching_summary` FROM `faculty`, rank  WHERE rank.id = faculty.Rank AND faculty.id = '$id'";
 //echo $sql;
@@ -170,12 +170,12 @@ $sql = "SELECT faculty.`id`, `uniqname`, `Name`, faculty.`Rank`, rank.rank as ra
     <form name="form" method="post" action="edit_faculty.php">
 <table>
 <tr>
-<th>id: <td> <? print($adata['id']) ?>
-<INPUT type ='hidden' name='id' value='<? echo $id; ?>'>
-<tr><th>Uniqname:<td><input type="text" name="uniqname" value="<? print($adata['uniqname']) ?>">
-<tr><th>Name:<td><input type="text" name="Name" value="<? print($adata['Name']) ?>">
+<th>id: <td> <?php print($adata['id']) ?>
+<INPUT type ='hidden' name='id' value='<?php echo $id; ?>'>
+<tr><th>Uniqname:<td><input type="text" name="uniqname" value="<?php print($adata['uniqname']) ?>">
+<tr><th>Name:<td><input type="text" name="Name" value="<?php print($adata['Name']) ?>">
 <tr><th>Rank:<td>choose from the list &nbsp;&nbsp; 
-<?
+<?php
 $rank = $adata['rank'];
 $sqlrank = "SELECT id, rank FROM rank";
 $resultrank = mysqli_query($conn, $sqlrank) or header('Location: ERROR.php?error="Unable to select applicant\'s information for editing."');
@@ -191,11 +191,11 @@ if (mysqli_num_rows($resultrank) != 0) {
 ?> 
 &nbsp;&nbsp;or&nbsp;&nbsp;<input type="text" name="rank1" placeholder="-- enter new rank --" value="" >
 
-<tr><th>Year_PhD:<td><input type="text" name="Year_PhD" value="<? print($adata['Year_PhD']) ?>">
-<tr><th>Birth Year:<td><input type="text" name="birth_year" value="<? print($adata['birth_year']) ?>">
-<tr><th>Appt_Start:<td><input type="text" name="Appt_Start" value="<? print($adata['Appt_Start']) ?>">
+<tr><th>Year_PhD:<td><input type="text" name="Year_PhD" value="<?php print($adata['Year_PhD']) ?>">
+<tr><th>Birth Year:<td><input type="text" name="birth_year" value="<?php print($adata['birth_year']) ?>">
+<tr><th>Appt_Start:<td><input type="text" name="Appt_Start" value="<?php print($adata['Appt_Start']) ?>">
 <tr><th>cluster:<td>
-<?
+<?php
 $sqlclusterids = "SELECT clusters.id FROM clusters INNER JOIN faculty_cluster ON clusters.id = faculty_cluster.cluster_id WHERE faculty_id = '$id'";
 $resultcluster_list = mysqli_query($conn, $sqlclusterids) or header('Location: ERROR.php?error="Unable to select clusters."');
 $clustersids = array();

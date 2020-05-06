@@ -1,4 +1,4 @@
-<?
+<?php
 $ldap = ldap_connect('ldap.itd.umich.edu');
 
 function ldap_person($uniqname)

@@ -17,7 +17,7 @@ require_once('nav.php');
 ?>
 
 <div align="center">
-<?
+<?php
 $uniqname1 = $_SERVER['REDIRECT_REMOTE_USER'];
 $uniqname = $purifier->purify($_REQUEST['uniqname']);
 if ($uniqname == "") {
@@ -258,21 +258,21 @@ while ( $adata = mysqli_fetch_array($result, MYSQLI_BOTH) )
   $descr = preg_replace("/\r?\n/", "\\n", addslashes($descr));
 ?>
 <td>
-<input type="hidden" value="<? echo $adata[eligibility]; ?>" /><br />
-   <button onclick="open_win('<?= $aname ?>', '<?= $descr ?>')">Open</button>
+<input type="hidden" value="<?php echo $adata[eligibility]; ?>" /><br />
+   <button onclick="open_win('<?php echo($aname) ?>', '<?php echo($descr) ?>')">Open</button>
 
 </td>
 
 <td>
-<input type='checkbox' name='awardid[<? echo $id; ?>]' value='
-<? echo $id . "'"; 
+<input type='checkbox' name='awardid[<?php echo $id; ?>]' value='
+<?php echo $id . "'"; 
  if (in_array($id, $awids)) {echo " checked"; }
  echo ">";
 ?>
 </td>
 
 
-<?	
+<?php
 	print ("</tr>");
 } //while
 ?>
@@ -288,7 +288,7 @@ while ( $adata = mysqli_fetch_array($result, MYSQLI_BOTH) )
 <br><br><div align="center"><img src="../images/linecalendarpopup500.jpg"></div><Br>
 
         </form>
-<?
+<?php
 }   // if $uniqname = ""
 }  // if choose
 ?>

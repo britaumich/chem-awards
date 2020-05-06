@@ -24,7 +24,7 @@ $q = $purifier->purify($_GET['q']);
 
 ?>
 <input type="hidden" name="template" value="<?php echo $q; ?>" />
-<?
+<?php
 
 $sql = "SELECT name, text FROM email_templates WHERE name = '$q'";
 $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));

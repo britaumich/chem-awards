@@ -24,7 +24,7 @@ $q = $purifier->purify($_GET['q']);
 
 ?>
 <input type="hidden" name="uniqname1" value="<?php echo $q; ?>" />
-<?
+<?php
 $recid = $purifier->purify($_REQUEST['recid']);
 
 $sql = "SELECT recommenders.id as recid, recommenders.uniqname, faculty.Name, rec_name, rec_email FROM recommenders, faculty WHERE recommenders.uniqname = faculty.uniqname AND recommenders.uniqname = '$q'";
