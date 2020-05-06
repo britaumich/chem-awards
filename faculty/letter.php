@@ -102,7 +102,7 @@ if ($errorid == 0) {
 }
 ?>
 <input type="hidden" name="errorid" value="<?php echo $errorid; ?>" />
-<?
+<?php
 }
 //$uniqname = $_SERVER["REMOTE_USER"];
 $uniqname = $_SERVER["REDIRECT_REMOTE_USER"];
@@ -112,7 +112,7 @@ $uniqname = $_SERVER["REDIRECT_REMOTE_USER"];
 <strong>Faculty Uniqname: </strong><?php echo $uniqname; ?>
 <form method="post" action="letter.php" enctype="multipart/form-data">
 
-<?
+<?php
    $lettertype = "cv";
 
 ?>
@@ -126,7 +126,8 @@ Must be <strong>ONE file</strong> and be in <strong>PDF format</strong>. Maximum
 </div></div>
 <img src="../images/box650btm.jpg">
 
-<bR><div align="center"><img src="../images/linecalendarpopup500.jpg"></div>
+<br>
+<br>
 <input type="checkbox" name="replacefile" value="yes"> Check to replace the file<br><br>
 <input type="hidden" name="uniqname" value="<?php echo $uniqname; ?>" />
 <input type="submit" name="submit" value="Submit Form" />

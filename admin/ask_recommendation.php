@@ -115,7 +115,7 @@ $to = $from;
 ?>
 
 <form method="post" action="ask_recommendation.php" enctype="multipart/form-data">
-<?
+<?php
 if ($fromaddress == "") { $fromaddress = $purifier->purify($_REQUEST['fromaddress']); }
 if ($recemailnew == "") { $recemailnew = $purifier->purify($_REQUEST['recemailnew']); }
 if ($subject == "") { $subject = $purifier->purify($_REQUEST['subject']); }
@@ -132,7 +132,7 @@ if ($message == "") { $message = $purifier->purify($_REQUEST['message']); }
 
 <strong>Select a Faculty: <font color ="#FF0000" >*</font></strong>
 
- <?
+ <?php
 
         $sql = "SELECT uniqname, Name FROM faculty ORDER BY name ASC";
 
@@ -151,7 +151,7 @@ if ($message == "") { $message = $purifier->purify($_REQUEST['message']); }
 </select>
 
 
-<?
+<?php
 if ($uniqname !== "error") {
 //echo '<pre>'; var_export($files); echo '</pre>';
     $sqlf = "SELECT id, link FROM faculty_letters WHERE uniqname = '$uniqname' AND type <> 'recommendation'";
@@ -206,7 +206,7 @@ $facname = $ldata[facname];
 <br><br><strong>Message: <font color ="#FF0000" >*</font></strong>
 
 <br><textarea name="message" id="message" cols="74" rows="6" maxlength="2000">Please send a recommendation letter for <?php echo $facname; ?></textarea>
-<?
+<?php
 }
 }
 echo "<div id='txtHint'></div>";

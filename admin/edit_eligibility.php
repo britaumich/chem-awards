@@ -118,7 +118,7 @@ echo "</table>";
 ?>
 <table>
 <tr><th>Rank<th>Eligibility</tr>
-<?
+<?php
 while ($ranks = mysqli_fetch_array($resultr, MYSQLI_BOTH)) {
      $id = $ranks[id];
 	$sql = "SELECT rank_id, eligibility_id FROM eligibility WHERE rank_id = $id";
@@ -127,7 +127,7 @@ while ($ranks = mysqli_fetch_array($resultr, MYSQLI_BOTH)) {
 	$resulte=mysqli_query($conn, $sqle) or die("There was an error: ".mysqli_connect_error());
 ?>	
   <tr><td>
-<?
+<?php
 echo $ranks[rank];
 echo "<td>";
 $eligids = array();
@@ -151,7 +151,7 @@ if (mysqli_num_rows($resulte) != 0) {
 }
 ?> 
 </td></tr>
-<?
+<?php
 }
 $resulte=mysqli_query($conn, $sqle) or die("There was an error: ".mysqli_connect_error());
 while ( $eligs = mysqli_fetch_array($resulte, MYSQLI_BOTH) ) {

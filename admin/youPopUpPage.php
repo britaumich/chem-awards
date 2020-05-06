@@ -20,7 +20,7 @@ padding-top: 5px%;
 }
 </style>
 </head>
-<?
+<?php
 
 
 $name=check_input($_REQUEST['name']);

@@ -14,7 +14,7 @@
 <div class="facrecbox1"><div class="textalignleft pad15and10">
 <div align="center"><br><br><h1>Chemistry Awards<br></h1><br>
 <bR><div align="center"><img src="images/linecalendarpopup500.jpg"></div><Br>
-<?
+<?php
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
 
 //$uniqname1 = $_SERVER['REMOTE_USER'];
@@ -25,7 +25,7 @@ if (is_admin($uniqname1)) {
 <form action="admin/allawards.php">
     <input type="submit" value="Admin Site" />
 </form>
-<?
+<?php
 }
 ?>
 <form action="faculty/index.php">

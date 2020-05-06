@@ -1,4 +1,4 @@
-<?
+<?php
 function send_mail($from, $to, $bcc, $subject, $message, $uploadfile, $filename, $html=FALSE, &$addresses=NULL)
 {
 require_once 'PHPMailerAutoload.php';

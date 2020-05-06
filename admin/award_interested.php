@@ -65,8 +65,6 @@ while ( $fadata = mysqli_fetch_array($resultu, MYSQLI_BOTH) ) {
 
 } //while
 echo "</table>";
-?> 
-<?
 }
 
 ?>

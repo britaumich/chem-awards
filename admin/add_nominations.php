@@ -17,7 +17,7 @@ require_once('nav.php');
 ?>
 
 <div align="center">
-<?
+<?php
 $award_id = $purifier->purify($_REQUEST['award_id']);
 
 $keyword_search = $purifier->purify($_REQUEST['keyword_search']);

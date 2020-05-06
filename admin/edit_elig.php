@@ -14,7 +14,7 @@ function renderForm($id, $name, $error)
 <div class="facrecbox1"><div class="textalignleft pad15and10">
 <div align="center"><br><br><h1>Faculty Awards<br></h1><br>
 </div>
-<?
+<?php
  if ($error != '')
  {
  echo '<div style="padding:4px; border:1px solid red; color:red;">'.$error.'</div>';

@@ -50,9 +50,9 @@ else {
 ?>
 
 <div class='floatleft'>
-    <form name="formp" method="post" action="award.php?award_id=<? echo $idp; ?>">
-           <input type="hidden" name="idp" value="<? echo $idp; ?>">
-<?
+    <form name="formp" method="post" action="award.php?award_id=<?php echo $idp; ?>">
+           <input type="hidden" name="idp" value="<?php echo $idp; ?>">
+<?php
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 
@@ -65,9 +65,9 @@ else {
 ?>
         </form>
 </div>
-    <form name="formn" method="post" action="award.php?award_id=<? echo $idn; ?>">
-           <input type="hidden" name="idn" value="<? echo $idn; ?>">
-<?
+    <form name="formn" method="post" action="award.php?award_id=<?php echo $idn; ?>">
+           <input type="hidden" name="idn" value="<?php echo $idn; ?>">
+<?php
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 
@@ -81,10 +81,10 @@ else {
         </form>
 <table>
 <tr>
-<th>Id: <td><? print($adata['id']) ?>
-<tr><th>Type:<td><? print($adata['type']) ?> 
+<th>Id: <td><?php print($adata['id']) ?>
+<tr><th>Type:<td><?php print($adata['type']) ?> 
 <tr><th>ACS Cluster:<td> 
-<?
+<?php
 $sqlcluster = "SELECT clusters.name FROM `clusters` inner join award_cluster on clusters.id = award_cluster.cluster_id where award_id = '$award_id'";
 $resultcluster = mysqli_query($conn, $sqlcluster) or die("There was an error: ".mysqli_error($conn));
 if (mysqli_num_rows($resultcluster) != 0) {
@@ -95,20 +95,20 @@ if (mysqli_num_rows($resultcluster) != 0) {
 
 }
 ?> 
-<tr><th>Award Name:<td><? print($adata['Award_Name']) ?> 
-<tr><th>Due Date:<td><? print($adata['due_month']); echo ",&nbsp;&nbsp;";  print($adata['due_day']); ?> 
-<tr><th>Awarded By:<td><? print($adata['Awarded_By']) ?> 
-<tr><th>Link to Website:<td><? print("<a href='$adata[Link_to_Website]'>$adata[Link_to_Website]</a>"); ?> 
-<tr><th>Description:<td><? print($adata['Description']) ?> 
-<tr><th>Eligibility:<td><? echo nl2br($adata['eligibility']) ?> 
-<tr><th>Who is Eligible:<td><? echo ($adata['who_is_eligible']) ?> 
-<tr><th>Comments:<td><? print($adata['comments']) ?> 
+<tr><th>Award Name:<td><?php print($adata['Award_Name']) ?> 
+<tr><th>Due Date:<td><?php print($adata['due_month']); echo ",&nbsp;&nbsp;";  print($adata['due_day']); ?> 
+<tr><th>Awarded By:<td><?php print($adata['Awarded_By']) ?> 
+<tr><th>Link to Website:<td><?php print("<a href='$adata[Link_to_Website]'>$adata[Link_to_Website]</a>"); ?> 
+<tr><th>Description:<td><?php print($adata['Description']) ?> 
+<tr><th>Eligibility:<td><?php echo nl2br($adata['eligibility']) ?> 
+<tr><th>Who is Eligible:<td><?php echo ($adata['who_is_eligible']) ?> 
+<tr><th>Comments:<td><?php print($adata['comments']) ?> 
 </table>
 		<br><div align="center"><img src="../images/linecalendarpopup500.jpg"></div><br>
 			
 
 </div> <div class="clear"></div>
-<?
+<?php
 // faculty list for this award
 
 

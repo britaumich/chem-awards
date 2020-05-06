@@ -9,7 +9,7 @@ function renderForm($conn, $dataid, $name, $year, $statusid, $comment, $error)
 <link rel="stylesheet" href="../eebstyle.css">
  </head>
 <body>
-<?
+<?php
  if ($error != '')
  {
  echo '<div style="padding:4px; border:1px solid red; color:red;">'.$error.'</div>';
@@ -27,7 +27,7 @@ function renderForm($conn, $dataid, $name, $year, $statusid, $comment, $error)
 <tr><th>Year: 
 <td> <input type="text" name="year" value="<?php echo $year; ?>"/></tr>
 <tr><th>Status:<td> 
-<?
+<?php
 $sqls = "SELECT `id`, `status` FROM `award_status`";
 $ress = mysqli_query($conn, $sqls) or die("Query failed :".mysqli_error($conn));
 print("<select name='status'>");

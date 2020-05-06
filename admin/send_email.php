@@ -141,7 +141,7 @@ $to = $from;
 ?>
 
 <form method="post" action="send_email.php" enctype="multipart/form-data">
-<?
+<?php
 if ($fromaddress == "") { $fromaddress = $purifier->purify($_REQUEST['fromaddress']); }
 if ($toaddress == "") { $toaddress = $purifier->purify($_REQUEST['toaddress']); }
 if ($bccaddress == "") { $bccaddress = $purifier->purify($_REQUEST['bccaddress']); }
@@ -159,7 +159,7 @@ if (!$between) { $between = $purifier->purify($_REQUEST['between']); }
 <br><br>
 <strong>To Address: <font color ="#FF0000" >*</font></strong> <input type="text" name="toaddress" id="toaddress" autofocus value="<?php echo $purifier->purify($toaddress); ?>" size="15" maxlength="200"/>@umich.edu
 &nbsp;&nbsp;OR&nbsp;&nbsp;
-<?
+<?php
 $sql = "SELECT uniqname, Name FROM faculty ORDER BY name ASC";
 $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));
         print("<select name='touniqname' id='touniqname' onchange='gettouniqname()'>");
@@ -190,7 +190,7 @@ echo "</select>";
 <strong>Subject: <font color ="#FF0000" >*</font></strong> <input type="text" name="subject" autofocus value="<?php echo $purifier->purify($subject); ?>" size="35" maxlength="200"/>
 <input type="checkbox" name="between" value="yes" <?php if ( $between == "yes" ) { echo " checked";  } ?>> Add 
 Award Due Month? 
-<?
+<?php
 
 // one month
 
@@ -237,7 +237,7 @@ if ($template !=="")  {
 <br><textarea name="message" id="message" cols="74" rows="6" maxlength="2000"><?php echo $template[text]; ?></textarea>
 <input type="submit" name="updatetemplate" value="Update the template" />
 
-<?
+<?php
 }  // getting message from template
 $fromname = ldap_name($fromaddress);
 $signature = $purifier->purify($_REQUEST['signature']); 
@@ -250,7 +250,7 @@ if ($signature == "") {
 <p class="recomtextclass">Leave this empty: <input type="text" name="recomtext" /></p>
 <br><strong>Name for a new template: </strong> <input type="text" name="newname" id="newname" autofocus value="" size="35" maxlength="200"/>
 <input type="submit" name="addtemplate" value="Add as a template" />
-<?
+<?php
 if ($addupdate == "yes") {
  echo "<br><h5>(To select a new template after Update or Add a template, please run the script again.)</h5>";
 }

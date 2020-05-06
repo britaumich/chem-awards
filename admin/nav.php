@@ -1,4 +1,4 @@
-<?
+<?php
 //function navbar()
 require_once('../library/HTMLPurifier.auto.php');
 $purifier = new HTMLPurifier();
@@ -18,6 +18,3 @@ $purifier = new HTMLPurifier();
 <a class="navlink" href="add_nominations.php">Nomination</a>
 </div>
 <br>
-<?
-//}
-

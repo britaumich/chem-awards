@@ -22,10 +22,10 @@ $sql = "SELECT awards_descr.id, `type`, `Award_Name`, `due_month`, `due_day`, `A
 ?>	
 <table>
 <tr>
-<th>id: <td><? print($adata['id']) ?>
-<tr><th>type:<td><? print($adata['type']) ?> 
+<th>id: <td><?php print($adata['id']) ?>
+<tr><th>type:<td><?php print($adata['type']) ?> 
 <tr><th>ACS_cluster:<td> 
-<?
+<?php
 $sqlcluster = "SELECT clusters.name FROM `clusters` inner join award_cluster on clusters.id = award_cluster.cluster_id where award_id = '$award_id'";
 $resultcluster = mysqli_query($conn, $sqlcluster) or header('Location: ERROR.php?error="Unable to select applicant\'s information for editing."');
 if (mysqli_num_rows($resultcluster) != 0) {
@@ -35,15 +35,15 @@ if (mysqli_num_rows($resultcluster) != 0) {
      }
 }
 ?> 
-<tr><th>Award_Name:<td><? print($adata['Award_Name']) ?> 
-<tr><th>Due_Date:<td><? print($adata['due_month']); echo ",&nbsp;&nbsp;";  print($adata['due_day']); ?> 
-<tr><th>Awarded_By:<td><? print($adata['Awarded_By']) ?> 
-<tr><th>Link_to_Website:<td><? print("<a href='$adata[Link_to_Website]'>$adata[Link_to_Website]</a>"); ?> 
-<tr><th>Description:<td><? print($adata['Description']) ?> 
-<tr><th>eligibility:<td><? echo nl2br($adata['eligibility']) ?> 
-<tr><th>who_is_eligible:<td><? echo ($adata['who_is_eligible']) ?> 
+<tr><th>Award_Name:<td><?php print($adata['Award_Name']) ?> 
+<tr><th>Due_Date:<td><?php print($adata['due_month']); echo ",&nbsp;&nbsp;";  print($adata['due_day']); ?> 
+<tr><th>Awarded_By:<td><?php print($adata['Awarded_By']) ?> 
+<tr><th>Link_to_Website:<td><?php print("<a href='$adata[Link_to_Website]'>$adata[Link_to_Website]</a>"); ?> 
+<tr><th>Description:<td><?php print($adata['Description']) ?> 
+<tr><th>eligibility:<td><?php echo nl2br($adata['eligibility']) ?> 
+<tr><th>who_is_eligible:<td><?php echo ($adata['who_is_eligible']) ?> 
 <tr><th>tags:<td> 
-<? 
+<?php
 $sqltag = "SELECT tags.tag FROM `tags` inner join award_tag on tags.id = award_tag.tag_id where award_id = '$award_id'";
 $resulttag = mysqli_query($conn, $sqltag) or header('Location: ERROR.php?error="Unable to select applicant\'s information for editing."');
 if (mysqli_num_rows($resulttag) != 0) {
@@ -54,13 +54,13 @@ if (mysqli_num_rows($resulttag) != 0) {
 
 }
 ?> 
-<tr><th>comments:<td><? print($adata['comments']) ?> 
+<tr><th>comments:<td><?php print($adata['comments']) ?> 
 </table>
 		<br><div align="center"><img src="../images/linecalendarpopup500.jpg"></div><br>
 			
 
 </div> <div class="clear"></div>
-<?
+<?php
 // faculty list for this award
 
 

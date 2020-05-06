@@ -82,7 +82,7 @@ if (isset($_REQUEST[submit])) {
 }
 ?>
 <div class='floatleft'>
-<?
+<?php
     echo "<form name='form2' method='post' action='allawards.php'>";
     $sql = "SELECT DISTINCT type FROM awards_descr";
     $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));
@@ -269,15 +269,15 @@ echo ('<td> <input type="submit" name="List" value="Open"></td>');
 
 ?>
 <td>
-   <button onclick="open_win('<?= addslashes($aname) ?>', '<?= addslashes($descr) ?>')">Open</button>
+   <button onclick="open_win('<?php echo (addslashes($aname)) ?>', '<?php echo(addslashes($descr)) ?>')">Open</button>
 
 </td>
 
 <td>
-   <button onclick="open_win('<?= addslashes($aname) ?>', '<?= addslashes($elig) ?>')">Open</button>
+   <button onclick="open_win('<?php echo(addslashes($aname)) ?>', '<?php echo (addslashes($elig)) ?>')">Open</button>
 </td>
 
-<?	
+<?php
 	print ("</tr>");
 //exit;
 } //while

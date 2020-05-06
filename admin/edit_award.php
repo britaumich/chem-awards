@@ -176,9 +176,9 @@ else {
 
 <div class='floatright'>
         </form>
-    <form name="forme" method="post" action="award.php?id=<? echo $id; ?>">
-           <input type="hidden" name="award_id" value="<? echo $id; ?>">
-<?
+    <form name="forme" method="post" action="award.php?id=<?php echo $id; ?>">
+           <input type="hidden" name="award_id" value="<?php echo $id; ?>">
+<?php
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 
@@ -188,9 +188,9 @@ else {
 </div>
 <div class='floatleft'>
 
-    <form name="formp" method="post" action="edit_award.php?id=<? echo $idp; ?>">
-           <input type="hidden" name="idp" value="<? echo $idp; ?>">
-<?
+    <form name="formp" method="post" action="edit_award.php?id=<?php echo $idp; ?>">
+           <input type="hidden" name="idp" value="<?php echo $idp; ?>">
+<?php
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 
@@ -203,9 +203,9 @@ else {
 ?>
 </div>
         </form>
-    <form name="formn" method="post" action="edit_award.php?id=<? echo $idn; ?>">
-           <input type="hidden" name="idn" value="<? echo $idn; ?>">
-<?
+    <form name="formn" method="post" action="edit_award.php?id=<?php echo $idn; ?>">
+           <input type="hidden" name="idn" value="<?php echo $idn; ?>">
+<?php
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 if ($key_award_id == $maxid) {
@@ -217,7 +217,7 @@ else {
 }
 ?>
         </form>
-<?
+<?php
 }
 	$sql = "SELECT awards_descr.id as id, `type`, `Award_Name`, `due_month`, `due_day`, `Awarded_By`, `Link_to_Website`, `Description`, `eligibility`, `who_is_eligible`, `comments`, eligibility_list.name AS who_is_eligible_name FROM  `awards_descr` JOIN eligibility_list ON who_is_eligible = eligibility_list.id WHERE  awards_descr.id = '$id'";
 //echo $sql;
@@ -228,10 +228,10 @@ else {
     <form name="form" method="post" action="edit_award.php">
 <table>
 <tr>
-<th>Id: <td> <? print($adata['id']) ?>
-<INPUT type ='hidden' name='id' value='<? echo $id; ?>'>
+<th>Id: <td> <?php print($adata['id']) ?>
+<INPUT type ='hidden' name='id' value='<?php echo $id; ?>'>
 <tr><th>Type:<td>choose from the list &nbsp;&nbsp;
-<?
+<?php
 $type = $adata['type'];
 $sqlp = "SELECT DISTINCT type FROM awards_descr";
     $resultp = mysqli_query($conn, $sqlp) or die("Query failed :".mysqli_error($conn));
@@ -247,7 +247,7 @@ $sqlp = "SELECT DISTINCT type FROM awards_descr";
 ?>
 &nbsp;&nbsp;or&nbsp;&nbsp;<input type="text" name="type1" placeholder="-- enter new type --" value="" >
 <tr><th>Cluster:<td> 
-<?
+<?php
 $sqlclusterids = "SELECT clusters.id FROM clusters INNER JOIN award_cluster ON clusters.id = award_cluster.cluster_id WHERE award_id = '$id'";
 $resultcluster_list = mysqli_query($conn, $sqlclusterids) or header('Location: ERROR.php?error="Unable to select applicant\'s information for editing."');
 $clustersids = array();
@@ -268,7 +268,7 @@ if (mysqli_num_rows($resultcluster) != 0) {
      }
 }
 ?> 
-<tr><th>Award Name:<td><input type="text" name="Award_Name" size="90" value="<? print($adata['Award_Name']) ?>"> 
+<tr><th>Award Name:<td><input type="text" name="Award_Name" size="90" value="<?php print($adata['Award_Name']) ?>"> 
 <tr><th>Due Date:<td> 
 <?php
 $due_month = $adata['due_month'];
@@ -288,12 +288,12 @@ $due_month = $adata['due_month'];
     <option value='November' <?php if($due_month == 'November') { ?> selected <?php } ?>>November</option>
     <option value='December' <?php if($due_month == 'December') { ?> selected <?php } ?>>December</option>
     </select> 
-<input type="text" name="due_day" value="<? print($adata['due_day']); ?>"> 
-<tr><th>Awarded By:<td><input type="text" name="Awarded_By" size="90" value="<? print($adata['Awarded_By']) ?> ">
-<tr><th>Link to Website:<td><input type="text" name="Link_to_Website" size="90" value="<? print($adata['Link_to_Website']) ?>"> 
-<tr><th>Description:<td><textarea name="Description" cols="90" rows="7"><? echo $adata['Description'] ?> </textarea>
-<tr><th>Eligibility:<td><textarea name="eligibility" cols="90" rows="7"><? echo $adata['eligibility'] ?></textarea> 
-<tr><th>Who is Eligible:<td> <? 
+<input type="text" name="due_day" value="<?php print($adata['due_day']); ?>"> 
+<tr><th>Awarded By:<td><input type="text" name="Awarded_By" size="90" value="<?php print($adata['Awarded_By']) ?> ">
+<tr><th>Link to Website:<td><input type="text" name="Link_to_Website" size="90" value="<?php print($adata['Link_to_Website']) ?>"> 
+<tr><th>Description:<td><textarea name="Description" cols="90" rows="7"><?php echo $adata['Description'] ?> </textarea>
+<tr><th>Eligibility:<td><textarea name="eligibility" cols="90" rows="7"><?php echo $adata['eligibility'] ?></textarea> 
+<tr><th>Who is Eligible:<td> <?php
 $whois = $adata['who_is_eligible'];
 $sqlname = "SELECT id, name FROM eligibility_list ORDER BY name";
 $resultname = mysqli_query($conn, $sqlname) or header('Location: ERROR.php?error="Unable to select applicant\'s information for editing."');
@@ -309,7 +309,7 @@ if (mysqli_num_rows($resultname) != 0) {
 /*
 ?> 
 <tr><th>Tags:<td> 
-<? 
+<?php
 $sqltag = "SELECT tags.id FROM `tags` inner join award_tag on tags.id = award_tag.tag_id where award_id = '$id'";
 $resulttag = mysqli_query($conn, $sqltag) or header('Location: ERROR.php?error="Unable to select applicant\'s information for editing."');
 $tagids = array();
@@ -334,9 +334,9 @@ if (mysqli_num_rows($resulttag_list) != 0) {
 }
 */
 ?> 
-<tr><th>Comments:<td><textarea name="comments" cols="90" rows="7"><? echo $adata['comments'] ?> </textarea>
+<tr><th>Comments:<td><textarea name="comments" cols="90" rows="7"><?php echo $adata['comments'] ?> </textarea>
 </table>
-<?
+<?php
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 
