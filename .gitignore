@@ -7,5 +7,3 @@ faculty/error_log
 *.swo
 *.swp
 uploadfiles
-eebstyle.css
-noinject.php
