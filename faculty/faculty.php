@@ -171,17 +171,10 @@ $sql1 = "SELECT id AS letter_id, type, link, upload_date FROM faculty_letters WH
 $result1 = mysqli_query($conn, $sql1) or die ("Query failed : " . mysqli_error($conn));
 WHILE ($recUpload = mysqli_fetch_array($result1, MYSQLI_BOTH))
         { ?>
-<<<<<<< HEAD
-              <tr><td> <?php print("$recUpload[type]") ?> :</td><td>
-                 <?php print("<a href=\"http://apps-prod.chem.lsa.umich.edu/chem-awards/uploadfiles/$recUpload[link]\" target=\"_blank\"> $recUpload[link]</a>") ?><br>
-              <td> <?php print("$recUpload[upload_date]") ?></td>
-=======
               <tr><td> <? print("$recUpload[type]") ?> :</td><td>
                  <? $link = $uploaddir . $recUpload[link];
                    print("<a href=". $link . " target=\"_blank\"> $recUpload[link]</a>") ?><br>
               <td> <? print("$recUpload[upload_date]") ?></td>
->>>>>>> master
-
 
                 <?php
                  $letter_id = $recUpload[letter_id];
