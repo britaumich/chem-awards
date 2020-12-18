@@ -23,7 +23,7 @@ echo $recomtext;
    echo "<h1>Thanks</h1>";
 exit;
 }
-if(isset($_POST[submit])) {
+if(isset($_POST['submit'])) {
 
       $replacefile = $purifier->purify($_REQUEST['replacefile']);
       $uniqname = $purifier->purify($_REQUEST['uniqname']);

@@ -39,8 +39,8 @@ while ($rdata = mysqli_fetch_array($resultrank, MYSQLI_BOTH))  {
 }
 //echo '<pre>allranks'; var_export($allranks); echo '</pre>';
 $eliglist = array();
-$eliglist = purica_array($conn, $_REQUEST[eliglist]);
-$elig_check = purica_array($conn, $_REQUEST[elig_check]);
+$eliglist = purica_array($conn, $_REQUEST['eliglist']);
+$elig_check = purica_array($conn, $_REQUEST['elig_check']);
 //echo '<pre>eliglist'; var_export($eliglist); echo '</pre>';
   foreach($elig_check as $rank_id=>$val){ 
 //echo '<pre>'; var_export($val); echo '</pre>';
@@ -96,7 +96,7 @@ echo ('<td><input type="text" size="35" name="newelig" value=""></td>');
 echo ('<td> <input type="submit" name="addelig" value="Add"></td>');
 while ( $edata = mysqli_fetch_array($resulte, MYSQLI_BOTH) )
 {
-    $id = $edata[id];
+    $id = $edata['id'];
     echo "<tr>";
     echo '<td>' . $id . '</td>';
     echo '<td>' . $edata['name'] . '</td>';
@@ -120,7 +120,7 @@ echo "</table>";
 <tr><th>Rank<th>Eligibility</tr>
 <?php
 while ($ranks = mysqli_fetch_array($resultr, MYSQLI_BOTH)) {
-     $id = $ranks[id];
+     $id = $ranks['id'];
 	$sql = "SELECT rank_id, eligibility_id FROM eligibility WHERE rank_id = $id";
 	$result=mysqli_query($conn, $sql) or die("There was an error: ".mysqli_connect_error());
 	$sqle = "SELECT id, name FROM eligibility_list";
@@ -128,11 +128,11 @@ while ($ranks = mysqli_fetch_array($resultr, MYSQLI_BOTH)) {
 ?>	
   <tr><td>
 <?php
-echo $ranks[rank];
+echo $ranks['rank'];
 echo "<td>";
 $eligids = array();
 while ($elig1 = mysqli_fetch_array ($result, MYSQLI_BOTH)) {
-   $eligids[] = $elig1[eligibility_id];
+   $eligids[] = $elig1['eligibility_id'];
 }
 //echo '<pre>'; var_export($eligids); echo '</pre>';
 
@@ -141,10 +141,10 @@ if (mysqli_num_rows($resulte) != 0) {
            echo "<input type='checkbox' name='elig_check[";
            echo $id;
            echo "][";
-           echo $eligs[id];
+           echo $eligs['id'];
            echo "]' ";
            echo "value='$eligs[id]'";
-           if (in_array($eligs[id], $eligids)) {echo " checked"; }
+           if (in_array($eligs['id'], $eligids)) {echo " checked"; }
            echo ">$eligs[name]";  
            echo "<br>";
      }
@@ -155,7 +155,7 @@ if (mysqli_num_rows($resulte) != 0) {
 }
 $resulte=mysqli_query($conn, $sqle) or die("There was an error: ".mysqli_connect_error());
 while ( $eligs = mysqli_fetch_array($resulte, MYSQLI_BOTH) ) {
-         echo "<input type='hidden' name='eliglist[]' value='" . $eligs[id] . "'>";
+         echo "<input type='hidden' name='eliglist[]' value='" . $eligs['id'] . "'>";
      
 }
 ?>

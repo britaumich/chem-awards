@@ -43,7 +43,7 @@ print("<select name='uniqname'>");
         WHILE ($applicant_name = mysqli_fetch_array($resf, MYSQLI_BOTH))
         {
                echo "<option";
-               if ($applicant_name[uniqname] == $uniqname) { echo " selected"; }
+               if ($applicant_name['uniqname'] == $uniqname) { echo " selected"; }
                echo " value='$applicant_name[uniqname]'>$applicant_name[Name]</option>";
         }
 echo "</select>";
@@ -59,7 +59,7 @@ echo "<select name='month'>";
 echo "<option select value='%'> - pick all  -</option>";
 while ($months = mysqli_fetch_array($resm, MYSQLI_BOTH)) {
            echo "<option";
-           if ($months[due_month] == $month) { echo " selected"; }
+           if ($months['due_month'] == $month) { echo " selected"; }
            echo " value='$months[due_month]'>$months[due_month]</option>";
 }
 echo "</select>";
@@ -68,7 +68,7 @@ echo "</select>";
 echo "<td>Clusters: ";
 
 $clustersids = array();
-    $clustersids = purica_array($conn, $_REQUEST[cluster_check]);
+    $clustersids = purica_array($conn, $_REQUEST['cluster_check']);
 //    $clustersids = $purifier->purify($_REQUEST[cluster_check]);
     if ($clustersids == NULL) {$clustersids = array();}
 //echo '<pre>list id'; var_export($clustersids); echo '</pre>';
@@ -77,15 +77,15 @@ $clustersids = array();
     $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));
 if (mysqli_num_rows($result) != 0) {
      while ( $clusters = mysqli_fetch_array($result, MYSQLI_BOTH) ) {
-        $cname = $clusters[name];
+        $cname = $clusters['name'];
         if ($cname == "None")  {
            echo "<td>";
         }
            echo "<input type='checkbox' name='cluster_check[";
-           echo $clusters[id];
+           echo $clusters['id'];
            echo "]' ";
            echo "value='$clusters[id]'";
-           if (in_array($clusters[id], $clustersids)) {echo " checked"; }
+           if (in_array($clusters['id'], $clustersids)) {echo " checked"; }
            if ($cname == "None")  {
                 echo ">all fields of chemistry";
            }
@@ -105,14 +105,14 @@ echo "</form>";
 echo "<div align='center'><img src='../images/linecalendarpopup500.jpg'></div><Br>";
 
 }
-if (isset($_REQUEST[submit])) {
+if (isset($_REQUEST['submit'])) {
 
 $uniqname = $purifier->purify($_REQUEST['uniqname']);
 $fac_id = $purifier->purify($_REQUEST['fac_id']);
 
      $id = $purifier->purify($_REQUEST['id']);
      $awardid = array();
-     $awardid = purica_array($conn, $_REQUEST[awardid]);
+     $awardid = purica_array($conn, $_REQUEST['awardid']);
   if (!is_null($awardid)) {
 
      $sql =  "INSERT INTO faculty_awards (faculty_id, uniqname, award_id, status, year) VALUES ";
@@ -128,7 +128,7 @@ $fac_id = $purifier->purify($_REQUEST['fac_id']);
    echo "no awards were selected";
  } 
 }
-if (isset($_REQUEST[choose]) OR ($uniqname !== "")) {
+if (isset($_REQUEST['choose']) OR ($uniqname !== "")) {
 echo "<form name='form2' method='post' action='check_award.php'>";
 if ($uniqname == "") {
 $uniqname = $purifier->purify($_REQUEST['uniqname']);
@@ -145,17 +145,17 @@ if ($is_eligible == "") {
    $resulte = mysqli_query($conn, $sqle) or die("Query failed :".mysqli_connect_error());
    $rows= array();
    while ($row = mysqli_fetch_array($resulte, MYSQLI_BOTH)) {
-        $rows[] = $row[eligibility_id];
+        $rows[] = $row['eligibility_id'];
    }
    $sqlp = "select Year_PhD from  faculty WHERE faculty.uniqname = '$uniqname'";
    $resultp = mysqli_query($conn, $sqlp) or die("Query failed :".mysqli_connect_error());
 
    $res = mysqli_fetch_array($resultp, MYSQLI_BOTH);
-   $Year_PhD = $res[Year_PhD];
-   if ((date("Y") - $Year_PhD) < 11 ) {
+   $Year_PhD = $res['Year_PhD'];
+   if ((date("Y") - (int)$Year_PhD) < 11 ) {
            $rows[] = "8";
    };
-   if ((date("Y") - $Year_PhD) < 6 ) {
+   if ((date("Y") - (int)$Year_PhD) < 6 ) {
            $rows[] = "7";
    };
 //   echo '<pre>'; var_export($rows); echo '</pre>';
@@ -167,7 +167,7 @@ else {
 }
 
    $cluster_check = array();
-    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
+    $cluster_check = purica_array($conn, $_REQUEST['cluster_check']);
     if (!empty($_REQUEST['cluster_check'])) {
         $clusterlist = implode(", ", $cluster_check);
 
@@ -219,7 +219,7 @@ $sqlawards = "SELECT award_id FROM faculty_awards WHERE faculty_id = '$fac_id' A
 $resawards = mysqli_query($conn, $sqlawards) or die("There was an error: ".mysqli_connect_error());
 $awids = array();
 while ($aw = mysqli_fetch_array ($resawards, MYSQLI_BOTH)) {
-    $awids [] = $aw[award_id];
+    $awids [] = $aw['award_id'];
 }
 //echo '<pre>'; var_export($awids); echo '</pre>';
 echo "<Br><Br>";
@@ -239,7 +239,7 @@ echo ("<table>
 
 $search_id_list = array();
 while ( $idata = mysqli_fetch_array($result, MYSQLI_BOTH) ) {
-        $search_id_list[] = $idata[id];
+        $search_id_list[] = $idata['id'];
 }
 $arr = serialize($search_id_list);
 $result = mysqli_query($conn, $sqlsearch) or die("There was an error: ".mysqli_error($conn));
@@ -247,7 +247,7 @@ $result = mysqli_query($conn, $sqlsearch) or die("There was an error: ".mysqli_e
 while ( $adata = mysqli_fetch_array($result, MYSQLI_BOTH) ) 
 {
 	
-     $id = $adata[id]; 
+     $id = $adata['id']; 
 	echo ("<tr>");
         echo "<td><a class='openbutton' href='award.php?search_id_list=$arr&award_id=$id'>Open</td>";
 
@@ -256,8 +256,8 @@ while ( $adata = mysqli_fetch_array($result, MYSQLI_BOTH) )
 		echo "<td><a href='$adata[Link_to_Website]' target='_blank'>$adata[Award_Name]</td>";
 		echo "<td>$adata[Awarded_By]</td>";
 //echo '<pre>'; var_export($awids); echo '</pre>';
-   $aname = $adata[Award_Name];
-   $descr = $adata[Description];
+   $aname = $adata['Award_Name'];
+   $descr = $adata['Description'];
   $aname = preg_replace("/\r?\n/", "\\n", addslashes($aname));
   $descr = preg_replace("/\r?\n/", "\\n", addslashes($descr));
 

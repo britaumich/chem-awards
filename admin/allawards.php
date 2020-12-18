@@ -27,7 +27,7 @@ if ($sort !== '') {
 $start = "none";
 $end = "none";
 
-if (isset($_REQUEST[submit])) {
+if (isset($_REQUEST['submit'])) {
 
      $type = $purifier->purify($_REQUEST['type']);
 //     $due_month = $purifier->purify($_REQUEST['due_month']);
@@ -42,7 +42,7 @@ if (isset($_REQUEST[submit])) {
      $keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 
     $cluster_check = array();
-    $cluster_check = purica_array($conn, $_REQUEST[cluster_check]);
+    $cluster_check = purica_array($conn, $_REQUEST['cluster_check']);
     if (!empty($cluster_check)) {
         $clusterlist = implode(", ", $cluster_check);
             $from = " FROM (SELECT `id`, `type`, `Award_Name`, Due_Month, `Awarded_By`, `Link_to_Website`, `Description`, `eligibility`, who_is_eligible, `comments` FROM  `awards_descr` JOIN award_cluster ON awards_descr.id = award_cluster.award_id WHERE award_cluster.cluster_id IN (" . $clusterlist . ") GROUP BY awards_descr.id) a ";
@@ -103,7 +103,7 @@ echo ('<input type="submit" name="remove" value="Delete Awards">');
         while ($typelist = mysqli_fetch_array($result, MYSQLI_BOTH))
         {
            echo "<option";
-           if ($typelist[type] == $type) { echo " selected"; } 
+           if ($typelist['type'] == $type) { echo " selected"; } 
            echo " value=$typelist[type]>$typelist[type]</option>";
         }
     echo "</select><br>";
@@ -118,7 +118,7 @@ echo "<select name='month'>";
 echo "<option select value='%'> - pick all  -</option>";
 while ($months = mysqli_fetch_array($resm, MYSQLI_BOTH)) {
            echo "<option";
-           if ($months[due_month] == $month) { echo " selected"; }
+           if ($months['due_month'] == $month) { echo " selected"; }
            echo " value='$months[due_month]'>$months[due_month]</option>";
 }
 echo "</select>";
@@ -135,16 +135,16 @@ $clustersids = array();
     $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));
 if (mysqli_num_rows($result) != 0) {
      while ( $clusters = mysqli_fetch_array($result, MYSQLI_BOTH) ) {
-           $cname = $clusters[name];
+           $cname = $clusters['name'];
            echo "<input type='checkbox' name='cluster_check[";
-           echo $clusters[id];
+           echo $clusters['id'];
            echo "]' ";
            echo "value='$clusters[id]'";
-           if (in_array($clusters[id], $clustersids)) {echo " checked"; }
+           if (in_array($clusters['id'], $clustersids)) {echo " checked"; }
                 echo ">$cname";
 
 //           echo ">$cname";
-           echo "<input type='hidden' name='clusterlist[]' value='" . $clusters[id] . "'>";
+           echo "<input type='hidden' name='clusterlist[]' value='" . $clusters['id'] . "'>";
      }
 }
 
@@ -157,8 +157,8 @@ if (mysqli_num_rows($result) != 0) {
         while ($tags = mysqli_fetch_array($result, MYSQLI_BOTH))
         {
            echo "<option";
-           if ($tags[id] == $tag) { echo " selected"; } 
-           echo " value=$tags[id]>$tags[tag]</option>";
+           if ($tags['id'] == $tag) { echo " selected"; } 
+           echo " value=$tags['id']>$tags[tag]</option>";
         }
     echo "</select>";
 */
@@ -174,7 +174,7 @@ if (mysqli_num_rows($result) != 0) {
         while ($eligibility = mysqli_fetch_array($result, MYSQLI_BOTH))
         {
            echo "<option";
-           if ($eligibility[id] == $eligable) { echo " selected"; } 
+           if ($eligibility['id'] == $eligable) { echo " selected"; } 
            echo " value=$eligibility[id]>$eligibility[name]</option>";
         }
     echo "</select>";
@@ -213,7 +213,7 @@ while ( $idata = mysqli_fetch_array($result, MYSQLI_BOTH) )
 {
 	
 // get a list of ids from $sqlsearch
-     $search_id_list[] = $idata[id];
+     $search_id_list[] = $idata['id'];
 }
  $result = mysqli_query($conn, $sqlsearch) or die("sqlsearch query failedb:".mysqli_error($conn));
 
@@ -226,7 +226,7 @@ echo "<form name='form3' action='award.php' method='post'>";
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 
-echo '<input type="hidden" name="award_id" value="' . $adata[id] . '">';
+echo '<input type="hidden" name="award_id" value="' . $adata['id'] . '">';
 echo ('<td> <input type="submit" name="List" value="Open"></td>');
  echo('</form></td>');
 
@@ -234,15 +234,15 @@ echo "<form name='form4' action='edit_award.php' method='post'>";
      $arr = serialize($search_id_list);
      echo "<input type='hidden' name='search_id_list' value='" . $arr . "'>"  ;
 
-echo '<input type="hidden" name="id" value="' . $adata[id] . '">';
+echo '<input type="hidden" name="id" value="' . $adata['id'] . '">';
 echo ('<td> <input type="submit" name="Edit" value="Edit"></td>');
  echo('</form></td>');
 		echo "<td><a href='$adata[Link_to_Website]' target='_blank'>$adata[Award_Name]</td>";
 		echo "<td>$adata[Due_Month]</td>";
 		echo "<td>$adata[Awarded_By]</td>";
-   $aname = $adata[Award_Name];
-    $descr = $adata[Description];
-    $elig = $adata[eligibility];
+   $aname = $adata['Award_Name'];
+    $descr = $adata['Description'];
+    $elig = $adata['eligibility'];
     $descr = preg_replace("/\r?\n/", "\\n", addslashes($descr));
     $elig = preg_replace("/\r?\n/", "\\n", addslashes($elig));
 

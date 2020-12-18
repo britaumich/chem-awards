@@ -24,7 +24,7 @@ $keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 //echo "<br>award_id: ";
 //echo $award_id;
 
-$error = $purifier->purify($_REQUEST[error]);
+$error = $purifier->purify($_REQUEST['error']);
 if($error != ''){
       echo "<table><TR><TD align=center><span style=color:red><b>ERRORS!</b></span><TR><TD><span style=color:red>$error</span></table>";
   }
@@ -44,7 +44,7 @@ echo "<br><div align='center'><img src='../images/linecalendarpopup500.jpg'></di
 
 echo "<br>";
 
-if (isset($_REQUEST[choose]) || $keyword_search != '') {
+if (isset($_REQUEST['choose']) || $keyword_search != '') {
   if ($award_id == "") {
 //   $awids = array();
 
@@ -82,7 +82,7 @@ if ($award_id == '') {
 
    while ($adata = mysqli_fetch_array($ressearch, MYSQLI_BOTH) ) {
 echo "<tr>";
-           $id = $adata[id];
+           $id = $adata['id'];
                 echo "<td><a href='$adata[Link_to_Website]' target='_blank'>$adata[Award_Name]</td>";
                 echo "<td>$adata[Awarded_By]</td>";
 
@@ -158,7 +158,7 @@ $total=mysqli_num_rows($reslist);
 
 while ($faward = mysqli_fetch_array($reslist, MYSQLI_BOTH) )
 {
-    $dataid = $faward[dataid];
+    $dataid = $faward['dataid'];
     $status = $faward['status'];
     $uniqname = $faward['uniqname'];
     $faculty_id = $faward['faculty_id'];
@@ -184,7 +184,7 @@ $total=mysqli_num_rows($resultnc);
 if ($total !== 0 )  {
 echo "<tr><th>Non Chemistry Awards</th>";
     while ( $awardnc = mysqli_fetch_array($resultnc, MYSQLI_BOTH) ) {
-       $dataid = $awardnc[id];
+       $dataid = $awardnc['id'];
        $status = $awardnc['status'];
        $name = $awardnc['name'];
        $year = $awardnc['year'];

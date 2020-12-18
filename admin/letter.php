@@ -24,7 +24,7 @@ exit;
 }
 $recnamenew = "";
 $recemailnew = "";
-if(isset($_POST[submit])) {
+if(isset($_POST['submit'])) {
 
       $replacefile = $purifier->purify($_REQUEST['replacefile']);
       $uniqname = $purifier->purify($_REQUEST['uniqname1']);
@@ -60,12 +60,18 @@ if(isset($_POST[submit])) {
 //print_r($_FILES);
 //echo '<pre>'; var_export($_FILES); echo '</pre>';
 //exit;
+/*
    $tmp_name = $purifier->purify($_FILES['recfilename']['tmp_name']);
    $type = $purifier->purify($_FILES['recfilename']['type']);
    $name = $purifier->purify($_FILES['recfilename']['name']);
    $size = $purifier->purify($_FILES['recfilename']['size']);
    $file_extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-
+*/
+$tmp_name = $_FILES['recfilename']['tmp_name'];
+   $type = $_FILES['recfilename']['type'];
+   $name = $_FILES['recfilename']['name'];
+   $size = $_FILES['recfilename']['size'];
+   $file_extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
 
   if($name =='')  {
      $error.="Please select a PDF or DOC file!<br />";
