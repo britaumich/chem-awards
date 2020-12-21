@@ -10,7 +10,8 @@
 
 <body>
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
+require_once('../awards-config.php');
+
 require_once('nav.php');
 
 

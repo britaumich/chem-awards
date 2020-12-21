@@ -76,7 +76,8 @@ class SQLPlaceholder
 {
 	var $type;
 
-	function SQLPlaceholder($type)
+//	function SQLPlaceholder($type)
+        function __construct($type)
 	{
 		$this->type = strtolower($type);
 	}
@@ -121,7 +122,8 @@ class SQLStatement
 	              # 1 is the first placeholder, 2 the second, etc., or FALSE
 	              # when the last error was a MySQL error.
 
-	function SQLStatement($query_str)
+//	function SQLStatement($query_str)
+        function __construct($query_str)
 	{
 		$this->nplaceholders = 0;
 		$this->error = "";
