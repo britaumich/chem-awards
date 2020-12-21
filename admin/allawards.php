@@ -112,7 +112,8 @@ echo ('<input type="submit" name="remove" value="Delete Awards">');
 echo "<br>Award Month: ";
 $month = $purifier->purify($_REQUEST['month']);
 if ($month == "" ) { $month = "%";}
-    $sqlm ="SELECT DISTINCT due_month FROM `awards_descr` order by month(str_to_date(left(due_month, 3),'%b'))";
+//    $sqlm ="SELECT DISTINCT due_month FROM `awards_descr` order by month(str_to_date(left(due_month, 3),'%b'))";
+    $sqlm ="SELECT DISTINCT due_month FROM `awards_descr` order by month(str_to_date(CONCAT(left(due_month, 3), ' 01 2020'),'%b %d %Y'))";
       $resm = mysqli_query($conn, $sqlm) or die("There was an error getting min date: ".mysqli_error($conn));
 echo "<select name='month'>";
 echo "<option select value='%'> - pick all  -</option>";
