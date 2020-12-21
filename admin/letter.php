@@ -22,16 +22,19 @@ echo $recomtext;
    echo "<h1>Thanks</h1>";
 exit;
 }
-$recnamenew = "";
-$recemailnew = "";
+//$recnamenew = "";
+//$recemailnew = "";
 if(isset($_POST['submit'])) {
 
+     $recid = 0;
+     $recname = "-";
       $replacefile = $purifier->purify($_REQUEST['replacefile']);
       $uniqname = $purifier->purify($_REQUEST['uniqname1']);
       $lettertype = $purifier->purify($_REQUEST['lettertype']);
       $lettertype1 = $purifier->purify($_REQUEST['lettertype1']);
   if($uniqname =='' ){ $uniqname = $purifier->purify($_REQUEST['uniqname']); }
   if($uniqname =='' ){ $error.="Please select a faculty!<br />"; }
+/*
   if($lettertype =='' ) {
       if($lettertype1 =='' ) { 
           $error.="Please select a type!<br />"; 
@@ -54,7 +57,7 @@ if(isset($_POST['submit'])) {
      $recid = 0;
      $recname = "-";
   }
-
+*/
 // store the file information to variables for easier access
 //$file1 = array();
 //print_r($_FILES);
@@ -137,7 +140,7 @@ if ($errorid == 0) {
 <?php
 }
 ?>
-<div align="center"><h2>Upload a Letter <br><br><h2>
+<div align="center"><h2>Upload a CV <br><br><h2>
 </div></h2>
 <form method="post" action="letter.php" enctype="multipart/form-data">
 <strong>Select a Faculy: </strong> 
@@ -146,8 +149,8 @@ $lettertype = $purifier->purify($_REQUEST['lettertype']);
 $lettertype1 = $purifier->purify($_REQUEST['lettertype1']);
 if ($again == "yes") {
     $uniqname = "";
-    $lettertype = "";
-    $lettertype1 = "";
+    $lettertype = "cv";
+    $lettertype1 = "cv";
 }
         $sql = "SELECT uniqname, Name FROM faculty ORDER BY name ASC";
         $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));
@@ -157,12 +160,13 @@ if ($again == "yes") {
         WHILE ($applicant_name = mysqli_fetch_array($result, MYSQLI_BOTH))
         {
                 echo "<option";
-                if ($applicant_name[uniqname] == $uniqname) { echo " selected"; }
+                if ($applicant_name['uniqname'] == $uniqname) { echo " selected"; }
                 echo " value='$applicant_name[uniqname]'>$applicant_name[Name]</option>";
         }
 ?>
 </select>
 <?php
+/*
     $sql = "SELECT DISTINCT (type) FROM faculty_letters";
    $result = mysqli_query($conn, $sql);
 
@@ -173,7 +177,7 @@ if ($again == "yes") {
         WHILE ($ldata = mysqli_fetch_array($result, MYSQLI_BOTH))
         {
                 echo "<option";
-                if ($ldata[type] == $lettertype) { echo " selected"; }
+                if ($ldata['type'] == $lettertype) { echo " selected"; }
                 echo " value='$ldata[type]'>$ldata[type]</option>";
         }
 
@@ -193,7 +197,7 @@ $result = mysqli_query($conn, $sql);
         WHILE ($ldata = mysqli_fetch_array($result, MYSQLI_BOTH))
         {
                 echo "<option";
-                if ($ldata[recid] == $recid) { echo " selected"; }
+                if ($ldata['recid'] == $recid) { echo " selected"; }
                 echo " value='$ldata[recid]'>$ldata[rec_name]</option>";
         }
 
@@ -208,10 +212,13 @@ if ((($recnamenew !== "") || ($recemailnew !== "")) && ($again !== "yes")){
 <br>
 <?php
 }
+*/
 ?>
+<!--
 <div id="txtHint0"></div>
 <div id="txtHint"></div>
 <div id="txtHint1"></div>
+-->
 <br><br>
 <img src="../images/box650top.jpg"><div class="box650mid"><div class="pad15and10">
 <h3>Upload File</h3>
@@ -231,6 +238,7 @@ Must be <strong>ONE file</strong> and be in <strong>PDF or DOC format</strong>. 
 <br>
 <bR><div align="center"><img src="../images/linecalendarpopup500.jpg"></div>
 </form>
+<!--
 <script>
 function showRecomenders(str) {
 console.log(str);
@@ -287,6 +295,6 @@ function showOneRecomender(str) {
 }
 
 </script>
-
+-->
 </body> 
 </html>
