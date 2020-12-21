@@ -16,7 +16,7 @@
 <bR><div align="center"><img src="images/linecalendarpopup500.jpg"></div><Br>
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . '/../support/awards_dbConnect.inc');
-
+// test
 //$uniqname1 = $_SERVER['REMOTE_USER'];
 $uniqname1 = $_SERVER['REDIRECT_REMOTE_USER'];
 
