@@ -30,14 +30,14 @@ $end = "none";
 if (isset($_REQUEST['submit'])) {
 
      $type = $purifier->purify($_REQUEST['type']);
-     $due_month = $purifier->purify($_REQUEST['month']);
+//     $due_month = $purifier->purify($_REQUEST['month']);
 //     $cluster = $purifier->purify($_REQUEST['cluster']);
 
 
 //     $tag = $purifier->purify($_REQUEST['tag']);
-     $eligable = $purifier->purify($_REQUEST['eligable']);
-     $start = $purifier->purify($_REQUEST['start']);
-     $end = $purifier->purify($_REQUEST['end']);
+//     $eligable = $purifier->purify($_REQUEST['eligable']);
+//     $start = $purifier->purify($_REQUEST['start']);
+//     $end = $purifier->purify($_REQUEST['end']);
      $keyword_search = $purifier->purify($_REQUEST['keyword_search']);
 
     $cluster_check = array();
@@ -63,7 +63,7 @@ if (isset($_REQUEST['submit'])) {
      }
 
      if ($type !== 'none' ) { $where .= " AND type = '" . $type . "'"; }
-     if ($eligable !== 'none' ) { $where .= " AND a.who_is_eligible = '" . $eligable . "'"; }
+//     if ($eligable !== 'none' ) { $where .= " AND a.who_is_eligible = '" . $eligable . "'"; }
      if ($keyword_search !== "") { 
            $where .= " AND ("; 
          foreach (explode(",", $keyword_search) as $key) {
@@ -74,7 +74,7 @@ if (isset($_REQUEST['submit'])) {
          $where .= ")";
 
      }
-     $where .= "  AND due_month LIKE '%$due_month%'";
+//     $where .= "  AND due_month LIKE '%$due_month%'";
 
      $sqlsearch =  $sqls . $from . $where . " ORDER BY FIELD(due_month, 'September', 'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August')";
 //echo $sqlsearch;
@@ -95,9 +95,10 @@ if (isset($_REQUEST['submit'])) {
            if ($typelist['type'] == $type) { echo " selected"; } 
            echo " value=$typelist[type]>$typelist[type]</option>";
         }
-    echo "</select><br>";
+    echo "</select>";
 
 // month
+/*
 echo "<br>Award Month: ";
 $month = $purifier->purify($_REQUEST['month']);
 if ($month == "" ) { $month = "%";}
@@ -111,7 +112,7 @@ while ($months = mysqli_fetch_array($resm, MYSQLI_BOTH)) {
            echo " value='$months[due_month]'>$months[due_month]</option>";
 }
 echo "</select>";
-
+*/
 //
 /*
 $sqlm = "SELECT DISTINCT due_month, if ( month(str_to_date(left(due_month, 3),'%b')) > 8, month(str_to_date(left(due_month, 3),'%b')), month(str_to_date(left(due_month, 3),'%b'))+12) AS num FROM awards_descr ORDER BY FIELD(due_month, 'September', 'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'varied')";
@@ -195,6 +196,7 @@ if (mysqli_num_rows($result) != 0) {
     echo "<br><br>Search by Keywords (in Award Name and Awarded By)";
     echo '&nbsp;<input type="text" name="keyword_search" size = "40" placeholder="-- keywords, separated by commas --" value="' . $keyword_search . '" >';
     echo "<br>";
+/*
     $sql = "SELECT id, name FROM eligibility_list ORDER BY name";
     $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));
     echo "<br>Eligibility: ";
@@ -207,7 +209,8 @@ if (mysqli_num_rows($result) != 0) {
            echo " value=$eligibility[id]>$eligibility[name]</option>";
         }
     echo "</select>";
-    echo "<br><br>";
+*/
+    echo "<br>";
 ?>
        <input type="submit" name="submit" value="Search">
 </form>

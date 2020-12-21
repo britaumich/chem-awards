@@ -36,7 +36,7 @@ if (isset($_REQUEST['submit'])) {
 
 
 //     $tag = $purifier->purify($_REQUEST['tag']);
-     $eligable = $purifier->purify($_REQUEST['eligable']);
+//     $eligable = $purifier->purify($_REQUEST['eligable']);
 //     $start = $purifier->purify($_REQUEST['start']);
 //     $end = $purifier->purify($_REQUEST['end']);
      $keyword_search = $purifier->purify($_REQUEST['keyword_search']);
@@ -64,7 +64,7 @@ if (isset($_REQUEST['submit'])) {
      }
 
      if ($type !== 'none' ) { $where .= " AND type = '" . $type . "'"; }
-     if ($eligable !== 'none' ) { $where .= " AND a.who_is_eligible = '" . $eligable . "'"; }
+//     if ($eligable !== 'none' ) { $where .= " AND a.who_is_eligible = '" . $eligable . "'"; }
      if ($keyword_search !== "") { 
            $where .= " AND ("; 
          foreach (explode(",", $keyword_search) as $key) {
@@ -112,7 +112,8 @@ echo ('<input type="submit" name="remove" value="Delete Awards">');
 echo "<br>Award Month: ";
 $month = $purifier->purify($_REQUEST['month']);
 if ($month == "" ) { $month = "%";}
-    $sqlm ="SELECT DISTINCT due_month FROM `awards_descr` order by month(str_to_date(left(due_month, 3),'%b'))";
+//    $sqlm ="SELECT DISTINCT due_month FROM `awards_descr` order by month(str_to_date(left(due_month, 3),'%b'))";
+    $sqlm ="SELECT DISTINCT due_month FROM `awards_descr` order by month(str_to_date(CONCAT(left(due_month, 3), ' 01 2020'),'%b %d %Y'))";
       $resm = mysqli_query($conn, $sqlm) or die("There was an error getting min date: ".mysqli_error($conn));
 echo "<select name='month'>";
 echo "<option select value='%'> - pick all  -</option>";
@@ -166,6 +167,7 @@ if (mysqli_num_rows($result) != 0) {
     echo "<br><br>Search by Keywords (in Award Name and Awarded By)";
     echo '&nbsp;<input type="text" name="keyword_search" size = "40" placeholder="-- keywords, separated by commas --" value="' . $keyword_search . '" >';
     echo "<br>";
+/*
     $sql = "SELECT id, name FROM eligibility_list ORDER BY name";
     $result = mysqli_query($conn, $sql) or die("Query failed :".mysqli_error($conn));
     echo "<br>Eligibility: ";
@@ -178,7 +180,8 @@ if (mysqli_num_rows($result) != 0) {
            echo " value=$eligibility[id]>$eligibility[name]</option>";
         }
     echo "</select>";
-    echo "<br><br>";
+*/
+    echo "<br>";
 ?>
        <input type="submit" name="submit" value="Search">
 </form>
@@ -242,9 +245,9 @@ echo ('<td> <input type="submit" name="Edit" value="Edit"></td>');
 		echo "<td>$adata[Awarded_By]</td>";
    $aname = $adata['Award_Name'];
     $descr = $adata['Description'];
-    $elig = $adata['eligibility'];
+//    $elig = $adata['eligibility'];
     $descr = preg_replace("/\r?\n/", "\\n", addslashes($descr));
-    $elig = preg_replace("/\r?\n/", "\\n", addslashes($elig));
+//    $elig = preg_replace("/\r?\n/", "\\n", addslashes($elig));
 
 ?>
 <td>
