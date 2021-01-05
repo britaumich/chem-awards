@@ -21,6 +21,9 @@ $user = getenv('db_user', true) ?: getenv('db_user');
 $pass = getenv('db_password', true) ?: getenv('db_password');
 $database = getenv('db_name', true) ?: getenv('db_name');
 
+echo $user;
+exit;
+
 $conn = mysqli_connect($server, $user, $pass) or die("couldn't connect");
 mysqli_select_db($conn, $database) or die("couldn't get the db:".mysqli_connect_error());
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
