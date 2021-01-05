@@ -27,7 +27,7 @@ echo $server;
 echo ("<br>");
 echo $database;
 echo ("<br>");
-exit;
+//exit;
 
 $conn = mysqli_connect($server, $user, $pass) or die("couldn't connect");
 mysqli_select_db($conn, $database) or die("couldn't get the db:".mysqli_connect_error());
