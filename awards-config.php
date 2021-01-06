@@ -18,7 +18,7 @@ global $uploaddir;
 ini_set('display_errors', 'On');
 //$server = getenv('db_host', true) ?: getenv('db_host');
 //$server = getenv('db_hostname', true) ?: getenv('db_hostname');
-$server = '172.30.85.217'
+$server = '172.30.85.217';
 $user = getenv('db_user', true) ?: getenv('db_user');
 $pass = getenv('db_password', true) ?: getenv('db_password');
 $database = getenv('db_name', true) ?: getenv('db_name');
