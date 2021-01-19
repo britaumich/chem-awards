@@ -11,7 +11,7 @@ $current_year = academicYear($today_dt);
 $report_year = "2019";
 $committee_email = "brita@umich.edu";
 //$committee_email = "chem-awards@umich.edu";
-$uploaddir = '/home/appdevch/upload/awards-files/';
+$uploaddir = '/data/';
 global $uploaddir;
 
 //connect to the database
