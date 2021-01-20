@@ -30,8 +30,10 @@ if(isset($_POST['submit'])) {
      $recname = "-";
       $replacefile = $purifier->purify($_REQUEST['replacefile']);
       $uniqname = $purifier->purify($_REQUEST['uniqname1']);
-      $lettertype = $purifier->purify($_REQUEST['lettertype']);
-      $lettertype1 = $purifier->purify($_REQUEST['lettertype1']);
+     // $lettertype = $purifier->purify($_REQUEST['lettertype']);
+     // $lettertype1 = $purifier->purify($_REQUEST['lettertype1']);
+  $lettertype = "cv";
+  $lettertype1 = "cv";
   if($uniqname =='' ){ $uniqname = $purifier->purify($_REQUEST['uniqname']); }
   if($uniqname =='' ){ $error.="Please select a faculty!<br />"; }
 /*
