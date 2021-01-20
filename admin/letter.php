@@ -147,8 +147,10 @@ if ($errorid == 0) {
 <form method="post" action="letter.php" enctype="multipart/form-data">
 <strong>Select a Faculy: </strong> 
  <?php
-$lettertype = $purifier->purify($_REQUEST['lettertype']);
-$lettertype1 = $purifier->purify($_REQUEST['lettertype1']);
+//$lettertype = $purifier->purify($_REQUEST['lettertype']);
+//$lettertype1 = $purifier->purify($_REQUEST['lettertype1']);
+$lettertype = "cv";
+$lettertype1 = "cv";
 if ($again == "yes") {
     $uniqname = "";
     $lettertype = "cv";
