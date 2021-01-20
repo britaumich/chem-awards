@@ -167,7 +167,7 @@ $sql1 = "SELECT * FROM faculty_letters WHERE uniqname = '$uniqname' ORDER BY typ
 //echo $sql1;
 $result1 = mysqli_query($conn, $sql1) or die ("Query failed : " . mysqli_error($conn));
 WHILE ($recUpload = mysqli_fetch_array($result1, MYSQLI_BOTH))
-       { $link = $document_link . $uploaddir . $recUpload['link'];
+       { $link = $document_link . $recUpload['link'];
 ?>
               <tr><td> <?php print("$recUpload[type]") ?> :</td><td>
                  <?php print("<a href=". $link . " target=\"_blank\"> $recUpload[link]</a>") ?><br>
