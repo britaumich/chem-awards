@@ -12,7 +12,8 @@ $report_year = "2019";
 $committee_email = "brita@umich.edu";
 //$committee_email = "chem-awards@umich.edu";
 $uploaddir = 'upload/';
-$document_link = "https://chem-awards.apps.gnosis.lsa.umich.edu/"
+$document_link = "https://chem-awards.apps.gnosis.lsa.umich.edu/";
+global $document_link;
 global $uploaddir;
 
 //connect to the database
@@ -23,13 +24,6 @@ $server = getenv('db_host', true) ?: getenv('db_host');
 $user = getenv('db_user', true) ?: getenv('db_user');
 $pass = getenv('db_password', true) ?: getenv('db_password');
 $database = getenv('db_name', true) ?: getenv('db_name');
-
-echo $user;
-echo ("<br>");
-echo $server;
-echo ("<br>");
-echo $database;
-echo ("<br>");
 
 $conn = mysqli_connect($server, $user, $pass) or die("couldn't connect");
 mysqli_select_db($conn, $database) or die("couldn't get the db:".mysqli_connect_error());
