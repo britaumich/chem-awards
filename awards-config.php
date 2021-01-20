@@ -11,7 +11,7 @@ $current_year = academicYear($today_dt);
 $report_year = "2019";
 $committee_email = "brita@umich.edu";
 //$committee_email = "chem-awards@umich.edu";
-$uploaddir = 'upload/';
+$uploaddir = '/data/';
 $document_link = "https://chem-awards.apps.gnosis.lsa.umich.edu/";
 global $document_link;
 global $uploaddir;
