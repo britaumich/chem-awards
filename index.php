@@ -19,7 +19,7 @@ include('awards-config.php');
 
 if (is_admin($uniqname1)) {
 ?>
-<form action="admin/allawards.php">
+<form action="admin/app-testing.php">
     <input type="submit" value="Admin Site" />
 </form>
 <?php
