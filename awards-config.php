@@ -17,10 +17,11 @@ global $document_link;
 global $uploaddir;
 
 //connect to the database
-ini_set('display_errors', 'On');
-$server = getenv('db_host', true) ?: getenv('db_host');
+//ini_set('display_errors', 'On');
+//$server = getenv('db_host', true) ?: getenv('db_host');
 //$server = getenv('db_hostname', true) ?: getenv('db_hostname');
 //$server = '172.30.85.217';
+/*
 $user = getenv('db_user', true) ?: getenv('db_user');
 $pass = getenv('db_password', true) ?: getenv('db_password');
 $database = getenv('db_name', true) ?: getenv('db_name');
@@ -28,6 +29,7 @@ $database = getenv('db_name', true) ?: getenv('db_name');
 $conn = mysqli_connect($server, $user, $pass) or die("couldn't connect");
 mysqli_select_db($conn, $database) or die("couldn't get the db:".mysqli_connect_error());
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+*/
 $other_admins = array('rsmoke', 'brita');
 function is_admin($uniqname)
 {
