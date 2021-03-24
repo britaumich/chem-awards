@@ -44,7 +44,7 @@ $tmp_name = $_FILES['recfilename']['tmp_name'];
   if($name =='')  {
      $error.="Please select a PDF or DOC file!<br />";
   }
-     elseif (!($file_extension == "pdf" || $file_extension == "doc" || $file_extension == "docx")){
+   elseif (!($file_extension == "pdf" || $file_extension == "doc" || $file_extension == "docx")){
          $error.="Your file is not a PDF or DOC. Please select a correct file!<br />";
      } //elseif
   else {
@@ -64,10 +64,6 @@ $tmp_name = $_FILES['recfilename']['tmp_name'];
         $filename = $lettertype . $recname . $uniqname . "-" . time() . "." . $file_extension;
         $uploadfile = $uploaddir . $filename;
         $upload_date = date("m-d-Y");
-//        $sql = "INSERT faculty_letters (uniqname, rec_id, link, type, upload_date) VALUES('$uniqname', $recid, '$filename', '$lettertype', '$upload_date')";
-//echo $sql;
-//        $res = mysqli_query($conn, $sql) or die("There was an error updating faculty_letters: ".mysqli_error($conn));
-
         if (move_uploaded_file($tmp_name, $uploadfile)) {
            chmod($uploadfile,0644);
                echo "The file has been uploaded.";
@@ -94,9 +90,6 @@ if ($errorid == 0) {
 }
 ?>
 <input type="hidden" name="errorid" value="<?php echo $errorid; ?>" />
-<?php
-}
-?>
 <div align="center"><h2>Upload a CV <br><br><h2>
 </div></h2>
 <form method="post" action="letter.php" enctype="multipart/form-data">
