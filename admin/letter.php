@@ -114,7 +114,7 @@ $tmp_name = $_FILES['recfilename']['tmp_name'];
         $res = mysqli_query($conn, $sql) or die("There was an error updating faculty_letters: ".mysqli_error($conn));
 
         if (move_uploaded_file($tmp_name, $uploadfile)) {
-           chmod($uploadfile,0644);
+           //chmod($uploadfile,0644);
                echo "The file has been uploaded.";
                $again = "yes";
            }
