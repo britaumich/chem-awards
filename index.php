@@ -16,7 +16,8 @@
 <bR><div align="center"><img src="images/linecalendarpopup500.jpg"></div><Br>
 <?php
 include('awards-config.php');
-include('vendor/phpseclib/phpseclib/phpseclib');
+$path = '/opt/app-root/src/vendor/phpseclib/phpseclib/phpseclib';
+set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 // authentication
 require __DIR__ . '/vendor/autoload.php';
 
