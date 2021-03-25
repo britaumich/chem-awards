@@ -65,7 +65,7 @@ $tmp_name = $_FILES['recfilename']['tmp_name'];
         $uploadfile = $uploaddir . $filename;
         $upload_date = date("m-d-Y");
         if (move_uploaded_file($tmp_name, $uploadfile)) {
-           chmod($uploadfile,0644);
+           //chmod($uploadfile,0644);
                echo "The file has been uploaded.";
                $again = "yes";
            }
