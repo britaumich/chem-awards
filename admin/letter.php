@@ -29,7 +29,7 @@ if(isset($_POST['submit'])) {
      $recname = "-";
       $replacefile = $purifier->purify($_REQUEST['replacefile']);
       $uniqname = $purifier->purify($_REQUEST['uniqname1']);
-     
+
   $lettertype = "cv";
   $lettertype1 = "cv";
   if($uniqname =='' ){ $uniqname = $purifier->purify($_REQUEST['uniqname']); }
@@ -40,32 +40,31 @@ $tmp_name = $_FILES['recfilename']['tmp_name'];
    $name = $_FILES['recfilename']['name'];
    $size = $_FILES['recfilename']['size'];
    $file_extension = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-
   if($name =='')  {
      $error.="Please select a PDF or DOC file!<br />";
   }
-   elseif (!($file_extension == "pdf" || $file_extension == "doc" || $file_extension == "docx")){
+     elseif (!($file_extension == "pdf" || $file_extension == "doc" || $file_extension == "docx")){
          $error.="Your file is not a PDF or DOC. Please select a correct file!<br />";
      } //elseif
   else {
     $pdf = 1;
   }
-
   if($error != ''){
      if($pdf == 1) {
            $error.="Please select a pdf file again! (for security reasons the script can't remember a file name)<br />";
      }
      echo "<table><TR><TD><span style=color:red>$error</span></table>";
   }
-  
+
           // rename and upload the file
      if ($_FILES['recfilename']['error'] === UPLOAD_ERR_OK) {
         // upload ok
         $filename = $lettertype . $recname . $uniqname . "-" . time() . "." . $file_extension;
         $uploadfile = $uploaddir . $filename;
         $upload_date = date("m-d-Y");
+
         if (move_uploaded_file($tmp_name, $uploadfile)) {
-           //chmod($uploadfile,0644);
+           chmod($uploadfile,0644);
                echo "The file has been uploaded.";
                $again = "yes";
            }
@@ -74,12 +73,9 @@ $tmp_name = $_FILES['recfilename']['tmp_name'];
           exit;
        }    
   }
-
 }
-
 ?>
 <input type="hidden" name="uniqname" value="<?php echo $uniqname; ?>" />
-
 <?php $ip = getenv("REMOTE_ADDR"); 
 if ($reclastname == "") { $reclastname = $purifier->purify($_REQUEST['reclastname']); }
 if ($recfirstname == "") { $recfirstname = $purifier->purify($_REQUEST['recfirstname']); }
@@ -90,6 +86,7 @@ if ($errorid == 0) {
 }
 ?>
 <input type="hidden" name="errorid" value="<?php echo $errorid; ?>" />
+
 <div align="center"><h2>Upload a CV <br><br><h2>
 </div></h2>
 <form method="post" action="letter.php" enctype="multipart/form-data">
@@ -125,12 +122,10 @@ Must be <strong>ONE file</strong> and be in <strong>PDF or DOC format</strong>. 
 <b>File:</b> <input type="file" name="recfilename"><br>
 </div></div>
 <img src="../images/box650btm.jpg">
-
 <br>
 <br>
 <input type="checkbox" name="replacefile" value="yes"> Check to replace the file<br><br>
 <input type="submit" name="submit" value="Submit Form" />
-
 <br>
 <br>
 <bR><div align="center"><img src="../images/linecalendarpopup500.jpg"></div>
