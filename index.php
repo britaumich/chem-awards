@@ -18,6 +18,7 @@
 include('awards-config.php');
 
 // authentication
+require __DIR__ . '/vendor/autoload.php';
 
 use Jumbojett\OpenIDConnectClient;
 
