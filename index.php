@@ -16,9 +16,9 @@
 <bR><div align="center"><img src="images/linecalendarpopup500.jpg"></div><Br>
 <?php
 include('awards-config.php');
-$path = '/opt/app-root/src/vendor/phpseclib/phpseclib/phpseclib';
-set_include_path(get_include_path() . PATH_SEPARATOR . $path);
-include('/opt/app-root/src/vendor/phpseclib/phpseclib/phpseclib/Crypt/RSA.php');
+//$path = '/opt/app-root/src/vendor/phpseclib/phpseclib/phpseclib';
+//set_include_path(get_include_path() . PATH_SEPARATOR . $path);
+//include('/opt/app-root/src/vendor/phpseclib/phpseclib/phpseclib/Crypt/RSA.php');
 // authentication
 require __DIR__ . '/vendor/autoload.php';
 
