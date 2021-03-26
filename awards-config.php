@@ -3,7 +3,7 @@ require_once('noinject.php');
 require_once('library/HTMLPurifier.auto.php');
 $purifier = new HTMLPurifier();
 global $purifier;
-require __DIR__ . '/vendor/autoload.php';
+//require __DIR__ . '/vendor/autoload.php';
 date_default_timezone_set('America/Detroit');
 $today = date("Y-m-d");
 $today_dt = new DateTime($today);
