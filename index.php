@@ -29,7 +29,7 @@ $oidc = new OpenIDConnectClient('https://shibboleth.umich.edu',
                                 'ClientSecretHere');
 $oidc->setCertPath('/opt/app-root/src/um-certs2020.pem');
 $oidc->authenticate();
-$name = $oidc->requestUserInfo('given_name');
+$uniqname1 = $oidc->requestUserInfo('preferred_username');
 
 if (is_admin($uniqname1)) {
 ?>
