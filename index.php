@@ -24,7 +24,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Jumbojett\OpenIDConnectClient;
 
-$oidc = new OpenIDConnectClient('https://shibboleth.umich.edu/idp/profile/oidc/authorize',
+$oidc = new OpenIDConnectClient('https://shibboleth.umich.edu',
                                 'ClientIDHere',
                                 'ClientSecretHere');
 $oidc->setCertPath('/opt/app-root/src/ca.cert');
