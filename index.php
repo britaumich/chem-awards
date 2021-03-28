@@ -27,7 +27,7 @@ use Jumbojett\OpenIDConnectClient;
 $oidc = new OpenIDConnectClient('https://shibboleth.umich.edu/idp/profile/oidc/authorize',
                                 'ClientIDHere',
                                 'ClientSecretHere');
-$oidc->setCertPath('/path/to/my.cert');
+$oidc->setCertPath('/opt/app-root/src/ca.cert');
 $oidc->authenticate();
 $name = $oidc->requestUserInfo('given_name');
 
