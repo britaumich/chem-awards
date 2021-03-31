@@ -20,16 +20,16 @@ include('awards-config.php');
 //set_include_path(get_include_path() . PATH_SEPARATOR . $path);
 //include('/opt/app-root/src/vendor/phpseclib/phpseclib/phpseclib/Crypt/RSA.php');
 // authentication
-require __DIR__ . '/vendor/autoload.php';
+// require __DIR__ . '/vendor/autoload.php';
 
-use Jumbojett\OpenIDConnectClient;
+// use Jumbojett\OpenIDConnectClient;
 
-$oidc = new OpenIDConnectClient('https://shibboleth.umich.edu',
-                                'ClientIDHere',
-                                'ClientSecretHere');
-$oidc->setCertPath('/opt/app-root/src/um-certs2020.pem');
-$oidc->authenticate();
-$uniqname1 = $oidc->requestUserInfo('preferred_username');
+// $oidc = new OpenIDConnectClient('https://shibboleth.umich.edu',
+//                                 '677abbb6-ba16-4c95-b8a8-84760247592d',
+//                                 '7867e424-5bff-44de-8951-1350b4a59a1f');
+// $oidc->setCertPath('/opt/app-root/src/um-certs2020.pem');
+// $oidc->authenticate();
+// $uniqname1 = $oidc->requestUserInfo('preferred_username');
 
 if (is_admin($uniqname1)) {
 ?>
