@@ -29,9 +29,9 @@ $server = getenv('db_host', true) ?: getenv('db_host');
 //mysqli_select_db($conn, $database) or die("couldn't get the db:".mysqli_connect_error());
 //mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-$issuer = getenv('um_issuer', true) ?: getenv('um_issuer');
-$cid = getenv('client_id', true) ?: getenv('client_id');
-$secret = getenv('client_secret', true) ?: getenv('client_secret');
+$issuer = getenv('um-issuer', true) ?: getenv('um-issuer');
+$cid = getenv('client-id', true) ?: getenv('client-id');
+$secret = getenv('client-secret', true) ?: getenv('client-secret');
 
 $other_admins = array('rsmoke', 'brita');
 function is_admin($uniqname)
